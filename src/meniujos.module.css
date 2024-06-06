@@ -1,0 +1,56 @@
+.subsolContainer {
+  width: 100%;
+  display: flex; 
+  justify-content: space-around; 
+  background-color: white;
+  padding: 50px 0; 
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); 
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.word {
+  margin-bottom: 10px; 
+  font-size: 15px;
+}
+
+.blueWord {
+  color: #6D93C0;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.blackWord {
+  color: black;
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 30px;
+  text-align: center; 
+}
+
+.image {
+  margin: 0 15px; 
+  width: 50px;
+  transition: transform 0.1s ease-in-out; 
+}
+
+.image:hover {
+  transform: scale(1.5); 
+}
+.link {
+  color: inherit; /* Inherits the white color from .word */
+  text-decoration: none; /* Removes underline */
+}
+
+.link:hover {
+  text-decoration: underline; /* Adds underline on hover for better user interaction feedback */
+}

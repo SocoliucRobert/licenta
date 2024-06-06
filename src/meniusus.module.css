@@ -1,0 +1,88 @@
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white; 
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  margin-left: 10rem;
+}
+
+.logo {
+  height: 50px;  
+}
+
+.brand {
+  color: black;
+  font-size: 24px;
+  margin-left: 10px; 
+  font-weight: bold;
+}
+
+.loginButton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-right: 100px;
+}
+
+.buttonImage {
+  width: 80px; 
+  height: auto;
+}
+
+.buttonText {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.header {
+  position: relative;
+  width: 100%;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+}
+
+.wordsContainer {
+  position: absolute;
+  bottom: 15%;
+  left: 0;
+  right: 0;
+  text-align: center; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.word {
+  font-size: calc(1vw + 1vh + 0.5vmin); 
+  color: white;
+  padding: 0 4%;
+  font-weight: bold;
+  white-space: nowrap; 
+}
+
+.link {
+  text-decoration: none;
+  color: inherit; 
+  display: flex; 
+  align-items: center; 
+  padding: 0 4%;
+  
+}
+
+.link:hover .word {
+  text-decoration: underline;
+
+}
