@@ -14,8 +14,10 @@ const Meniusus = () => {
           <span className={styles.brand}>TRAVEL ADDICTION</span>
         </div>
         <div className={styles.loginButton}>
-          <img src={butonLogare} alt="Logare Button" className={styles.buttonImage} />
-          <span className={styles.buttonText}>LOGARE</span>
+        <Link to="/Login">
+            <img src={butonLogare} alt="Logare Button" className={styles.buttonImage} />
+            <span className={styles.buttonText}>LOGARE</span>
+          </Link>
         </div>
       </div>
       <div className={styles.header}>

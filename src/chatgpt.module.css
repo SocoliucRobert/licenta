@@ -1,0 +1,50 @@
+/* chatgpt.module.css */
+
+/* Emoticon styles */
+.emoticon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999; /* Ensures the emoticon is above other elements */
+    cursor: pointer;
+  }
+  
+  .emoticon img {
+    width: 100px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+  }
+  
+  /* Expanded chat container styles */
+  .chatContainer {
+    position: fixed;
+    bottom: 80px; /* Adjust position to be above the emoticon */
+    right: 20px; /* Adjust position to align with the emoticon */
+    z-index: 998; /* Ensures the chat container is below the emoticon */
+    background-color: #fff; /* Adjust background color as needed */
+    border: 1px solid #ccc; /* Adjust border style as needed */
+    border-radius: 5px; /* Adjust border radius as needed */
+    width: 300px; /* Adjust width as needed */
+    max-height: 400px; /* Adjust max height as needed */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds container height */
+  }
+  
+  .chat {
+    padding: 10px; /* Adjust padding as needed */
+  }
+  
+  /* Chat input styles */
+.chat input {
+    width: calc(100% - 20px); /* Adjust width as needed */
+    padding: 10px; /* Adjust padding as needed */
+    margin: 10px 0; /* Space between messages and input field */
+  }
+  
+  .chat button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF; /* Adjust background color as needed */
+    color: white;
+    border: none;
+    border-radius: 5px;
+  }
+  

@@ -6,7 +6,9 @@ import InchirieriAuto from './InchirieriAuto';
 import Oferte from './Oferte';
 import Contact from './Contact';
 import Meniusus from './Meniusus';
-
+import Login from './Login';
+import Inregistrare from './Inregistrare';
+import Resetareparola from './Resetareparola';
 
 const supabaseUrl = "https://knqwydabuhbuhyalanms.supabase.co";
 const supabaseKey = process.env.SUPABASE_KEY;
@@ -22,6 +24,9 @@ function App() {
         <Route path="/InchirieriAuto" element={<InchirieriAuto />} />
         <Route path="/Oferte" element={<Oferte />} />
         <Route path="/Contact" element={<Contact />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Inregistrare" element={<Inregistrare />} />
+        <Route path="/Resetareparola" element={<Resetareparola />} />
       </Routes>
     </Router>
   );
