@@ -1,14 +1,35 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Use useNavigate for React Router v6
 import styles from './login.module.css';
 import Meniusus from './Meniusus';
 import Meniujos from './Meniujos';
-
 import imagineMare from './poze/imagineMare.png';
 import facebookIcon from './poze/facebooklogin.png'; 
 import googleIcon from './poze/googlelogin.png'; 
+import supabase from './supabaseClient'; // Ensure this path is correct
 
 const Login = () => {
+  const navigate = useNavigate(); // Initialize useNavigate hook
+
+  const handleGoogleLogin = async () => {
+    try {
+      const { user, session, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google'
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      // Redirect to the Acasa page upon successful sign-in
+      if (user && session) {
+        navigate('/Acasa'); // Use useNavigate to redirect
+      }
+    } catch (error) {
+      console.error('Error logging in with Google:', error.message);
+    }
+  };
+
   return (
     <div>
       <Meniusus />
@@ -33,8 +54,7 @@ const Login = () => {
           <div className={styles.socialLogin}>
             <div className={styles.socialLoginText}>sau folositi una dintre opțiunile:</div>
             <div className={styles.loginIcons}>
-            
-              <img src={googleIcon} alt="Google" className={styles.loginIcon} />
+              <img src={googleIcon} alt="Google" className={styles.loginIcon} onClick={handleGoogleLogin} />
               <img src={facebookIcon} alt="Facebook" className={styles.loginIcon} />
             </div>
           </div>
