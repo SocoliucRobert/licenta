@@ -109,4 +109,9 @@
     margin-right: 30px;
     margin-left: 30px; 
   }
+  .resetMessage {
+    margin-top: 20px;
+    color: green;
+    font-weight: bold;
+  }
   

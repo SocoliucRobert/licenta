@@ -23,14 +23,14 @@ const Contact = () => {
             <label htmlFor="name">Nume</label>
             <div className={styles.inputWithIcon}>
               <img src={numeIcon} alt="Nume Icon" className={styles.inputIcon} />
-              <input type="text" id="name" name="name" placeholder="Nume" />
+              <input type="text1" id="name" name="name" placeholder="Nume" />
             </div>
           </div>
           <div className={styles.formGroup}>
             <label htmlFor="surname">Prenume</label>
             <div className={styles.inputWithIcon}>
               <img src={numeIcon} alt="Prenume Icon" className={styles.inputIcon} />
-              <input type="text" id="surname" name="surname" placeholder="Prenume" />
+              <input type="text1" id="surname" name="surname" placeholder="Prenume" />
             </div>
           </div>
           <div className={styles.formGroup}>

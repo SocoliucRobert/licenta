@@ -7,12 +7,13 @@
   
   .inregistrareText {
     position: absolute;
-    top: 25%;
+    top: 27%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 45px; 
     color: black; 
     font-weight: bold;
+    text-decoration: underline  ;
   }
   
   .container {
@@ -40,7 +41,8 @@
   }
   
   input[type="email"],
-  input[type="password"] {
+  input[type="password"],
+  input[type="text2"] {
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -49,12 +51,12 @@
     box-sizing: border-box;
   }
   
-  button[type="submit"] {
+  button[type="submit6"] {
     background-color: green;
     color: #fff;
     border: none;
     padding: 10px 20px;
-    margin-left: 150px;
+    margin-left: 120px;
     font-size: 16px;
     border-radius: 4px;
     cursor: pointer;
@@ -110,3 +112,10 @@
     margin-left: 30px; 
   }
   
+
+
+.confirmationMessage {
+  margin-top: 20px;
+  color: red;
+  font-weight: bold;
+}
