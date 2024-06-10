@@ -1,104 +1,90 @@
 .imageContainer {
-  position: relative;
-}
-
-.bigImage {
-  width: 100%; /* Adjust width as needed */
-  height: auto; /* Maintain aspect ratio */
-  margin-bottom: 20px; /* Add margin bottom for spacing */
-}
-
-.contactText {
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 45px; /* Adjust font size as needed */
-  color: black; /* Set color to black */
-  font-weight: bold;
-}
-
-.contactTextBottom {
-  position: relative; /* Ensure relative positioning */
-  text-align: center;
-  font-size: 58px; /* Adjust font size as needed */
-  color: black; /* Set color to black */
-  font-weight: bold;
-  margin-top: 20px; /* Add margin-top to separate from Contact text */
-}
-
-.formContainer {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px; /* Adjust margin-top as needed */
-}
-
-.contactForm {
-  width: 50%; /* Adjust width as needed */
-}
-
-.formGroup {
-  margin-bottom: 20px;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.inputWithIcon {
-  display: flex;
-  align-items: center;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-textarea {
-  flex: 1;
-  width: calc(100% - 30px); /* Adjust width to fit icon */
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box; /* Ensures padding and border are included in the total width and height */
-}
-
-.inputIcon {
-  margin-right: 5px;
-  margin-left: -20px;
-  width: 25px;
-  height: 25px;
-}
-
-/* Explicit width for the textarea */
-textarea {
-  width: calc(100% - 30px); /* Adjust width to fit icon */
-}
-
-/* Adjusted styles for the button */
-.buttonContainer {
-  display: flex;
-  justify-content: center;
-}
-
-.submitButton {
-  width: 100%; /* Make the button as wide as the inputs */
-  margin-top: 20px;
-  background-color: black;
-  color: white;
-  padding: 15px; /* Increase padding for larger button */
-  font-size: 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  display: flex; /* Enable flex properties */
-  align-items: center; /* Center text vertically */
-  justify-content: center; /* Center text horizontally */
-}
-
-.submitButton:hover {
-  background-color: #0056b3; /* Change the hover background color */
-}
+    position: relative;
+  }
+  
+  .bigImage {
+    width: 100%;
+    height: 300px;
+  }
+  
+  .formOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+  }
+  
+  .form {
+    background-color: rgba(255, 255, 255, 0.8); 
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%; 
+  }
+  
+  .formRow {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+  
+  }
+  
+  .section label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .section input {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .dateInputs, .peopleInputs {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  
+  }
+  
+  .dateInputs input, .peopleInputs input {
+    flex: 1;
+    margin-bottom: 0;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 150px; 
+  }
+  
+  button:hover {
+    background-color: #004494;
+  }
+  

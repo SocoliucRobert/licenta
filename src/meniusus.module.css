@@ -30,7 +30,7 @@
 }
 
 .buttonImage {
-  width: 80px; 
+ 
   height: auto;
 }
 
@@ -83,6 +83,41 @@
 }
 
 .link:hover .word {
-  text-decoration: underline;
+  text-decoration: none;
+  transform: scale(1.1);
+  color:yellow;
+  
+  
 
+}
+.buttonStyle {
+  display: flex;
+  align-items: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit; /* Ensures text color matches */
+}
+
+.loginIconContainer {
+  position: relative;
+}
+
+.animateLink {
+  transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.animateLink:hover .word {
+  color: yellow; /* Change to your preferred color */
+  transform: scale(1.1);
+}
+
+.animateButton {
+  transition: transform 0.2s ease-in-out;
+}
+
+.animateButton:hover {
+  transform: translateY(-10px);
+  color:yellow;
 }

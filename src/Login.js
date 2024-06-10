@@ -9,6 +9,7 @@ import googleIcon from './poze/googlelogin.png';
 import supabase from './supabaseClient';
 import { useState } from 'react';
 
+
 const Login = () => {
   const navigate = useNavigate();
 
@@ -19,25 +20,30 @@ const Login = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      const { user, session, error } = await supabase.auth.signInWithOAuth({
+      const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google'
       });
-
+  
       if (error) {
+        console.error('Google Login Error:', error);
         throw error;
       }
-
-      if (user && session) {
+  
+      if (data) {
+        console.log('Google Login Session:', data.session);
         navigate('/Acasa');
+        localStorage.setItem('session', JSON.stringify(data.session));
+      } else {
+        console.log('Google Login Failed: No valid session data received');
       }
     } catch (error) {
-      console.error('Error logging in with Google:', error.message);
+      console.error('Exception in Google Login:', error.message);
     }
   };
 
   const handleFacebookLogin = async () => {
     try {
-      const { user, session, error } = await supabase.auth.signInWithOAuth({
+      const {data, error } = await supabase.auth.signInWithOAuth({
         provider: 'facebook'
       });
 
@@ -45,8 +51,10 @@ const Login = () => {
         throw error;
       }
 
-      if (user && session) {
+      if (data) {
         navigate('/Acasa');
+        localStorage.setItem('session', JSON.stringify(data.session)); 
+        
       }
     } catch (error) {
       console.error('Error logging in with Facebook:', error.message);
@@ -54,7 +62,7 @@ const Login = () => {
   };
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Prevent the form from submitting normally
+    e.preventDefault(); 
   
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -62,22 +70,20 @@ const Login = () => {
         password,
       });
   
-      console.log('Login Response:', { data, error });
-  
       if (error) {
         throw error;
       }
   
-      if (data ) {
-        console.log('User and session data:', { data});
-        console.log('Navigating to /Acasa');
+      if (data) {
+        
+        console.log('User and session data:', { data });
         navigate('/Acasa');
-        console.log(data)
+       
+        localStorage.setItem('session', JSON.stringify(data.session)); // pentru tinere minte login
       } else {
         console.error('Login failed: User or session data missing.');
         setError('Login failed. Please check your credentials and try again.');
         setLoginMessage('Logare eșuată. Verifică datele de autentificare și încearcă din nou.');
-        console.log(data)
       }
     } catch (error) {
       console.error('Login error:', error.message);
@@ -85,14 +91,10 @@ const Login = () => {
       setLoginMessage('Nume sau parolă greșită');
     }
   };
-
   return (
     <div>
       <Meniusus />
-      <div className={styles.imageContainer}>
-        <img src={imagineMare} alt="Big Image" className={styles.bigImage} />
-        <div className={styles.logareText}>LOGARE</div>
-      </div>
+   
       <div className={styles.container}>
         <div className={styles.form}>
           <form onSubmit={handleLogin}>

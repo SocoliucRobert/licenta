@@ -20,25 +20,30 @@ const Inregistrare = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      const { user, session, error } = await supabase.auth.signInWithOAuth({
+      const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google'
       });
-
+  
       if (error) {
+        console.error('Google Login Error:', error);
         throw error;
       }
-
-      if (user && session) {
+  
+      if (data) {
+        console.log('Google Login Session:', data.session);
         navigate('/Acasa');
+        localStorage.setItem('session', JSON.stringify(data.session));
+      } else {
+        console.log('Google Login Failed: No valid session data received');
       }
     } catch (error) {
-      console.error('Error logging in with Google:', error.message);
+      console.error('Exception in Google Login:', error.message);
     }
   };
 
   const handleFacebookLogin = async () => {
     try {
-      const { user, session, error } = await supabase.auth.signInWithOAuth({
+      const {data, error } = await supabase.auth.signInWithOAuth({
         provider: 'facebook'
       });
 
@@ -46,8 +51,10 @@ const Inregistrare = () => {
         throw error;
       }
 
-      if (user && session) {
+      if (data) {
         navigate('/Acasa');
+        localStorage.setItem('session', JSON.stringify(data.session)); 
+        
       }
     } catch (error) {
       console.error('Error logging in with Facebook:', error.message);
@@ -81,10 +88,7 @@ const Inregistrare = () => {
   return (
     <div>
       <Meniusus />
-      <div className={styles.imageContainer}>
-        <img src={imagineMare} alt="Big Image" className={styles.bigImage} />
-        <div className={styles.inregistrareText}>ÎNREGISTRARE</div>
-      </div>
+     
       <div className={styles.container}>
         <form className={styles.form} onSubmit={handleSignUp}>
           <div className={styles.formGroup}>

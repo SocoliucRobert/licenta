@@ -11,14 +11,16 @@ import Inregistrare from './Inregistrare';
 import Resetareparola from './Resetareparola';
 import supabase from './supabaseClient';
 
+
 const supabaseUrl = "https://knqwydabuhbuhyalanms.supabase.co";
 const supabaseKey = process.env.SUPABASE_KEY;
 
 function App() {
   return (
     <Router>
+      
       <Routes>
-      <Route path="/" element={<Contact />} />
+      <Route path="/" element={<Acasa />} />
         <Route path="/Acasa" element={<Acasa />} />
         <Route path="/Hoteluri" element={<Hoteluri />} />
         <Route path="/Zboruri" element={<Zboruri />} />
@@ -29,9 +31,13 @@ function App() {
         <Route path="/Inregistrare" element={<Inregistrare />} />
         <Route path="/Resetareparola" element={<Resetareparola />} />
         <Route path="/supabaseClient" element={<supabase />} />
-        
+
+      
       </Routes>
+     
     </Router>
+    
+    
   );
 }
 export default App;

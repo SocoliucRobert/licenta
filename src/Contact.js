@@ -12,10 +12,7 @@ const Contact = () => {
   return (
     <div>
       <Meniusus />
-      <div className={styles.imageContainer}>
-        <img src={imagineMare} alt="Big Image" className={styles.bigImage} />
-        <div className={styles.contactText}>CONTACT</div>
-      </div>
+      
       <div className={styles.contactTextBottom}>Contactează-ne</div>
       <div className={styles.formContainer}>
         <form className={styles.contactForm}>

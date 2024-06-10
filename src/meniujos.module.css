@@ -28,6 +28,10 @@
   font-size: 25px;
   font-weight: bold;
 }
+.blueText {
+  color: #6D93C0;
+  font-weight: bold;
+}
 
 .blackWord {
   color: black;

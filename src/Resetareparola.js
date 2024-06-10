@@ -33,10 +33,7 @@ const Resetareparola = () => {
   return (
     <div>
       <Meniusus />
-      <div className={styles.imageContainer}>
-        <img src={imagineMare} alt="Big Image" className={styles.bigImage} />
-        <div className={styles.resetareText}>RESETARE PAROLA</div>
-      </div>
+      
       <div className={styles.container}>
         <div className={styles.form}>
           <form onSubmit={handleResetPassword}>

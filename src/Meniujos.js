@@ -2,16 +2,23 @@ import React from 'react';
 import styles from './meniujos.module.css'; 
 import facebook from './poze/facebook.png';  
 import instagram from './poze/instagram.png';
+import { motion } from 'framer-motion'; 
 
 const Meniujos = () => {
   return (
+
+    <motion.div 
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.5 }}
+    >
     <div className={styles.subsolContainer}>
     
-      <div className={styles.column}>
+    <div className={styles.column}>
         <span className={`${styles.word} ${styles.blueWord}`}>Date de contact:</span>
-        <span className={styles.word}>Suceava, Strada Universității, Numărul 5</span>
-        <span className={styles.word}>Telefon: 24/7 Telefon 0123456789</span>
-        <span className={styles.word}>Email: traveladdiction@gmail.com</span>
+        <span className={styles.word}><span className={styles.blueText}>Locație:</span> Județul Suceava, Oraș Suceava, Strada Universității, Numărul 5</span>
+        <span className={styles.word}><span className={styles.blueText}>Telefon:</span> 24/7, 0123456789</span>
+        <span className={styles.word}><span className={styles.blueText}>Email:</span> traveladdictionsuport@gmail.com</span>
       </div>
 
       <div className={styles.column}>
@@ -31,6 +38,7 @@ const Meniujos = () => {
         </div>
       </div>
     </div>
+    </motion.div>
   );
 };
 
