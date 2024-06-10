@@ -1,10 +1,12 @@
-import React from 'react';
-import styles from './zboruri.module.css';
-import Meniusus from './Meniusus';
-import Meniujos from './Meniujos';
-import imagineMare from './poze/imagineMare.png';
+import React from "react";
+import styles from "./zboruri.module.css";
+import Meniusus from "./Meniusus";
+import Meniujos from "./Meniujos";
+import imagineMare from "./poze/imagineMare.png";
+import { useState } from "react";
 
 const Zboruri = () => {
+  const [price, setPrice] = useState(0);
   return (
     <div>
       <Meniusus />
@@ -15,11 +17,19 @@ const Zboruri = () => {
             <div className={styles.formRow}>
               <div className={styles.section}>
                 <label htmlFor="departureCity">Plecare</label>
-                <input type="text" id="departureCity" placeholder="Oras de plecare" />
+                <input
+                  type="text"
+                  id="departureCity"
+                  placeholder="Oras de plecare"
+                />
               </div>
               <div className={styles.section}>
                 <label htmlFor="arrivalCity">Destinație</label>
-                <input type="text" id="arrivalCity" placeholder="Oras de destinație" />
+                <input
+                  type="text"
+                  id="arrivalCity"
+                  placeholder="Oras de destinație"
+                />
               </div>
               <div className={styles.section}>
                 <label htmlFor="departureDate">Data Plecării</label>
@@ -31,16 +41,36 @@ const Zboruri = () => {
               </div>
               <div className={styles.section}>
                 <label htmlFor="numarPersoane">Număr persoane</label>
-                <input type="number" id="numarPersoane" placeholder="Număr persoane" min="1" />
+                <input
+                  type="number"
+                  id="numarPersoane"
+                  placeholder="Număr persoane"
+                  min="1"
+                />
               </div>
             </div>
             <div className={styles.buttonContainer}>
               <button type="submitt">CAUTA</button>
             </div>
           </form>
+         
         </div>
+        
       </div>
-      <Meniujos/>
+      <div className={styles.priceFilter}>
+            <label htmlFor="priceRange">Filtrare preț:</label>
+            <input
+              type="range"
+              id="priceRange"
+              min="0"
+              max="50000"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+            <div>Preț selectat: {price} lei</div>
+            <button className={styles.applyButton}>Aplicare</button>
+          </div>
+      <Meniujos />
     </div>
   );
 };

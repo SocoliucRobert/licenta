@@ -3,8 +3,9 @@ import styles from './oferte.module.css';
 import Meniusus from './Meniusus';
 import Meniujos from './Meniujos';
 import imagineMare from './poze/imagineMare.png';
-
+import { useState } from 'react';
 const Oferte = () => {
+  const [price, setPrice] = useState(0);
   return (
     <div>
       <Meniusus />
@@ -35,6 +36,19 @@ const Oferte = () => {
           </form>
         </div>
       </div>
+      <div className={styles.priceFilter}>
+            <label htmlFor="priceRange">Filtrare preț:</label>
+            <input
+              type="range"
+              id="priceRange"
+              min="0"
+              max="50000"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+            <div>Preț selectat: {price} lei</div>
+            <button className={styles.applyButton}>Aplicare</button>
+          </div>
       <Meniujos />
     </div>
   );

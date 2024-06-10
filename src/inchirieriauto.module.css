@@ -20,13 +20,13 @@
   }
   
   .form {
-    background-color: rgba(255, 255, 255, 0.8); /* Fundal semi-transparent */
+    background-color: rgba(255, 255, 255, 0.8); 
     padding: 20px;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80%; /* Ajustează lățimea după nevoie */
+    width: 80%; 
   }
   
   .formRow {
@@ -42,7 +42,7 @@
     align-items: flex-start;
     flex: 1;
     margin: 0 10px;
-    flex-grow: 1; /* Asigură spațiu egal între secțiuni */
+    flex-grow: 1; 
   }
   
   .section label {
@@ -55,7 +55,7 @@
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin-bottom: 10px; /* Asigură spațiere între input-uri */
+    margin-bottom: 10px; 
   }
   
   .buttonContainer {
@@ -71,10 +71,66 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 150px; /* Ajustează dimensiunea butonului după nevoie */
+    width: 150px; 
   }
   
   button:hover {
     background-color: #004494;
+  }
+
+
+
+  .filterSection {
+    flex-shrink: 0; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 200px;
+  }
+  
+  .priceFilter {
+    padding: 100px;
+    border-radius: 8px;
+    width: 100%; 
+  }
+  
+  .priceSlider {
+    width: 100%; 
+  }
+  
+  .applyButton {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    margin-top: 10px;
+  }
+  
+  .applyButton:hover {
+    background-color: #004494;
+  }
+
+
+  .priceSlider {
+    width: 100%; 
+  }
+  
+  
+  .priceSlider::-webkit-slider-thumb {
+    width: 20px; 
+    height: 20px; 
+    background: #0056b3;
+    cursor: pointer;
+  }
+  
+  .priceSlider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #0056b3;
+    cursor: pointer;
   }
   

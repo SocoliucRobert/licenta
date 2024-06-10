@@ -4,12 +4,13 @@ import Meniusus from './Meniusus';
 import Meniujos from './Meniujos';
 import imagineMare from './poze/imagineMare.png';  
 import ChatGpt from './ChatGpt';
+import Chat from './Chat';
 
 
 const Acasa = () => {
   return (
     <div>
-      <ChatGpt></ChatGpt>
+      <Chat></Chat>
       <Meniusus />
       <div className={styles.imageContainer}>
         <img src={imagineMare} alt="Big Image" className={styles.bigImage} />
