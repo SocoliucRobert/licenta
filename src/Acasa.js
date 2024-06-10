@@ -3,11 +3,13 @@ import styles from './acasa.module.css';
 import Meniusus from './Meniusus';
 import Meniujos from './Meniujos';
 import imagineMare from './poze/imagineMare.png';  
+import ChatGpt from './ChatGpt';
 
 
 const Acasa = () => {
   return (
     <div>
+      <ChatGpt></ChatGpt>
       <Meniusus />
       <div className={styles.imageContainer}>
         <img src={imagineMare} alt="Big Image" className={styles.bigImage} />

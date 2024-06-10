@@ -20,13 +20,13 @@
   }
   
   .form {
-    background-color: rgba(255, 255, 255, 0.8); /* Fundal semi-transparent */
+    background-color: rgba(255, 255, 255, 0.8); 
     padding: 20px;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80%; /* Ajustează lățimea după nevoie */
+    width: 80%; 
   }
   
   .formRow {
@@ -64,7 +64,7 @@
   
   .dateInputs input, .peopleInputs input {
     flex: 1;
-    margin-bottom: 0; /* Elimină marginile dintre input-uri */
+    margin-bottom: 0; 
   }
   
   .buttonContainer {
@@ -80,10 +80,64 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 150px; /* Ajustează dimensiunea butonului după nevoie */
+    width: 150px; 
   }
   
   button:hover {
     background-color: #004494;
   }
   
+
+  .filterSection {
+    flex-shrink: 0; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 200px;
+  }
+  
+  .priceFilter {
+    padding: 100px;
+    border-radius: 8px;
+    width: 100%; 
+  }
+  
+  .priceSlider {
+    width: 100%; 
+  }
+  
+  .applyButton {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    margin-top: 10px;
+  }
+  
+  .applyButton:hover {
+    background-color: #004494;
+  }
+
+
+  .priceSlider {
+    width: 100%; 
+  }
+  
+  
+  .priceSlider::-webkit-slider-thumb {
+    width: 20px; 
+    height: 20px; 
+    background: #0056b3;
+    cursor: pointer;
+  }
+  
+  .priceSlider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #0056b3;
+    cursor: pointer;
+  }

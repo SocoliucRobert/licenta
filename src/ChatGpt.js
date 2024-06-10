@@ -24,7 +24,7 @@ const ChatGpt = () => {
       setIsLoading(true);
 
       try {
-        const response = await makeRequestWithRetry(newMessages);
+        const response = await axios.post('http://localhost:5000/api/chat', { messages: newMessages });
         setMessages([...newMessages, { role: 'assistant', content: response.data.choices[0].message.content }]);
       } catch (error) {
         console.error('Failed to send message:', error);
@@ -33,37 +33,6 @@ const ChatGpt = () => {
       }
 
       setInput('');
-    }
-  };
-
-  const makeRequestWithRetry = async (newMessages, retries = 3, delay = 1000) => {
-    try {
-      const response = await axios.post(
-        'https://api.openai.com/v1/chat/completions',
-        {
-          model: "gpt-3.5-turbo",
-          messages: [
-            { role: "system", content: "You are a helpful assistant." },
-            ...newMessages,
-            { role: "user", content: input }
-          ],
-          temperature: 0.7
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer sk-proj-x7BqCvoVK5YcmSQkwxwZT3BlbkFJ2l8VVIGR8khKASvZHEEk`
-          }
-        }
-      );
-      return response;
-    } catch (error) {
-      if (error.response && error.response.status === 429 && retries > 0) {
-        console.warn(`Retrying after ${delay}ms...`);
-        await new Promise(resolve => setTimeout(resolve, delay));
-        return makeRequestWithRetry(newMessages, retries - 1, delay * 2);
-      }
-      throw error;
     }
   };
 
