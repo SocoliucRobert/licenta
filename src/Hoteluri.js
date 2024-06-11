@@ -4,11 +4,13 @@ import Meniujos from "./Meniujos";
 import imagineMare from "./poze/imagineMare.png";
 import React from "react";
 import { useState } from "react";
+import ChatGpt from "./ChatGpt";
 
 const Hoteluri = () => {
   const [price, setPrice] = useState(0);
   return (
     <div className={styles.pageContainer}>
+      <ChatGpt/>
       <Meniusus />
       <div className={styles.contentContainer}>
         <div className={styles.imageContainer}>

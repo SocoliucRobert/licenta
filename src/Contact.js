@@ -8,7 +8,7 @@ import numeIcon from './poze/nume.png';
 import emailIcon from './poze/email.png';
 import telefonIcon from './poze/telefon.png';
 import mesajIcon from './poze/mesaj.png';
-
+import ChatGpt from './ChatGpt';
 const Contact = () => {
   const [formData, setFormData] = useState({
     first_name: '',
@@ -74,7 +74,7 @@ const Contact = () => {
   return (
     <div>
       <Meniusus />
-      
+      <ChatGpt/>
       <div className={styles.contactTextBottom}>Contactează-ne</div>
       <div className={styles.formContainer}>
         <form className={styles.contactForm} onSubmit={handleSubmit}>

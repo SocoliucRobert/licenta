@@ -4,10 +4,12 @@ import Meniusus from './Meniusus';
 import Meniujos from './Meniujos';
 import imagineMare from './poze/imagineMare.png';
 import { useState } from 'react';
+import ChatGpt from './ChatGpt';
 const Oferte = () => {
   const [price, setPrice] = useState(0);
   return (
     <div>
+      <ChatGpt/>
       <Meniusus />
       <div className={styles.imageContainer}>
         <img src={imagineMare} alt="Big Image" className={styles.bigImage} />
