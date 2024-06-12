@@ -9,11 +9,14 @@ import Meniusus from './Meniusus';
 import Login from './Login';
 import Inregistrare from './Inregistrare';
 import Resetareparola from './Resetareparola';
-import supabase from './supabaseClient';
+import Updateparola from './Updateparola';
 
+import supabase from './supabaseClient';
 
 const supabaseUrl = "https://knqwydabuhbuhyalanms.supabase.co";
 const supabaseKey = process.env.SUPABASE_KEY;
+
+
 
 function App() {
   return (
@@ -30,6 +33,7 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/Inregistrare" element={<Inregistrare />} />
         <Route path="/Resetareparola" element={<Resetareparola />} />
+        <Route path="/Updateparola" element={<Updateparola />} />
         <Route path="/supabaseClient" element={<supabase />} />
 
       

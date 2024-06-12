@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import styles from "./resetareparola.module.css";
 import Meniusus from "./Meniusus";
 import Meniujos from "./Meniujos";
-import imagineMare from "./poze/imagineMare.png";
 import supabase from './supabaseClient'; 
 
 const Resetareparola = () => {
@@ -11,11 +9,11 @@ const Resetareparola = () => {
   const [resetMessage, setResetMessage] = useState('');
   const [error, setError] = useState('');
 
-  const handleResetPassword = async (event) => {
-    event.preventDefault(); 
+  const handleResetRequest = async (event) => {
+    event.preventDefault();
     try {
-      const { error } = await supabase.auth.api.resetPasswordForEmail(email, {
-        redirectTo: '' 
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: 'http://localhost:3000/Updateparola' 
       });
 
       if (error) {
@@ -26,17 +24,17 @@ const Resetareparola = () => {
       setEmail(''); 
     } catch (err) {
       console.error('Error during password reset:', err);
-      setError(err.message); 
+      setError(err.message);
       setResetMessage('');
     }
   };
+
   return (
     <div>
       <Meniusus />
-      
       <div className={styles.container}>
         <div className={styles.form}>
-          <form onSubmit={handleResetPassword}>
+          <form onSubmit={handleResetRequest}>
             <div className={styles.formGroup}>
               <label htmlFor="email">Adresă de e-mail</label>
               <input
@@ -49,9 +47,10 @@ const Resetareparola = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <button type="submit3">Resetează parola</button> 
+              <button type="submit3">Resetează parola</button>
             </div>
             {resetMessage && <div className={styles.resetMessage}>{resetMessage}</div>}
+            {error && <div className={styles.errorMessage}>{error}</div>}
           </form>
         </div>
         <div className={styles.footer}></div>

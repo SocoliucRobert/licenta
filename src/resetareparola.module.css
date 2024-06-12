@@ -58,6 +58,19 @@
     font-size: 16px;
     border-radius: 4px;
     cursor: pointer;
+  
+  }
+  button[type="submit7"] {
+    background-color: green;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 120px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+  
   }
   
   .buttonContainer {
