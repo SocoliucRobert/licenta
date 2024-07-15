@@ -11,7 +11,7 @@ const toBase64 = file => new Promise((resolve, reject) => {
   reader.onerror = error => reject(error);
 });
 
-const AdminZboruri = () => {
+const Adminzboruri = () => {
   const [flight, setFlight] = useState({
     pricePerPerson: '',
     departureDate: '',
@@ -147,4 +147,4 @@ const AdminZboruri = () => {
   );
 };
 
-export default AdminZboruri;
+export default Adminzboruri;

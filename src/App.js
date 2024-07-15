@@ -12,6 +12,8 @@ import ResetareParola from './ResetareParola';
 import Updateparola from './Updateparola';
 import Adminhoteluri from './backendadmin/Adminhoteluri';
 import AdminZboruri from './backendadmin/Adminzboruri';
+import Adminmasini from './backendadmin/Adminmasini';
+import Adminoferte from './backendadmin/Adminoferte';
 
 
 import supabase from './supabaseClient';
@@ -27,7 +29,7 @@ function App() {
       
       <Routes>
         
-      <Route path="/" element={<AdminZboruri />} />
+      <Route path="/" element={<Adminoferte/>} />
         <Route path="/Acasa" element={<Acasa />} />
         <Route path="/Hoteluri" element={<Hoteluri />} />
         <Route path="/Zboruri" element={<Zboruri />} />

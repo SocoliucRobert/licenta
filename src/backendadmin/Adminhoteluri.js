@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Meniusus from '../Meniusus';
 import Meniujos from '../Meniujos';
 import styles from './adminhoteluri.module.css';
-import supabase from '../supabaseClient'; // Adjust this path based on your Supabase client configuration
+import supabase from '../supabaseClient'; 
 
 const toBase64 = file => new Promise((resolve, reject) => {
   const reader = new FileReader();

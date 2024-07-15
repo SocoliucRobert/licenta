@@ -1,0 +1,68 @@
+
+.adminContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; 
+}
+
+
+.mainArea {
+  display: flex;
+  flex: 1; 
+
+  margin-left: 100px;
+}
+
+
+.leftSidebar {
+  width: 300px; 
+  background-color: #6D93C0; 
+  padding: 30px;
+  border-right: 1px solid #ccc; 
+  color: white;
+}
+
+
+.menu {
+  margin-bottom: 20px; 
+}
+
+
+.menuHeader {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 40px;
+  margin-top: 10px;
+}
+
+
+.menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+
+.menu ul li {
+  margin-bottom: 10px;
+}
+
+
+.menu ul li a {
+  color: white; 
+  text-decoration: none;
+  font-size: 30px;
+  transition: color 0.2s ease, transform 0.2s ease; 
+}
+
+
+.menu ul li a:hover {
+  color: yellow; 
+  transform: scale(1.1); 
+}
+
+
+.content {
+  flex: 1; 
+  padding: 20px;
+  
+}
