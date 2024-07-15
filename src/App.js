@@ -14,9 +14,12 @@ import Adminhoteluri from './backendadmin/Adminhoteluri';
 import AdminZboruri from './backendadmin/Adminzboruri';
 import Adminmasini from './backendadmin/Adminmasini';
 import Adminoferte from './backendadmin/Adminoferte';
-
-
+import Admineditarehotel from './backendadmin/Admineditarehotel';
+import Admineditarezbor from './backendadmin/Admineditarezbor';
+import Admineditaremasini from './backendadmin/Admineditaremasini';
+import Admineditareoferte from './backendadmin/Admineditareoferte';
 import supabase from './supabaseClient';
+
 
 const supabaseUrl = "https://knqwydabuhbuhyalanms.supabase.co";
 const supabaseKey = process.env.SUPABASE_KEY;
@@ -29,7 +32,7 @@ function App() {
       
       <Routes>
         
-      <Route path="/" element={<Adminoferte/>} />
+      <Route path="/" element={<Adminhoteluri/>} />
         <Route path="/Acasa" element={<Acasa />} />
         <Route path="/Hoteluri" element={<Hoteluri />} />
         <Route path="/Zboruri" element={<Zboruri />} />

@@ -1,0 +1,134 @@
+.adminContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.mainArea {
+  display: flex;
+  flex: 1;
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+.leftSidebar {
+  width: 300px;
+  background-color: #6d93c0;
+  padding: 30px;
+  border-right: 1px solid #ccc;
+  color: white;
+}
+
+.menu {
+  margin-bottom: 20px;
+}
+
+.menuHeader {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 40px;
+  margin-top: 50px;
+}
+
+.menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu ul li {
+  margin-bottom: 10px;
+}
+
+.menu ul li a {
+  color: white; /* Text color for menu items */
+  text-decoration: none;
+  font-size: 30px;
+}
+
+.menu ul li a:hover {
+  background-color: white;
+  color: #6d93c0; /* Hover color */
+}
+
+.content {
+  flex: 1; /* Takes remaining space */
+  padding: 20px;
+}
+
+.carList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.carItem {
+  position: relative;
+  width: calc(100% - 20px); /* Adjusted width to accommodate margins */
+  border: 1px solid #ccc;
+  padding: 20px;
+  background-color: #f9f9f9;
+  margin-bottom: 20px; /* Added margin-bottom for spacing */
+}
+
+.carDetails {
+  flex: 1; /* Take remaining space in car item */
+  padding-right: 20px; /* Added padding to create space between details and photo */
+}
+
+.formGroup {
+  margin-bottom: 10px;
+}
+
+.formGroup label {
+  font-weight: bold;
+}
+
+.formGroup input,
+.formGroup textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 4px;
+  font-size: 16px;
+}
+
+.buttonContainer {
+  margin-top: 10px;
+  display: flex;
+  align-items: center; /* Center items vertically */
+}
+
+.editButton,
+.saveButton,
+.deleteButton {
+  background-color: #6d93c0;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  margin-right: 10px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.editButton:hover,
+.saveButton:hover,
+.deleteButton:hover {
+  background-color: #375a7f;
+}
+
+.imageContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Center the image horizontally */
+}
+
+.carPhoto {
+  width: 100%; /* Ensure the photo takes full width of its container */
+  max-width: 200px; /* Limit the maximum width of the photo */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Ensure the photo covers the entire container */
+  border-radius: 4px; /* Optional: Rounded corners for the photo */
+  margin-top: 10px; /* Add margin to separate photo from buttons */
+}

@@ -1,0 +1,125 @@
+/* admineditarezbor.module.css */
+
+.adminContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.mainArea {
+  display: flex;
+  flex: 1;
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+.leftSidebar {
+  width: 300px;
+  background-color: #6D93C0;
+  padding: 30px;
+  border-right: 1px solid #ccc;
+  color: white;
+}
+
+.menu {
+  margin-bottom: 20px;
+}
+
+.menuHeader {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 40px;
+  margin-top: 50px;
+}
+
+.menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu ul li {
+  margin-bottom: 10px;
+}
+
+.menu ul li a {
+  color: white; /* Text color for menu items */
+  text-decoration: none;
+  font-size: 30px;
+}
+
+.menu ul li a:hover {
+  background-color: white;
+  color: #6D93C0; /* Hover color */
+}
+
+.content {
+  flex: 1; /* Takes remaining space */
+  padding: 20px;
+}
+
+.flightList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.flightItem {
+  position: relative;
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.flightDetails {
+  padding: 10px;
+}
+
+.formGroup {
+  margin-bottom: 10px;
+}
+
+.formGroup label {
+  font-weight: bold;
+}
+
+.formGroup input,
+.formGroup textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 4px;
+  font-size: 16px;
+}
+
+.buttonContainer {
+  margin-top: 10px;
+}
+
+.editButton,
+.saveButton,
+.deleteButton {
+  background-color: #6D93C0;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  margin-right: 10px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.editButton:hover,
+.saveButton:hover,
+.deleteButton:hover {
+  background-color: #375A7F;
+}
+
+.airlineLogo {
+  width: 100px; /* Adjust the size of the airline logo image */
+  height: auto;
+  margin-top: 10px;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}

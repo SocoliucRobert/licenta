@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom'; // Import useNavigate
 import Meniusus from '../Meniusus';
 import Meniujos from '../Meniujos';
 import styles from './adminhoteluri.module.css';
-import supabase from '../supabaseClient'; 
-import { Link } from 'react-router-dom';
+import supabase from '../supabaseClient';
+
 const toBase64 = file => new Promise((resolve, reject) => {
   const reader = new FileReader();
   reader.readAsDataURL(file);
@@ -11,7 +12,9 @@ const toBase64 = file => new Promise((resolve, reject) => {
   reader.onerror = error => reject(error);
 });
 
-const Adminhoteluri = () => {
+const Editarehotel = () => {
+  const { hotelId } = useParams();
+  const navigate = useNavigate(); // use useNavigate hook
   const [hotel, setHotel] = useState({
     name: '',
     description: '',
@@ -24,6 +27,28 @@ const Adminhoteluri = () => {
     images: [],
     imagePreviews: []
   });
+
+  useEffect(() => {
+    fetchHotel();
+  }, [hotelId]);
+
+  const fetchHotel = async () => {
+    try {
+      const { data, error } = await supabase.from('hotels').select('*').eq('id', hotelId).single();
+      if (error) throw error;
+      setHotel({
+        ...data,
+        validFrom: data.valid_from,
+        validTo: data.valid_to,
+        pricePerAdult: data.price_per_adult,
+        pricePerChild: data.price_per_child,
+        images: [],
+        imagePreviews: data.image_urls
+      });
+    } catch (error) {
+      console.error('Error fetching hotel:', error.message);
+    }
+  };
 
   const handleChange = async (e) => {
     if (e.target.name === 'image') {
@@ -64,55 +89,41 @@ const Adminhoteluri = () => {
       valid_to: hotel.validTo,
       price_per_adult: parseFloat(hotel.pricePerAdult),
       price_per_child: parseFloat(hotel.pricePerChild),
-      image_urls: imageUrls
+      image_urls: [...hotel.imagePreviews, ...imageUrls]
     };
 
     try {
-      const { data, error } = await supabase.from('hotels').insert([hotelData]);
+      const { data, error } = await supabase.from('hotels').update(hotelData).eq('id', hotelId);
       if (error) throw error;
-      alert('Hotel adaugat cu succes!');
-      console.log('Saved data:', data);
-      setHotel({
-        name: '',
-        description: '',
-        stars: '',
-        address: '',
-        validFrom: '',
-        validTo: '',
-        pricePerAdult: '',
-        pricePerChild: '',
-        images: [],
-        imagePreviews: []
-      });
+      alert('Hotel updated successfully!');
+      navigate('/admin-edit-hotel'); // Navigate using navigate function
     } catch (error) {
       console.error('Error:', error);
-      alert('Failed to add hotel. Please try again.');
+      alert('Failed to update hotel. Please try again.');
     }
   };
 
   return (
     <div className={styles.adminContainer}>
       <Meniusus />
-
       <div className={styles.mainArea}>
         <div className={styles.leftSidebar}>
           <div className={styles.menu}>
             <div className={styles.menuHeader}>Panou Admin</div>
             <ul>
-            <li><Link to="/adaugare-hotel">ADAUGARE HOTEL</Link></li>
-                <li><Link to="/adaugare-zbor">ADAUGARE ZBOR</Link></li>
-                <li><Link to="/Adminmasini">ADAUGARE MASINA</Link></li>
-                <li><Link to="/adaugare-oferta">ADAUGARE OFERTA</Link></li>
-                <li><Link to="/editare-hotel">EDITARE HOTEL</Link></li>
-                <li><Link to="/editare-zbor">EDITARE ZBOR</Link></li>
-                <li><Link to="/editare-masina">EDITARE MASINA</Link></li>
-                <li><Link to="/editare-oferta">EDITARE OFERTA</Link></li>
+              <li><a href="#">ADAUGARE HOTEL</a></li>
+              <li><a href="#">ADAUGARE ZBOR</a></li>
+              <li><a href="#">ADAUGARE MASINA</a></li>
+              <li><a href="#">ADAUGARE OFERTA</a></li>
+              <li><a href="#">EDITARE HOTEL</a></li>
+              <li><a href="#">EDITARE ZBOR</a></li>
+              <li><a href="#">EDITARE MASINA</a></li>
+              <li><a href="#">EDITARE OFERTA</a></li>
             </ul>
           </div>
         </div>
-
         <div className={styles.content}>
-          <h2>Adăugare Hotel</h2>
+          <h2>Editare Hotel</h2>
           <form onSubmit={handleSubmit}>
             <div className={styles.formGroup}>
               <label>Nume Hotel</label>
@@ -143,7 +154,7 @@ const Adminhoteluri = () => {
               <input type="number" name="pricePerAdult" value={hotel.pricePerAdult} onChange={handleChange} required />
             </div>
             <div className={styles.formGroup}>
-              <label>Preț pe copil</label>
+              <label>Preț pentru copil</label>
               <input type="number" name="pricePerChild" value={hotel.pricePerChild} onChange={handleChange} required />
             </div>
             <div className={styles.formGroup}>
@@ -160,14 +171,13 @@ const Adminhoteluri = () => {
                 ))}
               </div>
             </div>
-            <button type="submit">Salvează Hotel</button>
+            <button type="submit">Actualizează Hotel</button>
           </form>
         </div>
       </div>
-
       <Meniujos />
     </div>
   );
 };
 
-export default Adminhoteluri;
+export default Editarehotel;
