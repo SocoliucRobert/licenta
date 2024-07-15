@@ -4,7 +4,7 @@ import Meniusus from "./Meniusus";
 import Meniujos from "./Meniujos";
 import supabase from './supabaseClient'; 
 
-const Resetareparola = () => {
+const ResetareParola = () => {
   const [email, setEmail] = useState('');
   const [resetMessage, setResetMessage] = useState('');
   const [error, setError] = useState('');
@@ -60,4 +60,4 @@ const Resetareparola = () => {
   );
 };
 
-export default Resetareparola;
+export default ResetareParola;

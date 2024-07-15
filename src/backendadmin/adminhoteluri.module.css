@@ -1,0 +1,104 @@
+.adminContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; 
+}
+
+.mainArea {
+  display: flex;
+  flex: 1; 
+  margin-top: 20px; 
+  margin-left: 50px;
+}
+
+.leftSidebar {
+  width: 300px; 
+  background-color: #6D93C0; 
+  padding: 30px;
+  border-right: 1px solid #ccc; 
+  color: white;
+}
+
+.menu {
+  margin-bottom: 20px;
+}
+
+.menuHeader {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 40px;
+  margin-top: 50px;
+}
+
+.menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu ul li {
+  margin-bottom: 10px;
+}
+
+.menu ul li a {
+  color: white; /* Text color for menu items */
+  text-decoration: none;
+  font-size: 30px;
+
+}
+
+.menu ul li a:hover {
+  background-color: white;
+  color: #6D93C0; /* Hover color */
+}
+
+.content {
+  flex: 1; /* Takes remaining space */
+  padding: 20px;
+  /* Additional styles for the content area can be added here */
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.formGroup input,
+.formGroup textarea,
+.formGroup select {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.formGroup textarea {
+  resize: vertical; /* Allow vertical resizing of textarea */
+}
+
+.formGroup input[type="file"] {
+  border: none;
+  padding: 0;
+}
+
+button[type="submit"] {
+  background-color: #6D93C0;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button[type="submit"]:hover {
+  background-color: #5580A3; /* Darker shade on hover */
+}
+
+
+

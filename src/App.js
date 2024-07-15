@@ -8,8 +8,11 @@ import Contact from './Contact';
 import Meniusus from './Meniusus';
 import Login from './Login';
 import Inregistrare from './Inregistrare';
-import Resetareparola from './Resetareparola';
+import ResetareParola from './ResetareParola';
 import Updateparola from './Updateparola';
+import Adminhoteluri from './backendadmin/Adminhoteluri';
+import AdminZboruri from './backendadmin/Adminzboruri';
+
 
 import supabase from './supabaseClient';
 
@@ -23,7 +26,8 @@ function App() {
     <Router>
       
       <Routes>
-      <Route path="/" element={<Acasa />} />
+        
+      <Route path="/" element={<AdminZboruri />} />
         <Route path="/Acasa" element={<Acasa />} />
         <Route path="/Hoteluri" element={<Hoteluri />} />
         <Route path="/Zboruri" element={<Zboruri />} />
@@ -32,10 +36,11 @@ function App() {
         <Route path="/Contact" element={<Contact />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Inregistrare" element={<Inregistrare />} />
-        <Route path="/Resetareparola" element={<Resetareparola />} />
+        <Route path="/ResetareParola" element={<ResetareParola />} />
         <Route path="/Updateparola" element={<Updateparola />} />
+        <Route path="/Adminhoteluri" element={<Adminhoteluri />} />
         <Route path="/supabaseClient" element={<supabase />} />
-
+     
       
       </Routes>
      

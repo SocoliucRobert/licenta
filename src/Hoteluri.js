@@ -48,7 +48,7 @@ const Hoteluri = () => {
                 </div>
               </div>
               <div className={styles.buttonContainer}>
-                <button type="submitt">CAUTA</button>
+                <button type="submit">CAUTA</button>
               </div>
             </form>
           </div>
