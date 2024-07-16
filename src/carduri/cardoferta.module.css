@@ -1,0 +1,38 @@
+/* cardoferta.module.css */
+.card {
+  width: 300px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cardImage {
+  width: 100%;
+  height: 200px; /* Ensure the image height is fixed */
+  object-fit: cover; /* Maintain aspect ratio */
+}
+
+.cardContent {
+  padding: 15px;
+}
+
+.cardContent h3 {
+  margin-top: 0;
+}
+
+.cardContent p {
+  margin-bottom: 10px;
+}
+
+.detailsButton {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.detailsButton:hover {
+  background-color: #0056b3;
+}

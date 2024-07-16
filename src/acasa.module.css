@@ -1,3 +1,20 @@
+
+.sectionHeader {
+  font-size: 2rem;
+  margin-top: 20px;
+  margin-left: 100px;
+}
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.section {
+  margin-bottom: 10px;
+}
+
 .imageContainer {
   position: relative;
 }
@@ -45,6 +62,7 @@
 
 .section label {
   margin-bottom: 5px;
+  font-size: 3vh;
 }
 
 .section input {
@@ -54,16 +72,6 @@
   border-radius: 4px;
 }
 
-.checkboxGroup {
-  display: flex;
-  flex-direction: row; /* Schimbat în direcție orizontală */
-  
-}
-
-.checkboxGroup label {
-  margin-right: 10px; /* Adaugă un spațiu între checkbox-uri */
-  font-weight: normal;
-}
 
 .dateInputs {
   display: flex;
