@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Meniusus from '../Meniusus';
 import Meniujos from '../Meniujos';
 import styles from './adminhoteluri.module.css';
-import supabase from '../supabaseClient'; // Adjust this path based on your Supabase client configuration
+import supabase from '../supabaseClient';
 
 // Function to convert image file to base64 format
-const toBase64 = file => new Promise((resolve, reject) => {
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = () => resolve(reader.result);
-  reader.onerror = error => reject(error);
-});
+const toBase64 = file =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
 
 const Adminoferte = () => {
   const [oferta, setOferta] = useState({
@@ -19,17 +21,18 @@ const Adminoferte = () => {
     start_period: '',
     end_period: '',
     price: '',
+    description: '', // New field for description
     offerImage: null,
     offerImagePreview: ''
   });
 
   // Handles changes in form inputs
-  const handleChange = async (e) => {
+  const handleChange = async e => {
     if (e.target.name === 'offerImage') {
       const selectedImage = e.target.files[0];
 
       if (selectedImage) {
-        // Only proceed if a file is actually selected
+       
         const base64Image = await toBase64(selectedImage);
         setOferta({
           ...oferta,
@@ -37,7 +40,7 @@ const Adminoferte = () => {
           offerImagePreview: URL.createObjectURL(selectedImage)
         });
       } else {
-        // Clear the image data if no file is selected
+       
         setOferta({
           ...oferta,
           offerImage: null,
@@ -49,8 +52,8 @@ const Adminoferte = () => {
     }
   };
 
-  // Handles form submission
-  const handleSubmit = async (event) => {
+  
+  const handleSubmit = async event => {
     event.preventDefault();
 
     try {
@@ -68,6 +71,7 @@ const Adminoferte = () => {
         start_period: oferta.start_period,
         end_period: oferta.end_period,
         price: parseFloat(oferta.price),
+        description: oferta.description, 
         offer_image_url: offerImageUrl
       };
 
@@ -83,6 +87,7 @@ const Adminoferte = () => {
         start_period: '',
         end_period: '',
         price: '',
+        description: '', 
         offerImage: null,
         offerImagePreview: ''
       });
@@ -101,14 +106,30 @@ const Adminoferte = () => {
           <div className={styles.menu}>
             <div className={styles.menuHeader}>Panou Admin</div>
             <ul>
-              <li><a href="#">ADAUGARE HOTEL</a></li>
-              <li><a href="#">ADAUGARE ZBOR</a></li>
-              <li><a href="#">ADAUGARE MASINA</a></li>
-              <li><a href="#">ADAUGARE OFERTA</a></li>
-              <li><a href="#">EDITARE HOTEL</a></li>
-              <li><a href="#">EDITARE ZBOR</a></li>
-              <li><a href="#">EDITARE MASINA</a></li>
-              <li><a href="#">EDITARE OFERTA</a></li>
+              <li>
+                <Link to="/Adminhoteluri">ADAUGARE HOTEL</Link>
+              </li>
+              <li>
+                <Link to="/Adminzboruri">ADAUGARE ZBOR</Link>
+              </li>
+              <li>
+                <Link to="/Adminmasini">ADAUGARE MASINA</Link>
+              </li>
+              <li>
+                <Link to="/Adminoferte">ADAUGARE OFERTA</Link>
+              </li>
+              <li>
+                <Link to="/Admineditarehotel">EDITARE HOTEL</Link>
+              </li>
+              <li>
+                <Link to="/Admineditarezbor">EDITARE ZBOR</Link>
+              </li>
+              <li>
+                <Link to="/Admineditaremasini">EDITARE MASINA</Link>
+              </li>
+              <li>
+                <Link to="/Admineditareoferte">EDITARE OFERTA</Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -118,23 +139,63 @@ const Adminoferte = () => {
           <form onSubmit={handleSubmit}>
             <div className={styles.formGroup}>
               <label>Destinație</label>
-              <input type="text" name="destination" value={oferta.destination} onChange={handleChange} required />
+              <input
+                type="text"
+                name="destination"
+                value={oferta.destination}
+                onChange={handleChange}
+                required
+              />
             </div>
             <div className={styles.formGroup}>
               <label>Număr de persoane</label>
-              <input type="number" name="number_of_persons" value={oferta.number_of_persons} onChange={handleChange} required />
+              <input
+                type="number"
+                name="number_of_persons"
+                value={oferta.number_of_persons}
+                onChange={handleChange}
+                required
+              />
             </div>
             <div className={styles.formGroup}>
               <label>Perioada începere ofertă</label>
-              <input type="date" name="start_period" value={oferta.start_period} onChange={handleChange} required />
+              <input
+                type="date"
+                name="start_period"
+                value={oferta.start_period}
+                onChange={handleChange}
+                required
+              />
             </div>
             <div className={styles.formGroup}>
               <label>Perioada sfârșire</label>
-              <input type="date" name="end_period" value={oferta.end_period} onChange={handleChange} required />
+              <input
+                type="date"
+                name="end_period"
+                value={oferta.end_period}
+                onChange={handleChange}
+                required
+              />
             </div>
             <div className={styles.formGroup}>
               <label>Preț</label>
-              <input type="number" name="price" value={oferta.price} onChange={handleChange} required />
+              <input
+                type="number"
+                name="price"
+                value={oferta.price}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <label>Descriere</label>
+              <textarea
+                name="description"
+                value={oferta.description}
+                onChange={handleChange}
+                rows="4"
+                required
+              ></textarea>
             </div>
             <div className={styles.formGroup}>
               <label>Imagine ofertă</label>

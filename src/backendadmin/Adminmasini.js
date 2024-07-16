@@ -3,6 +3,7 @@ import Meniusus from '../Meniusus';
 import Meniujos from '../Meniujos';
 import styles from './adminhoteluri.module.css';
 import supabase from '../supabaseClient'; // Adjust this path based on your Supabase client configuration
+import { Link } from 'react-router-dom';
 
 // Function to convert image file to base64 format
 const toBase64 = file => new Promise((resolve, reject) => {
@@ -100,14 +101,14 @@ const Adminmasini = () => {
           <div className={styles.menu}>
             <div className={styles.menuHeader}>Panou Admin</div>
             <ul>
-              <li><a href="#">ADAUGARE HOTEL</a></li>
-              <li><a href="#">ADAUGARE ZBOR</a></li>
-              <li><a href="#">ADAUGARE MASINA</a></li>
-              <li><a href="#">ADAUGARE OFERTA</a></li>
-              <li><a href="#">EDITARE HOTEL</a></li>
-              <li><a href="#">EDITARE ZBOR</a></li>
-              <li><a href="#">EDITARE MASINA</a></li>
-              <li><a href="#">EDITARE OFERTA</a></li>
+            <li><Link to="/Adminhoteluri">ADAUGARE HOTEL</Link></li>
+                <li><Link to="/Adminzboruri">ADAUGARE ZBOR</Link></li>
+                <li><Link to="/Adminmasini">ADAUGARE MASINA</Link></li>
+                <li><Link to="/Adminoferte">ADAUGARE OFERTA</Link></li>
+                <li><Link to="/Admineditarehotel">EDITARE HOTEL</Link></li>
+                <li><Link to="/Admineditarezbor">EDITARE ZBOR</Link></li>
+                <li><Link to="/Admineditaremasini">EDITARE MASINA</Link></li>
+                <li><Link to="/Admineditareoferte">EDITARE OFERTA</Link></li>
             </ul>
           </div>
         </div>

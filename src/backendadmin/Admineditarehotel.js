@@ -101,14 +101,14 @@ const Admineditarehotel = () => {
           <div className={styles.menu}>
             <div className={styles.menuHeader}>Panou Admin</div>
             <ul>
-                     <li><Link to="/adaugare-hotel">ADAUGARE HOTEL</Link></li>
-                <li><Link to="/adaugare-zbor">ADAUGARE ZBOR</Link></li>
-                <li><Link to="/adaugare-masina">ADAUGARE MASINA</Link></li>
-                <li><Link to="/adaugare-oferta">ADAUGARE OFERTA</Link></li>
-                <li><Link to="/editare-hotel">EDITARE HOTEL</Link></li>
-                <li><Link to="/editare-zbor">EDITARE ZBOR</Link></li>
-                <li><Link to="/editare-masina">EDITARE MASINA</Link></li>
-                <li><Link to="/editare-oferta">EDITARE OFERTA</Link></li>
+            <li><Link to="/Adminhoteluri">ADAUGARE HOTEL</Link></li>
+                <li><Link to="/Adminzboruri">ADAUGARE ZBOR</Link></li>
+                <li><Link to="/Adminmasini">ADAUGARE MASINA</Link></li>
+                <li><Link to="/Adminoferte">ADAUGARE OFERTA</Link></li>
+                <li><Link to="/Admineditarehotel">EDITARE HOTEL</Link></li>
+                <li><Link to="/Admineditarezbor">EDITARE ZBOR</Link></li>
+                <li><Link to="/Admineditaremasini">EDITARE MASINA</Link></li>
+                <li><Link to="/Admineditareoferte">EDITARE OFERTA</Link></li>
             </ul>
           </div>
         </div>

@@ -1,6 +1,5 @@
-// Admineditareoferte.jsx
-
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Meniusus from '../Meniusus';
 import Meniujos from '../Meniujos';
 import styles from './admineditareoferte.module.css';
@@ -82,8 +81,14 @@ const Admineditareoferte = () => {
           <div className={styles.menu}>
             <div className={styles.menuHeader}>Panou Admin</div>
             <ul>
-              <li><a href="#">ADAUGARE OFERTĂ</a></li>
-              <li><a href="#">EDITARE OFERTĂ</a></li>
+              <li><Link to="/Adminhoteluri">ADAUGARE HOTEL</Link></li>
+              <li><Link to="/Adminzboruri">ADAUGARE ZBOR</Link></li>
+              <li><Link to="/Adminmasini">ADAUGARE MASINA</Link></li>
+              <li><Link to="/Adminoferte">ADAUGARE OFERTA</Link></li>
+              <li><Link to="/Admineditarehotel">EDITARE HOTEL</Link></li>
+              <li><Link to="/Admineditarezbor">EDITARE ZBOR</Link></li>
+              <li><Link to="/Admineditaremasini">EDITARE MASINA</Link></li>
+              <li><Link to="/Admineditareoferte">EDITARE OFERTA</Link></li>
             </ul>
           </div>
         </div>
@@ -101,6 +106,7 @@ const Admineditareoferte = () => {
                       <p>Perioada de început: {offer.start_period}</p>
                       <p>Perioada de sfârșit: {offer.end_period}</p>
                       <p>Preț: {offer.price}</p>
+                      <p>Descriere: {offer.description}</p> {/* Display description */}
                     </>
                   )}
                   {offer.editing && (
@@ -124,6 +130,10 @@ const Admineditareoferte = () => {
                       <div className={styles.formGroup}>
                         <label>Preț</label>
                         <input type="number" value={offer.price} onChange={(e) => handleInputChange(offer.id, 'price', e.target.value)} />
+                      </div>
+                      <div className={styles.formGroup}>
+                        <label>Descriere</label>
+                        <textarea value={offer.description} onChange={(e) => handleInputChange(offer.id, 'description', e.target.value)} rows="4"></textarea>
                       </div>
                     </>
                   )}

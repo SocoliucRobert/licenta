@@ -44,6 +44,15 @@ function App() {
         <Route path="/ResetareParola" element={<ResetareParola />} />
         <Route path="/Updateparola" element={<Updateparola />} />
         <Route path="/Adminhoteluri" element={<Adminhoteluri />} />
+        <Route path="/Adminmasini" element={<Adminmasini />} />
+        <Route path="/Adminoferte" element={<Adminoferte />} />
+        <Route path="/Adminzboruri" element={<AdminZboruri />} />
+        <Route path="/Admineditarehotel" element={<Admineditarehotel />} />
+        <Route path="/Admineditarezbor" element={<Admineditarezbor />} />
+        <Route path="/Admineditaremasini" element={<Admineditaremasini />} />
+        <Route path="/Admineditareoferte" element={<Admineditareoferte />} />
+
+      
         <Route path="/supabaseClient" element={<supabase />} />
      
       
