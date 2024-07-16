@@ -8,33 +8,42 @@ import facebookIcon from './poze/facebooklogin.png';
 import googleIcon from './poze/googlelogin.png';
 import supabase from './supabaseClient';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 
 const Login = () => {
   const navigate = useNavigate();
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
   const [loginMessage, setLoginMessage] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+
+  useEffect(() => {
+    const session = localStorage.getItem('session');
+    const email = localStorage.getItem('userEmail');
+    if (session && email) {
+      setUserEmail(email);
+      navigate('/Acasa');
+    }
+  }, [navigate]);
 
   const handleGoogleLogin = async () => {
     try {
       const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google'
+        provider: 'google',
+        options: { redirectTo: window.location.origin + '/Acasa' },
       });
-  
+
       if (error) {
         console.error('Google Login Error:', error);
         throw error;
       }
-  
+
       if (data) {
-        console.log('Google Login Session:', data.session);
+        console.log('Google Login Success:', data.user.email);
         navigate('/Acasa');
-        localStorage.setItem('session', JSON.stringify(data.session));
       } else {
-        console.log('Google Login Failed: No valid session data received');
+        console.error('Google Login Failed: No valid session data received');
       }
     } catch (error) {
       console.error('Exception in Google Login:', error.message);
@@ -43,51 +52,52 @@ const Login = () => {
 
   const handleFacebookLogin = async () => {
     try {
-      const {data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'facebook'
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'facebook',
+        options: { redirectTo: window.location.origin + '/Acasa' },
       });
 
       if (error) {
+        console.error('Facebook Login Error:', error);
         throw error;
       }
 
       if (data) {
+        console.log('Facebook Login Success:', data.user.email);
         navigate('/Acasa');
-        localStorage.setItem('session', JSON.stringify(data.session)); 
-        
+      } else {
+        console.error('Facebook Login Failed: No valid session data received');
       }
     } catch (error) {
-      console.error('Error logging in with Facebook:', error.message);
+      console.error('Exception in Facebook Login:', error.message);
     }
   };
 
   const handleLogin = async (e) => {
-    e.preventDefault(); 
-  
+    e.preventDefault();
+
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
-  
+
       if (error) {
         throw error;
       }
-  
+
       if (data) {
-        
         console.log('User and session data:', { data });
+        localStorage.setItem('session', JSON.stringify(data.session));
+        localStorage.setItem('userEmail', email);
+        setUserEmail(email);
         navigate('/Acasa');
-       
-        localStorage.setItem('session', JSON.stringify(data.session)); // pentru tinere minte login
       } else {
         console.error('Login failed: User or session data missing.');
-        setError('Login failed. Please check your credentials and try again.');
         setLoginMessage('Logare eșuată. Verifică datele de autentificare și încearcă din nou.');
       }
     } catch (error) {
       console.error('Login error:', error.message);
-      setError(error.message);
       setLoginMessage('Nume sau parolă greșită');
     }
   };

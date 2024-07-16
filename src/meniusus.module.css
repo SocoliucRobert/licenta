@@ -2,51 +2,63 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: white; 
+  background-color: white;
+  padding: 0 20px; /* Ensure some padding */
 }
 
 .logoContainer {
   display: flex;
   align-items: center;
-  margin-left: 10rem;
 }
 
 .logo {
-  height: 50px;  
+  height: 50px;
 }
 
 .brand {
   color: black;
   font-size: 24px;
-  margin-left: 10px; 
+  margin-left: 10px;
   font-weight: bold;
 }
 
 .loginButton {
-  position: relative;
   display: flex;
   align-items: center;
-  margin-right: 100px;
+  margin-right: 50px;
+  margin-top:10px;
+
 }
 
-.buttonImage {
- 
-  height: auto;
+.buttonStyle {
+  padding: 10px 20px;
+  font-size: 22px;
+  background-color: #6D93C0; 
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-transform: uppercase; /* Optional: makes button text uppercase */
+  text-decoration: none;
+  font-weight: bold;
+  transition: transform 0.10s ease-in-out; /* Adding transition for transform */
+}
+
+.buttonStyle:hover {
+  background-color: #004494; /* Darker shade on hover */
+}
+.buttonStyle:active {
+  transform: translateY(-10px); /* Adjust this value as needed */
 }
 
 .buttonText {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
+  color: white; /* Ensures text color is white */
 }
 
 .header {
   position: relative;
   width: 100%;
+  margin-top: 10px; /* Space from top bar */
 }
 
 .image {
@@ -59,65 +71,37 @@
   bottom: 15%;
   left: 0;
   right: 0;
-  text-align: center; 
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .word {
-  font-size: calc(1vw + 1vh + 0.5vmin); 
+  font-size: calc(1vw + 1vh + 0.5vmin);
   color: white;
   padding: 0 4%;
   font-weight: bold;
-  white-space: nowrap; 
+  white-space: nowrap;
 }
 
 .link {
   text-decoration: none;
-  color: inherit; 
-  display: flex; 
-  align-items: center; 
+  color: inherit;
   padding: 0 4%;
-  
 }
 
 .link:hover .word {
-  text-decoration: none;
   transform: scale(1.1);
-  color:yellow;
-  
-  
-
+  color: yellow; /* Highlight color on hover */
 }
-.buttonStyle {
+/* Assuming new styles for displaying user email */
+.loggedInUser {
   display: flex;
   align-items: center;
-  border: none;
-  background: none;
-  cursor: pointer;
-  text-decoration: none;
-  color: inherit; /* Ensures text color matches */
 }
 
-.loginIconContainer {
-  position: relative;
-}
-
-.animateLink {
-  transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
-}
-
-.animateLink:hover .word {
-  color: yellow; /* Change to your preferred color */
-  transform: scale(1.1);
-}
-
-.animateButton {
-  transition: transform 0.2s ease-in-out;
-}
-
-.animateButton:hover {
-  transform: translateY(-10px);
-  color:yellow;
+.loggedInText {
+  margin-right: 10px;
+  color: #555; /* Adjust color as per your design */
 }

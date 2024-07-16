@@ -2,24 +2,32 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './meniusus.module.css';
 import baraImage from './poze/bara.png';
-import imagelogo from './poze/imagineLogo.png';  
-import butonLogare from './poze/butonLogare.png'; 
-import { motion } from 'framer-motion'; 
-
-
+import imagelogo from './poze/imagineLogo.png';
+import { motion } from 'framer-motion';
 
 const Meniusus = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
     const session = localStorage.getItem('session');
-    setIsLoggedIn(!!session);
-    
+    if (session) {
+      try {
+        const parsedSession = JSON.parse(session);
+        setIsLoggedIn(true);
+        setUserEmail(parsedSession.user?.email || '');
+        console.log('Session Data:', parsedSession);
+      } catch (error) {
+        console.error('Error parsing session JSON:', error);
+      }
+    } else {
+      setIsLoggedIn(false);
+      setUserEmail('');
+    }
 
-   
     const currentPath = window.location.pathname;
-    if ((session && currentPath === '/Login') || (session && currentPath === '/Inregistrare') || (session && currentPath === '/Resetareparola' )) {
+    if ((session && currentPath === '/Login') || (session && currentPath === '/Inregistrare') || (session && currentPath === '/Resetareparola')) {
       navigate('/Acasa');
     }
   }, [navigate]);
@@ -27,14 +35,15 @@ const Meniusus = () => {
   const handleLogout = () => {
     localStorage.removeItem('session');
     setIsLoggedIn(false);
+    setUserEmail('');
     navigate('/');
   };
 
   return (
-    <motion.div 
-    initial={{ opacity: 0.5 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.1 }}
+    <motion.div
+      initial={{ opacity: 0.5 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.1 }}
     >
       <div className={styles.topBar}>
         <div className={styles.logoContainer}>
@@ -43,13 +52,18 @@ const Meniusus = () => {
         </div>
         <div className={styles.loginButton}>
           {isLoggedIn ? (
-            <button2 onClick={handleLogout} className={`${styles.buttonStyle} ${styles.loginIconContainer} ${styles.animateButton}`}>
-              <img src={butonLogare} alt="Delogare Button" className={styles.buttonImage} />
-              <span className={styles.buttonText}>DELOGARE</span>
-            </button2>
+            <div className={styles.loggedInUser}>
+              <span className={styles.loggedInText}>Logged in as: {userEmail}</span>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className={`${styles.buttonStyle} ${styles.animateButton}`}
+              >
+                <span className={styles.buttonText}>DELOGARE</span>
+              </button>
+            </div>
           ) : (
-            <Link to="/Login" className={`${styles.buttonStyle} ${styles.loginIconContainer} ${styles.animateButton}`}>
-              <img src={butonLogare} alt="Logare Button" className={styles.buttonImage} />
+            <Link to="/Login" className={`${styles.buttonStyle} ${styles.animateButton}`}>
               <span className={styles.buttonText}>LOGARE</span>
             </Link>
           )}
