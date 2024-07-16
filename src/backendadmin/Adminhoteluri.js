@@ -4,6 +4,7 @@ import Meniujos from '../Meniujos';
 import styles from './adminhoteluri.module.css';
 import supabase from '../supabaseClient'; 
 import { Link } from 'react-router-dom';
+
 const toBase64 = file => new Promise((resolve, reject) => {
   const reader = new FileReader();
   reader.readAsDataURL(file);
@@ -25,7 +26,17 @@ const Adminhoteluri = () => {
   });
 
   const handleChange = async (e) => {
-    if (e.target.name === 'image') {
+    const { name, value } = e.target;
+
+    if (name === 'stars') {
+      // Ensure the value is between 1 and 5
+      const intValue = parseInt(value, 10);
+      if (intValue >= 1 && intValue <= 5) {
+        setHotel({ ...hotel, [name]: value });
+      }
+      // Optionally, you can add an alert or notification for invalid input here
+    } else if (name === 'image') {
+      // Handle image upload separately as before
       const selectedImages = Array.from(e.target.files);
       const previews = [];
       const base64Images = [];
@@ -42,7 +53,8 @@ const Adminhoteluri = () => {
         imagePreviews: [...hotel.imagePreviews, ...previews]
       });
     } else {
-      setHotel({ ...hotel, [e.target.name]: e.target.value });
+      // For other fields, update state as usual
+      setHotel({ ...hotel, [name]: value });
     }
   };
 
@@ -62,7 +74,6 @@ const Adminhoteluri = () => {
       valid_from: hotel.validFrom,
       valid_to: hotel.validTo,
       price_per_adult: parseFloat(hotel.pricePerAdult),
-  
       image_urls: imageUrls
     };
 
@@ -97,14 +108,14 @@ const Adminhoteluri = () => {
           <div className={styles.menu}>
             <div className={styles.menuHeader}>Panou Admin</div>
             <ul>
-            <li><Link to="/Adminhoteluri">ADAUGARE HOTEL</Link></li>
-                <li><Link to="/Adminzboruri">ADAUGARE ZBOR</Link></li>
-                <li><Link to="/Adminmasini">ADAUGARE MASINA</Link></li>
-                <li><Link to="/Adminoferte">ADAUGARE OFERTA</Link></li>
-                <li><Link to="/Admineditarehotel">EDITARE HOTEL</Link></li>
-                <li><Link to="/Admineditarezbor">EDITARE ZBOR</Link></li>
-                <li><Link to="/Admineditaremasini">EDITARE MASINA</Link></li>
-                <li><Link to="/Admineditareoferte">EDITARE OFERTA</Link></li>
+              <li><Link to="/Adminhoteluri">ADAUGARE HOTEL</Link></li>
+              <li><Link to="/Adminzboruri">ADAUGARE ZBOR</Link></li>
+              <li><Link to="/Adminmasini">ADAUGARE MASINA</Link></li>
+              <li><Link to="/Adminoferte">ADAUGARE OFERTA</Link></li>
+              <li><Link to="/Admineditarehotel">EDITARE HOTEL</Link></li>
+              <li><Link to="/Admineditarezbor">EDITARE ZBOR</Link></li>
+              <li><Link to="/Admineditaremasini">EDITARE MASINA</Link></li>
+              <li><Link to="/Admineditareoferte">EDITARE OFERTA</Link></li>
             </ul>
           </div>
         </div>
@@ -122,7 +133,15 @@ const Adminhoteluri = () => {
             </div>
             <div className={styles.formGroup}>
               <label>Număr de stele</label>
-              <input type="number" name="stars" value={hotel.stars} onChange={handleChange} required />
+              <input
+                type="number"
+                name="stars"
+                value={hotel.stars}
+                onChange={handleChange}
+                min="1"
+                max="5"
+                required
+              />
             </div>
             <div className={styles.formGroup}>
               <label>Adresă</label>
@@ -138,9 +157,15 @@ const Adminhoteluri = () => {
             </div>
             <div className={styles.formGroup}>
               <label>Preț pe adult</label>
-              <input type="number" name="pricePerAdult" value={hotel.pricePerAdult} onChange={handleChange} required />
+              <input
+                type="number"
+                name="pricePerAdult"
+                value={hotel.pricePerAdult}
+                onChange={handleChange}
+                step="0.01"
+                required
+              />
             </div>
-        
             <div className={styles.formGroup}>
               <label>Imagini</label>
               <input type="file" name="image" onChange={handleChange} multiple />

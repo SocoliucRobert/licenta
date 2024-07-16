@@ -84,14 +84,13 @@
 }
 
 .formGroup input,
-.formGroup select,
 .formGroup textarea {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-top: 4px;
-  font-size: 25px;
+  font-size: 16px;
 }
 
 .buttonContainer {

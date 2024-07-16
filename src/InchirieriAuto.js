@@ -4,64 +4,85 @@ import Meniusus from './Meniusus';
 import Meniujos from './Meniujos';
 import imagineMare from './poze/imagineMare.png';
 import ChatGpt from './ChatGpt';
-import CardMasina from './carduri/Cardmasina'; 
+import CardMasina from './carduri/Cardmasina';
 import supabase from './supabaseClient';
 
 const InchirieriAuto = () => {
-  const [fuelTypeFilter, setFuelTypeFilter] = useState('');
+  const [pickupLocation, setPickupLocation] = useState('');
   const [seatsFilter, setSeatsFilter] = useState('');
+  const [fuelTypeFilter, setFuelTypeFilter] = useState('');
   const [transmissionFilter, setTransmissionFilter] = useState('');
   const [priceSortOrder, setPriceSortOrder] = useState('');
   const [cars, setCars] = useState([]);
+  const [searchClicked, setSearchClicked] = useState(false);
 
   useEffect(() => {
-    fetchCars();
-  }, [fuelTypeFilter, seatsFilter, transmissionFilter, priceSortOrder]);
+    if (searchClicked) {
+      fetchCars();
+    }
+  }, [searchClicked, pickupLocation, seatsFilter, fuelTypeFilter, transmissionFilter, priceSortOrder]);
 
   const fetchCars = async () => {
     try {
       let { data, error } = await supabase.from('masini').select('*');
       if (error) throw error;
 
-      if (fuelTypeFilter) {
-        data = data.filter((car) => car.fuel_type === fuelTypeFilter);
+      // Filter cars based on input criteria
+      let filteredCars = data.filter((car) => {
+        // Filter by pickup location (car_location)
+        if (pickupLocation && car.car_location.toLowerCase().indexOf(pickupLocation.toLowerCase()) === -1) {
+          return false;
+        }
+
+        // Filter by number of seats (number_of_seats)
+        if (seatsFilter && car.number_of_seats < parseInt(seatsFilter)) {
+          return false;
+        }
+
+        // Filter by fuel type (fuel_type)
+        if (fuelTypeFilter && car.fuel_type !== fuelTypeFilter) {
+          return false;
+        }
+
+        // Filter by transmission type (transmission_type)
+        if (transmissionFilter && car.transmission_type !== transmissionFilter) {
+          return false;
+        }
+
+        return true;
+      });
+
+      // Sort cars based on priceSortOrder
+      if (priceSortOrder === 'asc') {
+        filteredCars.sort((a, b) => a.price_per_day - b.price_per_day);
+      } else if (priceSortOrder === 'desc') {
+        filteredCars.sort((a, b) => b.price_per_day - a.price_per_day);
       }
 
-      if (seatsFilter) {
-        data = data.filter((car) => car.number_of_seats === parseInt(seatsFilter));
-      }
-
-      if (transmissionFilter) {
-        data = data.filter((car) => car.transmission_type === transmissionFilter);
-      }
-
-      if (priceSortOrder) {
-        data.sort((a, b) => {
-          if (priceSortOrder === 'asc') {
-            return a.price_per_day - b.price_per_day;
-          } else if (priceSortOrder === 'desc') {
-            return b.price_per_day - a.price_per_day;
-          } else {
-            return 0;
-          }
-        });
-      }
-
-      setCars(data);
+      setCars(filteredCars);
     } catch (error) {
       console.error('Error fetching cars:', error.message);
     }
   };
 
-  const handleFuelTypeChange = (event) => {
-    setFuelTypeFilter(event.target.value);
+  const handleSearch = (event) => {
+    event.preventDefault();
+    setSearchClicked(true);
   };
 
-  const handleSeatsChange = (event) => {
+  const handlePickupLocationChange = (event) => {
+    setPickupLocation(event.target.value);
+  };
+
+  const handleSeatsFilterChange = (event) => {
     setSeatsFilter(event.target.value);
   };
 
-  const handleTransmissionChange = (event) => {
+  const handleFuelTypeFilterChange = (event) => {
+    setFuelTypeFilter(event.target.value);
+  };
+
+  const handleTransmissionFilterChange = (event) => {
     setTransmissionFilter(event.target.value);
   };
 
@@ -77,19 +98,43 @@ const InchirieriAuto = () => {
         <div className={styles.imageContainer}>
           <img src={imagineMare} alt="Big Image" className={styles.bigImage} />
           <div className={styles.formOverlay}>
-            <form className={styles.form}>
+            <form className={styles.form} onSubmit={handleSearch}>
               <div className={styles.formRow}>
                 <div className={styles.section}>
                   <label htmlFor="pickupLocation">Locație preluare</label>
-                  <input type="text" id="pickupLocation" placeholder="Locație preluare" />
+                  <input
+                    type="text"
+                    id="pickupLocation"
+                    placeholder="Locație preluare"
+                    value={pickupLocation}
+                    onChange={handlePickupLocationChange}
+                  />
                 </div>
                 <div className={styles.section}>
                   <label htmlFor="numarLocuri">Număr locuri</label>
-                  <input type="number" id="numarLocuri" placeholder="Număr locuri" min="1" />
+                  <input
+                    type="number"
+                    id="numarLocuri"
+                    placeholder="Număr locuri"
+                    min="1"
+                    value={seatsFilter}
+                    onChange={handleSeatsFilterChange}
+                  />
                 </div>
                 <div className={styles.section}>
                   <label htmlFor="tipCombustibil">Tip combustibil</label>
-                  <input type="number" id="numarPersoane" placeholder="Tip combustibil" min="1" />
+                  <select
+                    id="tipCombustibil"
+                    value={fuelTypeFilter}
+                    onChange={handleFuelTypeFilterChange}
+                    className={styles.selectInput}
+                  >
+                    <option value="">Toate</option>
+                    <option value="motorina">Motorină</option>
+                    <option value="benzina">Benzină</option>
+                    <option value="hibrid">Hibrid</option>
+                    <option value="electric">Electric</option>
+                  </select>
                 </div>
               </div>
               <div className={styles.buttonContainer}>
@@ -113,43 +158,12 @@ const InchirieriAuto = () => {
                 <option value="desc">Descrescător</option>
               </select>
             </div>
-            <div className={styles.fuelTypeFilter}>
-              <label htmlFor="fuelType">Filtrare după tip combustibil:</label>
-              <select
-                id="fuelType"
-                value={fuelTypeFilter}
-                onChange={handleFuelTypeChange}
-                className={styles.selectInput}
-              >
-                <option value="">Toate</option>
-                <option value="motorina">Motorină</option>
-                <option value="benzina">Benzină</option>
-                <option value="electric">Electric</option>
-                <option value="hibrid">Hibrid</option>
-              </select>
-            </div>
-            <div className={styles.seatsFilter}>
-              <label htmlFor="seatsFilter">Filtrare după număr de locuri:</label>
-              <select
-                id="seatsFilter"
-                value={seatsFilter}
-                onChange={handleSeatsChange}
-                className={styles.selectInput}
-              >
-                <option value="">Toate</option>
-                <option value="2">2 locuri</option>
-                <option value="4">4 locuri</option>
-                <option value="5">5 locuri</option>
-                <option value="7">7 locuri</option>
-                <option value="9">9 locuri</option>
-              </select>
-            </div>
             <div className={styles.transmissionFilter}>
               <label htmlFor="transmissionFilter">Filtrare după cutie de viteze:</label>
               <select
                 id="transmissionFilter"
                 value={transmissionFilter}
-                onChange={handleTransmissionChange}
+                onChange={handleTransmissionFilterChange}
                 className={styles.selectInput}
               >
                 <option value="">Toate</option>
@@ -159,6 +173,9 @@ const InchirieriAuto = () => {
             </div>
           </div>
           <div className={styles.cardContainer}>
+            {cars.length === 0 && searchClicked && (
+              <p>Nu s-au găsit mașini care să corespundă criteriilor.</p>
+            )}
             {cars.map((car) => (
               <CardMasina key={car.id} masina={car} />
             ))}

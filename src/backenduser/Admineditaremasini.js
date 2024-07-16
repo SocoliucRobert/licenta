@@ -163,47 +163,33 @@ const Admineditaremasini = () => {
                       </div>
                       <div className={styles.formGroup}>
                         <label>Tip transmisie</label>
-                        <select
+                        <input
+                          type="text"
                           value={car.transmission_type}
                           onChange={(e) =>
                             handleInputChange(car.id, 'transmission_type', e.target.value)
                           }
-                        >
-                          <option value="">Selectează...</option>
-                          <option value="manuala">Manuală</option>
-                          <option value="automata">Automată</option>
-                        </select>
+                        />
                       </div>
                       <div className={styles.formGroup}>
                         <label>Tip combustibil</label>
-                        <select
+                        <input
+                          type="text"
                           value={car.fuel_type}
                           onChange={(e) =>
                             handleInputChange(car.id, 'fuel_type', e.target.value)
                           }
-                        >
-                          <option value="">Selectează...</option>
-                          <option value="benzina">Benzină</option>
-                          <option value="motorina">Motorină</option>
-                          <option value="electric">Electric</option>
-                          <option value="hibrid">Hibrid</option>
-                        </select>
+                        />
                       </div>
                       <div className={styles.formGroup}>
                         <label>Număr de locuri</label>
-                        <select
+                        <input
+                          type="number"
                           value={car.number_of_seats}
                           onChange={(e) =>
                             handleInputChange(car.id, 'number_of_seats', e.target.value)
                           }
-                        >
-                          <option value="">Selectează...</option>
-                          <option value="2">2</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="7">7</option>
-                          <option value="9">9</option>
-                        </select>
+                        />
                       </div>
                       <div className={styles.formGroup}>
                         <label>Preț pe zi</label>

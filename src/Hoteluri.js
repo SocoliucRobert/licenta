@@ -8,27 +8,59 @@ import CardHotel from './carduri/Cardhotel';
 import supabase from './supabaseClient';
 
 const Hoteluri = () => {
+  const [address, setAddress] = useState('');
+  const [checkInDate, setCheckInDate] = useState('');
+  const [checkOutDate, setCheckOutDate] = useState('');
   const [starsFilter, setStarsFilter] = useState('');
   const [priceSortOrder, setPriceSortOrder] = useState(null); // Default: null means not sorted by price
   const [hotels, setHotels] = useState([]);
+  const [starRating, setStarRating] = useState('');
+  const [searchClicked, setSearchClicked] = useState(false);
 
   useEffect(() => {
-    fetchHotels();
-  }, [starsFilter, priceSortOrder]);
+    if (searchClicked) {
+      fetchHotels();
+    }
+  }, [searchClicked, address, checkInDate, checkOutDate, starRating, priceSortOrder]);
 
   const fetchHotels = async () => {
     try {
       let { data, error } = await supabase.from('hotels').select('*');
       if (error) throw error;
 
-      // Apply stars filter if selected
-      if (starsFilter) {
-        data = data.filter((hotel) => hotel.stars === parseInt(starsFilter));
-      }
+      // Filter hotels based on form input criteria when search button is clicked
+      let filteredHotels = data.filter((hotel) => {
+        // Check if hotel matches address
+        if (address && hotel.address.toLowerCase().indexOf(address.toLowerCase()) === -1) {
+          return false;
+        }
+
+        // Check if hotel is available for the given period
+        if (checkInDate && checkOutDate) {
+          const searchCheckIn = new Date(checkInDate);
+          const searchCheckOut = new Date(checkOutDate);
+          const hotelValidFrom = new Date(hotel.valid_from);
+          const hotelValidTo = new Date(hotel.valid_to);
+
+          if (
+            searchCheckIn > hotelValidTo ||
+            searchCheckOut < hotelValidFrom
+          ) {
+            return false;
+          }
+        }
+
+        // Filter by star rating
+        if (starRating && hotel.stars !== parseInt(starRating)) {
+          return false;
+        }
+
+        return true;
+      });
 
       // Apply sorting based on priceSortOrder if it's not null
       if (priceSortOrder !== null) {
-        data.sort((a, b) => {
+        filteredHotels.sort((a, b) => {
           if (priceSortOrder === 'asc') {
             return a.price_per_adult - b.price_per_adult;
           } else {
@@ -37,7 +69,7 @@ const Hoteluri = () => {
         });
       }
 
-      setHotels(data);
+      setHotels(filteredHotels);
     } catch (error) {
       console.error('Error fetching hotels:', error.message);
     }
@@ -51,6 +83,27 @@ const Hoteluri = () => {
     setPriceSortOrder(event.target.value);
   };
 
+  const handleAddressChange = (event) => {
+    setAddress(event.target.value);
+  };
+
+  const handleCheckInDateChange = (event) => {
+    setCheckInDate(event.target.value);
+  };
+
+  const handleCheckOutDateChange = (event) => {
+    setCheckOutDate(event.target.value);
+  };
+
+  const handleStarRatingChange = (event) => {
+    setStarRating(event.target.value);
+  };
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    setSearchClicked(true);
+  };
+
   return (
     <div className={styles.pageContainer}>
       <ChatGpt />
@@ -59,25 +112,50 @@ const Hoteluri = () => {
         <div className={styles.imageContainer}>
           <img src={imagineMare} alt="Big Image" className={styles.bigImage} />
           <div className={styles.formOverlay}>
-            <form className={styles.form}>
+            <form className={styles.form} onSubmit={handleSearch}>
               <div className={styles.formRow}>
                 <div className={styles.section}>
-                  <label htmlFor="city">Hotel</label>
-                  <input type="text" id="city" placeholder="Oras" />
+                  <label htmlFor="address">Adresă</label>
+                  <input
+                    type="text"
+                    id="address"
+                    placeholder="Adresă"
+                    value={address}
+                    onChange={handleAddressChange}
+                  />
                 </div>
                 <div className={styles.section}>
                   <label htmlFor="checkInDate">Perioada</label>
                   <div className={styles.dateInputs}>
-                    <input type="date" id="checkInDate" />
-                    <input type="date" id="checkOutDate" />
+                    <input
+                      type="date"
+                      id="checkInDate"
+                      value={checkInDate}
+                      onChange={handleCheckInDateChange}
+                    />
+                    <input
+                      type="date"
+                      id="checkOutDate"
+                      value={checkOutDate}
+                      onChange={handleCheckOutDateChange}
+                    />
                   </div>
                 </div>
                 <div className={styles.section}>
-                  <label htmlFor="adults">Număr persoane</label>
-                  <div className={styles.peopleInputs}>
-                    <input type="number" id="adults" placeholder="Număr persoane" min="1" />
-                    
-                  </div>
+                  <label htmlFor="starRating">Număr stele</label>
+                  <select
+                    id="starRating"
+                    value={starRating}
+                    onChange={handleStarRatingChange}
+                    className={styles.selectInput}
+                  >
+                    <option value="">Toate</option>
+                    <option value="1">1 stea</option>
+                    <option value="2">2 stele</option>
+                    <option value="3">3 stele</option>
+                    <option value="4">4 stele</option>
+                    <option value="5">5 stele</option>
+                  </select>
                 </div>
               </div>
               <div className={styles.buttonContainer}>
@@ -92,7 +170,7 @@ const Hoteluri = () => {
               <label htmlFor="priceSortOrder">Sortare preț:</label>
               <select
                 id="priceSortOrder"
-                value={priceSortOrder || ''} // Default is null, so set empty string if null to avoid controlled/uncontrolled warning
+                value={priceSortOrder || ''}
                 onChange={handlePriceSortChange}
                 className={styles.selectInput}
               >
@@ -119,6 +197,9 @@ const Hoteluri = () => {
             </div>
           </div>
           <div className={styles.cardContainer}>
+            {hotels.length === 0 && searchClicked && (
+              <p>No hotels found matching the criteria.</p>
+            )}
             {hotels.map((hotel) => (
               <CardHotel key={hotel.id} hotel={hotel} />
             ))}

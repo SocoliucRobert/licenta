@@ -8,23 +8,37 @@ import CardZbor from "./carduri/Cardzbor";
 import supabase from "./supabaseClient";
 
 const Zboruri = () => {
+  const [departureCity, setDepartureCity] = useState("");
+  const [arrivalCity, setArrivalCity] = useState("");
+  const [departureDate, setDepartureDate] = useState("");
   const [flights, setFlights] = useState([]);
   const [priceSortOrder, setPriceSortOrder] = useState(""); // State for sorting order
 
-  useEffect(() => {
-    fetchFlights();
-  }, [priceSortOrder]); // Trigger fetch on priceSortOrder change
-
   const fetchFlights = async () => {
     try {
-      let { data, error } = await supabase.from("flights").select("*");
+      let query = supabase.from("flights").select("*");
+
+      if (departureCity) {
+        query = query.ilike("departure_location", `%${departureCity}%`);
+      }
+
+      if (arrivalCity) {
+        query = query.ilike("arrival_location", `%${arrivalCity}%`);
+      }
+
+      if (departureDate) {
+        query = query.eq("departure_date", departureDate);
+      }
+
+      let { data, error } = await query;
+
       if (error) throw error;
 
       // Sorting based on priceSortOrder
       if (priceSortOrder === "asc") {
-        data.sort((a, b) => a.price - b.price);
+        data.sort((a, b) => a.price_per_person - b.price_per_person);
       } else if (priceSortOrder === "desc") {
-        data.sort((a, b) => b.price - a.price);
+        data.sort((a, b) => b.price_per_person - a.price_per_person);
       }
 
       setFlights(data);
@@ -37,22 +51,33 @@ const Zboruri = () => {
     setPriceSortOrder(event.target.value);
   };
 
+  const handleSearch = (event) => {
+    event.preventDefault();
+    fetchFlights();
+  };
+
   return (
     <div className={styles.pageContainer}>
       <ChatGpt />
       <Meniusus />
       <div className={styles.contentContainer}>
         <div className={styles.imageContainer}>
-          <img src={imagineMare} alt="Big Image" className={styles.bigImage} />
+          <img
+            src={imagineMare}
+            alt="Big Image"
+            className={styles.bigImage}
+          />
           <div className={styles.formOverlay}>
-            <form className={styles.form}>
+            <form className={styles.form} onSubmit={handleSearch}>
               <div className={styles.formRow}>
                 <div className={styles.section}>
-                  <label htmlFor="departureCity">Plecare</label>
+                  <label htmlFor="departureCity">Oras de plecare</label>
                   <input
                     type="text"
                     id="departureCity"
                     placeholder="Oras de plecare"
+                    value={departureCity}
+                    onChange={(e) => setDepartureCity(e.target.value)}
                   />
                 </div>
                 <div className={styles.section}>
@@ -60,24 +85,18 @@ const Zboruri = () => {
                   <input
                     type="text"
                     id="arrivalCity"
-                    placeholder="Oras de destinație"
+                    placeholder="Destinație"
+                    value={arrivalCity}
+                    onChange={(e) => setArrivalCity(e.target.value)}
                   />
                 </div>
                 <div className={styles.section}>
-                  <label htmlFor="departureDate">Data Plecării</label>
-                  <input type="date" id="departureDate" />
-                </div>
-                <div className={styles.section}>
-                  <label htmlFor="returnDate">Data Întoarcerii</label>
-                  <input type="date" id="returnDate" />
-                </div>
-                <div className={styles.section}>
-                  <label htmlFor="numarPersoane">Număr persoane</label>
+                  <label htmlFor="departureDate">Data plecarii</label>
                   <input
-                    type="number"
-                    id="numarPersoane"
-                    placeholder="Număr persoane"
-                    min="1"
+                    type="date"
+                    id="departureDate"
+                    value={departureDate}
+                    onChange={(e) => setDepartureDate(e.target.value)}
                   />
                 </div>
               </div>
@@ -104,6 +123,9 @@ const Zboruri = () => {
             </div>
           </div>
           <div className={styles.cardContainer}>
+            {flights.length === 0 && (
+              <p>Nu s-au gasit zboruri.</p>
+            )}
             {flights.map((flight) => (
               <CardZbor key={flight.id} flight={flight} />
             ))}

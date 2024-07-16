@@ -1,0 +1,111 @@
+.adminContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; 
+}
+
+.mainArea {
+  display: flex;
+  flex: 1; 
+  margin-top: 20px; 
+  margin-left: 50px;
+}
+
+.leftSidebar {
+  width: 300px; 
+  background-color: #6D93C0; 
+  padding: 30px;
+  border-right: 1px solid #ccc; 
+  color: white;
+}
+
+.menu {
+  margin-bottom: 20px;
+}
+
+.menuHeader {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 40px;
+  margin-top: 50px;
+}
+
+.menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu ul li {
+  margin-bottom: 10px;
+}
+
+.menu ul li a {
+  color: white; /* Text color for menu items */
+  text-decoration: none;
+  font-size: 30px;
+}
+
+.menu ul li a:hover {
+  background-color: white;
+  color: #6D93C0; /* Hover color */
+}
+
+.content {
+  flex: 1; /* Takes remaining space */
+  padding: 20px;
+}
+
+.hotelList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.hotelItem {
+  position: relative;
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.imageContainer {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageButtons {
+  position: absolute;
+  top: 0px;
+  
+  left: 10px;
+  display: flex;
+  gap: 10px;
+  z-index: 1;
+
+}
+
+.editButton, .deleteButton {
+  background-color: #6D93C0;
+  color: white;
+  border: none;
+  padding: 10px 10px;
+  cursor: pointer;
+}
+
+.editButton:hover, .deleteButton:hover {
+  background-color: #375A7F;
+}
+
+.hotelImage {
+  width: 200px;
+  height: auto;
+}
+
+.hotelDetails {
+  flex: 2;
+  padding-left: 20px;
+}

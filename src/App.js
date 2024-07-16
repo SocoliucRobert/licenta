@@ -18,6 +18,7 @@ import Admineditarehotel from './backendadmin/Admineditarehotel';
 import Admineditarezbor from './backendadmin/Admineditarezbor';
 import Admineditaremasini from './backendadmin/Admineditaremasini';
 import Admineditareoferte from './backendadmin/Admineditareoferte';
+
 import supabase from './supabaseClient';
 
 
@@ -32,7 +33,7 @@ function App() {
       
       <Routes>
         
-      <Route path="/" element={<Adminhoteluri/>} />
+      <Route path="/" element={<Admineditarehotel/>} />
         <Route path="/Acasa" element={<Acasa />} />
         <Route path="/Hoteluri" element={<Hoteluri />} />
         <Route path="/Zboruri" element={<Zboruri />} />
@@ -51,6 +52,7 @@ function App() {
         <Route path="/Admineditarezbor" element={<Admineditarezbor />} />
         <Route path="/Admineditaremasini" element={<Admineditaremasini />} />
         <Route path="/Admineditareoferte" element={<Admineditareoferte />} />
+        
 
       
         <Route path="/supabaseClient" element={<supabase />} />

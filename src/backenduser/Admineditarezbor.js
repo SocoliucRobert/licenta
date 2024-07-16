@@ -103,7 +103,7 @@ const Admineditarezbor = () => {
                     <>
                       <h3>{flight.departure_location} to {flight.arrival_location}</h3>
                       <p>Departure Date: {flight.departure_date}</p>
-          
+                      <p>Arrival Date: {flight.arrival_date}</p>
                       <p>Price per person: {flight.price_per_person}</p>
                       <p>Available seats: {flight.available_seats}</p>
                       {flight.airline_logo_url && (
@@ -125,7 +125,10 @@ const Admineditarezbor = () => {
                         <label>Data plecării</label>
                         <input type="date" value={flight.departure_date} onChange={(e) => handleInputChange(flight.id, 'departure_date', e.target.value)} />
                       </div>
-                     
+                      <div className={styles.formGroup}>
+                        <label>Data sosirii</label>
+                        <input type="date" value={flight.arrival_date} onChange={(e) => handleInputChange(flight.id, 'arrival_date', e.target.value)} />
+                      </div>
                       <div className={styles.formGroup}>
                         <label>Preț pe persoană</label>
                         <input type="number" value={flight.price_per_person} onChange={(e) => handleInputChange(flight.id, 'price_per_person', e.target.value)} />

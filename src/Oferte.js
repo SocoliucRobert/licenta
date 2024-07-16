@@ -9,25 +9,53 @@ import supabase from './supabaseClient';
 
 const Oferte = () => {
   const [offers, setOffers] = useState([]);
-  const [priceSortOrder, setPriceSortOrder] = useState(''); // State for sorting order
-
-  useEffect(() => {
-    fetchOffers();
-  }, [priceSortOrder]); // Trigger fetch on priceSortOrder change
+  const [priceSortOrder, setPriceSortOrder] = useState('');
+  const [destinatie, setDestinatie] = useState('');
+  const [startPeriod, setStartPeriod] = useState('');
+  const [endPeriod, setEndPeriod] = useState('');
+  const [numarPersoane, setNumarPersoane] = useState('');
+  const [searchClicked, setSearchClicked] = useState(false);
 
   const fetchOffers = async () => {
     try {
       let { data, error } = await supabase.from('oferta').select('*');
       if (error) throw error;
 
+      // Filtering based on form input criteria
+      let filteredOffers = data.filter((oferta) => {
+        // Check if destination matches
+        if (destinatie && oferta.destination.toLowerCase().indexOf(destinatie.toLowerCase()) === -1) {
+          return false;
+        }
+
+        // Check if start period and end period match exactly
+        if (startPeriod && endPeriod) {
+          const ofertaStart = new Date(oferta.start_period);
+          const ofertaEnd = new Date(oferta.end_period);
+          const searchStart = new Date(startPeriod);
+          const searchEnd = new Date(endPeriod);
+
+          if (!(searchStart.getTime() === ofertaStart.getTime() && searchEnd.getTime() === ofertaEnd.getTime())) {
+            return false;
+          }
+        }
+
+        // Check if number of persons matches
+        if (numarPersoane && oferta.number_of_persons !== parseInt(numarPersoane)) {
+          return false;
+        }
+
+        return true;
+      });
+
       // Sorting based on priceSortOrder
       if (priceSortOrder === 'asc') {
-        data.sort((a, b) => a.price - b.price);
+        filteredOffers.sort((a, b) => a.price - b.price);
       } else if (priceSortOrder === 'desc') {
-        data.sort((a, b) => b.price - a.price);
+        filteredOffers.sort((a, b) => b.price - a.price);
       }
 
-      setOffers(data);
+      setOffers(filteredOffers);
     } catch (error) {
       console.error('Error fetching offers:', error.message);
     }
@@ -35,6 +63,28 @@ const Oferte = () => {
 
   const handlePriceSortChange = (event) => {
     setPriceSortOrder(event.target.value);
+  };
+
+  const handleDestinatieChange = (event) => {
+    setDestinatie(event.target.value);
+  };
+
+  const handleStartPeriodChange = (event) => {
+    setStartPeriod(event.target.value);
+  };
+
+  const handleEndPeriodChange = (event) => {
+    setEndPeriod(event.target.value);
+  };
+
+  const handleNumarPersoaneChange = (event) => {
+    setNumarPersoane(event.target.value);
+  };
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    setSearchClicked(true);
+    fetchOffers(); // Call fetchOffers on search button click
   };
 
   return (
@@ -45,17 +95,33 @@ const Oferte = () => {
         <div className={styles.imageContainer}>
           <img src={imagineMare} alt="Big Image" className={styles.bigImage} />
           <div className={styles.formOverlay}>
-            <form className={styles.form}>
+            <form className={styles.form} onSubmit={handleSearch}>
               <div className={styles.formRow}>
                 <div className={styles.section}>
                   <label htmlFor="destination">Destinație</label>
-                  <input type="text" id="destination" placeholder="Destinație" />
+                  <input
+                    type="text"
+                    id="destination"
+                    placeholder="Destinație"
+                    value={destinatie}
+                    onChange={handleDestinatieChange}
+                  />
                 </div>
                 <div className={styles.section}>
                   <label htmlFor="checkInDate">Perioada</label>
                   <div className={styles.dateInputs}>
-                    <input type="date" id="checkInDate" />
-                    <input type="date" id="checkOutDate" />
+                    <input
+                      type="date"
+                      id="checkInDate"
+                      value={startPeriod}
+                      onChange={handleStartPeriodChange}
+                    />
+                    <input
+                      type="date"
+                      id="checkOutDate"
+                      value={endPeriod}
+                      onChange={handleEndPeriodChange}
+                    />
                   </div>
                 </div>
                 <div className={styles.section}>
@@ -65,6 +131,8 @@ const Oferte = () => {
                     id="numarPersoane"
                     placeholder="Număr persoane"
                     min="1"
+                    value={numarPersoane}
+                    onChange={handleNumarPersoaneChange}
                   />
                 </div>
               </div>
@@ -91,6 +159,9 @@ const Oferte = () => {
             </div>
           </div>
           <div className={styles.cardContainer}>
+            {searchClicked && offers.length === 0 && (
+              <p>Nu sunt oferte disponibile.</p>
+            )}
             {offers.map((oferta) => (
               <CardOferta key={oferta.id} oferta={oferta} />
             ))}

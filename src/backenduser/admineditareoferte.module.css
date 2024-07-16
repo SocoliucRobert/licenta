@@ -1,3 +1,5 @@
+/* admineditareoferte.module.css */
+
 .adminContainer {
   display: flex;
   flex-direction: column;
@@ -55,13 +57,13 @@
   padding: 20px;
 }
 
-.carList {
+.offerList {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
 }
 
-.carItem {
+.offerItem {
   position: relative;
   width: calc(100% - 20px); /* Adjusted width to accommodate margins */
   border: 1px solid #ccc;
@@ -70,8 +72,8 @@
   margin-bottom: 20px; /* Added margin-bottom for spacing */
 }
 
-.carDetails {
-  flex: 1; /* Take remaining space in car item */
+.offerDetails {
+  flex: 1; /* Take remaining space in offer item */
   padding-right: 20px; /* Added padding to create space between details and photo */
 }
 
@@ -84,20 +86,18 @@
 }
 
 .formGroup input,
-.formGroup select,
 .formGroup textarea {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-top: 4px;
-  font-size: 25px;
+  font-size: 16px;
 }
 
 .buttonContainer {
   margin-top: 10px;
-  display: flex;
-  align-items: center; /* Center items vertically */
+  display: flex; /* Align buttons horizontally */
 }
 
 .editButton,
@@ -123,13 +123,13 @@
   width: 100%;
   display: flex;
   justify-content: center; /* Center the image horizontally */
+  margin-top: 20px; /* Add margin for spacing */
 }
 
-.carPhoto {
+.offerPhoto {
   width: 100%; /* Ensure the photo takes full width of its container */
-  max-width: 200px; /* Limit the maximum width of the photo */
   height: auto; /* Maintain aspect ratio */
+  max-width: 300px; /* Limit the maximum width of the photo */
   object-fit: cover; /* Ensure the photo covers the entire container */
   border-radius: 4px; /* Optional: Rounded corners for the photo */
-  margin-top: 10px; /* Add margin to separate photo from buttons */
 }

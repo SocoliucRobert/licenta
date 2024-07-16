@@ -138,7 +138,7 @@ const Adminmasini = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Locatia</label>
+              <label>Locația</label>
               <input
                 type="text"
                 name="car_location"
@@ -159,31 +159,44 @@ const Adminmasini = () => {
             </div>
             <div className={styles.formGroup}>
               <label>Tipul cutiei de viteze</label>
-              <input
-                type="text"
+              <select
                 name="transmission_type"
                 value={car.transmission_type}
                 onChange={handleChange}
-              />
+              >
+                <option value="">Selectează...</option>
+                <option value="manuala">Manuală</option>
+                <option value="automata">Automată</option>
+              </select>
             </div>
             <div className={styles.formGroup}>
               <label>Tipul de combustibil</label>
-              <input
-                type="text"
+              <select
                 name="fuel_type"
                 value={car.fuel_type}
                 onChange={handleChange}
-              />
+              >
+                <option value="">Selectează...</option>
+                <option value="benzina">Benzină</option>
+                <option value="motorina">Motorină</option>
+                <option value="electric">Electric</option>
+                <option value="hibrid">Hibrid</option>
+              </select>
             </div>
             <div className={styles.formGroup}>
               <label>Numărul de locuri</label>
-              <input
-                type="number"
+              <select
                 name="number_of_seats"
                 value={car.number_of_seats}
                 onChange={handleChange}
-                required
-              />
+              >
+                <option value="">Selectează...</option>
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="7">7</option>
+                <option value="9">9</option>
+              </select>
             </div>
             <div className={styles.formGroup}>
               <label>Preț pe zi</label>

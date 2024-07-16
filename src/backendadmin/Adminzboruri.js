@@ -16,7 +16,6 @@ const Adminzboruri = () => {
   const [flight, setFlight] = useState({
     pricePerPerson: '',
     departureDate: '',
-    arrivalDate: '',
     departureDestination: '',
     arrivalDestination: '',
     airlineImage: null,
@@ -50,7 +49,6 @@ const Adminzboruri = () => {
       const flightData = {
         price_per_person: parseFloat(flight.pricePerPerson),
         departure_date: flight.departureDate,
-        arrival_date: flight.arrivalDate,
         departure_location: flight.departureDestination,
         arrival_location: flight.arrivalDestination,
         airline_logo_url: airlineImageBase64,
@@ -66,7 +64,6 @@ const Adminzboruri = () => {
       setFlight({
         pricePerPerson: '',
         departureDate: '',
-        arrivalDate: '',
         departureDestination: '',
         arrivalDestination: '',
         airlineImage: null,
@@ -111,10 +108,7 @@ const Adminzboruri = () => {
               <label>Data plecării</label>
               <input type="date" name="departureDate" value={flight.departureDate} onChange={handleChange} required />
             </div>
-            <div className={styles.formGroup}>
-              <label>Data sosirii</label>
-              <input type="date" name="arrivalDate" value={flight.arrivalDate} onChange={handleChange} required />
-            </div>
+        
             <div className={styles.formGroup}>
               <label>Destinație plecare</label>
               <input type="text" name="departureDestination" value={flight.departureDestination} onChange={handleChange} required />
