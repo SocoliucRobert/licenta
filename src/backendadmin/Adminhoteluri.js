@@ -20,7 +20,6 @@ const Adminhoteluri = () => {
     validFrom: '',
     validTo: '',
     pricePerAdult: '',
-    pricePerChild: '',
     images: [],
     imagePreviews: []
   });
@@ -63,7 +62,7 @@ const Adminhoteluri = () => {
       valid_from: hotel.validFrom,
       valid_to: hotel.validTo,
       price_per_adult: parseFloat(hotel.pricePerAdult),
-      price_per_child: parseFloat(hotel.pricePerChild),
+  
       image_urls: imageUrls
     };
 
@@ -80,7 +79,6 @@ const Adminhoteluri = () => {
         validFrom: '',
         validTo: '',
         pricePerAdult: '',
-        pricePerChild: '',
         images: [],
         imagePreviews: []
       });
@@ -142,10 +140,7 @@ const Adminhoteluri = () => {
               <label>Preț pe adult</label>
               <input type="number" name="pricePerAdult" value={hotel.pricePerAdult} onChange={handleChange} required />
             </div>
-            <div className={styles.formGroup}>
-              <label>Preț pe copil</label>
-              <input type="number" name="pricePerChild" value={hotel.pricePerChild} onChange={handleChange} required />
-            </div>
+        
             <div className={styles.formGroup}>
               <label>Imagini</label>
               <input type="file" name="image" onChange={handleChange} multiple />

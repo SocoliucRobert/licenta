@@ -150,7 +150,7 @@ const Admineditarehotel = () => {
                       <p>Valid from: {hotel.valid_from}</p>
                       <p>Valid to: {hotel.valid_to}</p>
                       <p>Price per adult: {hotel.price_per_adult}</p>
-                      <p>Price per child: {hotel.price_per_child}</p>
+          
                     </>
                   )}
                   {hotel.editing && (
@@ -183,10 +183,7 @@ const Admineditarehotel = () => {
                         <label>Preț pe adult</label>
                         <input type="number" value={hotel.price_per_adult} onChange={(e) => handleInputChange(hotel.id, 'price_per_adult', e.target.value)} />
                       </div>
-                      <div className={styles.formGroup}>
-                        <label>Preț pentru copil</label>
-                        <input type="number" value={hotel.price_per_child} onChange={(e) => handleInputChange(hotel.id, 'price_per_child', e.target.value)} />
-                      </div>
+                   
                     </>
                   )}
                 </div>

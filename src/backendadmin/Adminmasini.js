@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import Meniusus from '../Meniusus';
 import Meniujos from '../Meniujos';
-import styles from './adminhoteluri.module.css';
+import styles from './adminhoteluri.module.css'; // Update this path based on your CSS module file
 import supabase from '../supabaseClient'; // Adjust this path based on your Supabase client configuration
 import { Link } from 'react-router-dom';
 
 // Function to convert image file to base64 format
-const toBase64 = file => new Promise((resolve, reject) => {
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = () => resolve(reader.result);
-  reader.onerror = error => reject(error);
-});
+const toBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
 
 const Adminmasini = () => {
   const [car, setCar] = useState({
@@ -22,10 +23,8 @@ const Adminmasini = () => {
     fuel_type: '',
     number_of_seats: '',
     price_per_day: '',
-    pickup_date: '',
-    return_date: '',
     photo: null,
-    photoPreview: ''
+    photoPreview: '',
   });
 
   // Handles changes in form inputs
@@ -36,7 +35,7 @@ const Adminmasini = () => {
       setCar({
         ...car,
         photo: selectedPhoto,
-        photoPreview: URL.createObjectURL(selectedPhoto)
+        photoPreview: URL.createObjectURL(selectedPhoto),
       });
     } else {
       setCar({ ...car, [e.target.name]: e.target.value });
@@ -61,9 +60,7 @@ const Adminmasini = () => {
         fuel_type: car.fuel_type,
         number_of_seats: parseInt(car.number_of_seats, 10),
         price_per_day: parseFloat(car.price_per_day),
-        pickup_date: car.pickup_date,
-        return_date: car.return_date,
-        photo_url: photoBase64
+        photo_url: photoBase64,
       };
 
       const { data, error } = await supabase.from('masini').insert([carData]);
@@ -81,10 +78,8 @@ const Adminmasini = () => {
         fuel_type: '',
         number_of_seats: '',
         price_per_day: '',
-        pickup_date: '',
-        return_date: '',
         photo: null,
-        photoPreview: ''
+        photoPreview: '',
       });
     } catch (error) {
       console.error('Error:', error.message);
@@ -101,57 +96,104 @@ const Adminmasini = () => {
           <div className={styles.menu}>
             <div className={styles.menuHeader}>Panou Admin</div>
             <ul>
-            <li><Link to="/Adminhoteluri">ADAUGARE HOTEL</Link></li>
-                <li><Link to="/Adminzboruri">ADAUGARE ZBOR</Link></li>
-                <li><Link to="/Adminmasini">ADAUGARE MASINA</Link></li>
-                <li><Link to="/Adminoferte">ADAUGARE OFERTA</Link></li>
-                <li><Link to="/Admineditarehotel">EDITARE HOTEL</Link></li>
-                <li><Link to="/Admineditarezbor">EDITARE ZBOR</Link></li>
-                <li><Link to="/Admineditaremasini">EDITARE MASINA</Link></li>
-                <li><Link to="/Admineditareoferte">EDITARE OFERTA</Link></li>
+              <li>
+                <Link to="/Adminhoteluri">ADAUGARE HOTEL</Link>
+              </li>
+              <li>
+                <Link to="/Adminzboruri">ADAUGARE ZBOR</Link>
+              </li>
+              <li>
+                <Link to="/Adminmasini">ADAUGARE MASINA</Link>
+              </li>
+              <li>
+                <Link to="/Adminoferte">ADAUGARE OFERTA</Link>
+              </li>
+              <li>
+                <Link to="/Admineditarehotel">EDITARE HOTEL</Link>
+              </li>
+              <li>
+                <Link to="/Admineditarezbor">EDITARE ZBOR</Link>
+              </li>
+              <li>
+                <Link to="/Admineditaremasini">EDITARE MASINA</Link>
+              </li>
+              <li>
+                <Link to="/Admineditareoferte">EDITARE OFERTA</Link>
+              </li>
             </ul>
           </div>
         </div>
-
 
         <div className={styles.content}>
           <h2>Adăugare mașină</h2>
           <form onSubmit={handleSubmit}>
             <div className={styles.formGroup}>
               <label>Marcă</label>
-              <input type="text" name="car_name" value={car.car_name} onChange={handleChange} required />
+              <input
+                type="text"
+                name="car_name"
+                value={car.car_name}
+                onChange={handleChange}
+                required
+              />
             </div>
             <div className={styles.formGroup}>
               <label>Locatia</label>
-              <input type="text" name="car_location" value={car.car_location} onChange={handleChange} required />
+              <input
+                type="text"
+                name="car_location"
+                value={car.car_location}
+                onChange={handleChange}
+                required
+              />
             </div>
             <div className={styles.formGroup}>
               <label>Kilometraj</label>
-              <input type="number" name="mileage" value={car.mileage} onChange={handleChange} required />
+              <input
+                type="number"
+                name="mileage"
+                value={car.mileage}
+                onChange={handleChange}
+                required
+              />
             </div>
             <div className={styles.formGroup}>
               <label>Tipul cutiei de viteze</label>
-              <input type="text" name="transmission_type" value={car.transmission_type} onChange={handleChange} />
+              <input
+                type="text"
+                name="transmission_type"
+                value={car.transmission_type}
+                onChange={handleChange}
+              />
             </div>
             <div className={styles.formGroup}>
               <label>Tipul de combustibil</label>
-              <input type="text" name="fuel_type" value={car.fuel_type} onChange={handleChange} />
+              <input
+                type="text"
+                name="fuel_type"
+                value={car.fuel_type}
+                onChange={handleChange}
+              />
             </div>
             <div className={styles.formGroup}>
               <label>Numărul de locuri</label>
-              <input type="number" name="number_of_seats" value={car.number_of_seats} onChange={handleChange} required />
+              <input
+                type="number"
+                name="number_of_seats"
+                value={car.number_of_seats}
+                onChange={handleChange}
+                required
+              />
             </div>
             <div className={styles.formGroup}>
               <label>Preț pe zi</label>
-              <input type="number" name="price_per_day" value={car.price_per_day} onChange={handleChange} required />
-            </div>
-            <div className={styles.formGroup}>
-              <label>Data de incepere a închirierii</label>
-              <input type="date" name="pickup_date" value={car.pickup_date} onChange={handleChange} required />
-            </div>
-            <div className={styles.formGroup}>
-              <label>Data de returnare</label>
-              <input type="date" name="return_date" value={car.return_date} onChange={handleChange} required />
+              <input
+                type="number"
+                name="price_per_day"
+                value={car.price_per_day}
+                onChange={handleChange}
+                required
+              />
             </div>
             <div className={styles.formGroup}>
               <label>Poza pentru mașină</label>
@@ -160,7 +202,11 @@ const Adminmasini = () => {
                 <img
                   src={car.photoPreview}
                   alt="Preview"
-                  style={{ maxWidth: '300px', height: 'auto', marginTop: '10px' }}
+                  style={{
+                    maxWidth: '300px',
+                    height: 'auto',
+                    marginTop: '10px',
+                  }}
                 />
               )}
             </div>
