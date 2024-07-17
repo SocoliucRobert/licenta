@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Meniusus from '../Meniusus';
 import Meniujos from '../Meniujos';
-import styles from './admineditareoferte.module.css';
+import styles from './useroferte.module.css';
 import supabase from '../supabaseClient';
 
-const Admineditareoferte = () => {
+const Useroferte = () => {
   const [offers, setOffers] = useState([]);
 
   useEffect(() => {
@@ -81,14 +81,10 @@ const Admineditareoferte = () => {
           <div className={styles.menu}>
             <div className={styles.menuHeader}>Panou Admin</div>
             <ul>
-              <li><Link to="/Adminhoteluri">ADAUGARE HOTEL</Link></li>
-              <li><Link to="/Adminzboruri">ADAUGARE ZBOR</Link></li>
-              <li><Link to="/Adminmasini">ADAUGARE MASINA</Link></li>
-              <li><Link to="/Adminoferte">ADAUGARE OFERTA</Link></li>
-              <li><Link to="/Admineditarehotel">EDITARE HOTEL</Link></li>
-              <li><Link to="/Admineditarezbor">EDITARE ZBOR</Link></li>
-              <li><Link to="/Admineditaremasini">EDITARE MASINA</Link></li>
-              <li><Link to="/Admineditareoferte">EDITARE OFERTA</Link></li>
+              <li><Link to="/Userhotel">USER HOTELURI</Link></li>
+              <li><Link to="/Userzbor">USER ZBORURI</Link></li>
+              <li><Link to="/Usermasina">USER MASINI</Link></li>
+              <li><Link to="/Useroferte">USER OFERTE</Link></li>
             </ul>
           </div>
         </div>
@@ -161,4 +157,4 @@ const Admineditareoferte = () => {
   );
 };
 
-export default Admineditareoferte;
+export default Useroferte;

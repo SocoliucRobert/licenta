@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Meniusus from '../Meniusus';
 import Meniujos from '../Meniujos';
-import styles from './admineditarezbor.module.css'; // Assuming you have a separate CSS module for this component
+import styles from './userzbor.module.css'; // Assuming you have a separate CSS module for this component
 import supabase from '../supabaseClient';
 import { Link } from 'react-router-dom';
 
-const Admineditarezbor = () => {
+const Userzbor = () => {
   const [flights, setFlights] = useState([]);
 
   useEffect(() => {
@@ -81,14 +81,10 @@ const Admineditarezbor = () => {
           <div className={styles.menu}>
             <div className={styles.menuHeader}>Panou Admin</div>
             <ul>
-            <li><Link to="/Adminhoteluri">ADAUGARE HOTEL</Link></li>
-                <li><Link to="/Adminzboruri">ADAUGARE ZBOR</Link></li>
-                <li><Link to="/Adminmasini">ADAUGARE MASINA</Link></li>
-                <li><Link to="/Adminoferte">ADAUGARE OFERTA</Link></li>
-                <li><Link to="/Admineditarehotel">EDITARE HOTEL</Link></li>
-                <li><Link to="/Admineditarezbor">EDITARE ZBOR</Link></li>
-                <li><Link to="/Admineditaremasini">EDITARE MASINA</Link></li>
-                <li><Link to="/Admineditareoferte">EDITARE OFERTA</Link></li>
+              <li><Link to="/Userhotel">USER HOTELURI</Link></li>
+              <li><Link to="/Userzbor">USER ZBORURI</Link></li>
+              <li><Link to="/Usermasina">USER MASINI</Link></li>
+              <li><Link to="/Useroferte">USER OFERTE</Link></li>
             </ul>
           </div>
         </div>
@@ -162,4 +158,4 @@ const Admineditarezbor = () => {
   );
 };
 
-export default Admineditarezbor;
+export default Userzbor;

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Meniusus from '../Meniusus';
 import Meniujos from '../Meniujos';
-import styles from './admineditarehotel.module.css';
+import styles from './userhotel.module.css';
 import supabase from '../supabaseClient';
 import { Link } from 'react-router-dom';
 
-const Admineditarehotel = () => {
+const Userhotel = () => {
   const [hotels, setHotels] = useState([]);
   const [currentImageIndexes, setCurrentImageIndexes] = useState({});
 
@@ -85,6 +85,12 @@ const Admineditarehotel = () => {
   };
 
   const handleInputChange = (hotelId, field, value) => {
+    // Validate input for stars field to accept only 1, 2, 3, 4, or 5
+    if (field === 'stars' && !['1', '2', '3', '4', '5'].includes(value)) {
+      alert('Stars should be between 1 and 5.');
+      return;
+    }
+
     setHotels(prevHotels =>
       prevHotels.map(hotel =>
         hotel.id === hotelId ? { ...hotel, [field]: value } : hotel
@@ -101,14 +107,10 @@ const Admineditarehotel = () => {
           <div className={styles.menu}>
             <div className={styles.menuHeader}>Panou Admin</div>
             <ul>
-            <li><Link to="/Adminhoteluri">ADAUGARE HOTEL</Link></li>
-                <li><Link to="/Adminzboruri">ADAUGARE ZBOR</Link></li>
-                <li><Link to="/Adminmasini">ADAUGARE MASINA</Link></li>
-                <li><Link to="/Adminoferte">ADAUGARE OFERTA</Link></li>
-                <li><Link to="/Admineditarehotel">EDITARE HOTEL</Link></li>
-                <li><Link to="/Admineditarezbor">EDITARE ZBOR</Link></li>
-                <li><Link to="/Admineditaremasini">EDITARE MASINA</Link></li>
-                <li><Link to="/Admineditareoferte">EDITARE OFERTA</Link></li>
+              <li><Link to="/Userhotel">USER HOTELURI</Link></li>
+              <li><Link to="/Userzbor">USER ZBORURI</Link></li>
+              <li><Link to="/Usermasina">USER MASINI</Link></li>
+              <li><Link to="/Useroferte">USER OFERTE</Link></li>
             </ul>
           </div>
         </div>
@@ -150,7 +152,6 @@ const Admineditarehotel = () => {
                       <p>Valid from: {hotel.valid_from}</p>
                       <p>Valid to: {hotel.valid_to}</p>
                       <p>Price per adult: {hotel.price_per_adult}</p>
-          
                     </>
                   )}
                   {hotel.editing && (
@@ -183,7 +184,6 @@ const Admineditarehotel = () => {
                         <label>Preț pe adult</label>
                         <input type="number" value={hotel.price_per_adult} onChange={(e) => handleInputChange(hotel.id, 'price_per_adult', e.target.value)} />
                       </div>
-                   
                     </>
                   )}
                 </div>
@@ -198,4 +198,4 @@ const Admineditarehotel = () => {
   );
 };
 
-export default Admineditarehotel;
+export default Userhotel;

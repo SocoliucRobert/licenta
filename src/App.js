@@ -11,13 +11,17 @@ import Inregistrare from './Inregistrare';
 import ResetareParola from './ResetareParola';
 import Updateparola from './Updateparola';
 import Adminhoteluri from './backendadmin/Adminhoteluri';
-import AdminZboruri from './backendadmin/Adminzboruri';
+import Adminzboruri from './backendadmin/Adminzboruri';
 import Adminmasini from './backendadmin/Adminmasini';
 import Adminoferte from './backendadmin/Adminoferte';
 import Admineditarehotel from './backendadmin/Admineditarehotel';
 import Admineditarezbor from './backendadmin/Admineditarezbor';
 import Admineditaremasini from './backendadmin/Admineditaremasini';
 import Admineditareoferte from './backendadmin/Admineditareoferte';
+import Usermasina from './backenduser/Usermasina';
+import Userhotel from './backenduser/Userhotel';
+import Userzbor from './backenduser/Userzbor';
+import Useroferte from './backenduser/Useroferte';
 
 import supabase from './supabaseClient';
 
@@ -33,7 +37,7 @@ function App() {
       
       <Routes>
         
-      <Route path="/" element={<Admineditarehotel/>} />
+      <Route path="/" element={<Usermasina/>} />
         <Route path="/Acasa" element={<Acasa />} />
         <Route path="/Hoteluri" element={<Hoteluri />} />
         <Route path="/Zboruri" element={<Zboruri />} />
@@ -47,11 +51,15 @@ function App() {
         <Route path="/Adminhoteluri" element={<Adminhoteluri />} />
         <Route path="/Adminmasini" element={<Adminmasini />} />
         <Route path="/Adminoferte" element={<Adminoferte />} />
-        <Route path="/Adminzboruri" element={<AdminZboruri />} />
+        <Route path="/Adminzboruri" element={<Adminzboruri />} />
         <Route path="/Admineditarehotel" element={<Admineditarehotel />} />
         <Route path="/Admineditarezbor" element={<Admineditarezbor />} />
         <Route path="/Admineditaremasini" element={<Admineditaremasini />} />
         <Route path="/Admineditareoferte" element={<Admineditareoferte />} />
+        <Route path="/Useroferte" element={<Useroferte />} />
+        <Route path="/Usermasina" element={<Usermasina />} />
+        <Route path="/Userzbor" element={<Userzbor/>} />
+        <Route path="/Userhotel" element={<Userhotel/>} />
         
 
       
