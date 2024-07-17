@@ -1,0 +1,175 @@
+.adminContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.mainArea {
+  display: flex;
+  flex: 1;
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+.leftSidebar {
+  width: 300px;
+  background-color: #6D93C0;
+  padding: 30px;
+  border-right: 1px solid #ccc;
+  color: white;
+}
+
+.menu {
+  margin-bottom: 20px;
+}
+
+.menuHeader {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 40px;
+  margin-top: 50px;
+}
+
+.menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu ul li {
+  margin-bottom: 10px;
+}
+
+.menu ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 30px;
+}
+
+.menu ul li a:hover {
+  background-color: white;
+  color: #6D93C0;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.contactList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.contactItem {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contactDetails {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.inputField,
+.textareaField {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.textareaField {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.editButton {
+  background-color: #6D93C0;
+  color: white;
+  border: none;
+}
+
+.saveButton {
+  background-color: #28a745;
+  color: white;
+  border: none;
+}
+
+.deleteButton {
+  background-color: red;
+  color: white;
+  border: none;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.imageContainer {
+  position: relative;
+  overflow: hidden;
+  width: 200px;
+  height: 150px;
+}
+
+.carPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .mainArea {
+    margin-left: 0;
+  }
+
+  .leftSidebar {
+    width: 100%;
+    border-right: none;
+    padding: 20px;
+    background-color: #6D93C0;
+  }
+
+  .menuHeader {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 32px;
+  }
+
+  .menu ul li a {
+    font-size: 24px;
+  }
+
+  .content {
+    padding: 20px;
+  }
+}

@@ -145,7 +145,8 @@ const Adminoferte = () => {
                 <li><Link to="/Admineditarehotel">EDITARE HOTEL</Link></li>
                 <li><Link to="/Admineditarezbor">EDITARE ZBOR</Link></li>
                 <li><Link to="/Admineditaremasini">EDITARE MAȘINĂ</Link></li>
-                <li><Link to="/Admineditareoferte">EDITARE OFERTă</Link></li>
+                <li><Link to="/Admineditareoferte">EDITARE OFERTĂ</Link></li>
+                <li><Link to="/Admineditarecontact">VIZUALIZARE CONTACT</Link></li>
             </ul>
           </div>
         </div>

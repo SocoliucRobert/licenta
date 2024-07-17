@@ -18,6 +18,7 @@ import Admineditarehotel from './backendadmin/Admineditarehotel';
 import Admineditarezbor from './backendadmin/Admineditarezbor';
 import Admineditaremasini from './backendadmin/Admineditaremasini';
 import Admineditareoferte from './backendadmin/Admineditareoferte';
+import Admineditarecontact from './backendadmin/Admineditarecontact';
 import Usermasina from './backenduser/Usermasina';
 import Userhotel from './backenduser/Userhotel';
 import Userzbor from './backenduser/Userzbor';
@@ -26,6 +27,7 @@ import HotelDetails from './detalii/HotelDetails';
 import FlightDetails from './detalii/FlightDetails';
 import DetaliiOferta from './detalii/DetaliiOferta';
 import supabase from './supabaseClient';
+
 
 
 const supabaseUrl = "https://knqwydabuhbuhyalanms.supabase.co";
@@ -58,6 +60,7 @@ function App() {
         <Route path="/Admineditarezbor" element={<Admineditarezbor />} />
         <Route path="/Admineditaremasini" element={<Admineditaremasini />} />
         <Route path="/Admineditareoferte" element={<Admineditareoferte />} />
+        <Route path="/Admineditarecontact" element={<Admineditarecontact />} />
         <Route path="/Useroferte" element={<Useroferte />} />
         <Route path="/Usermasina" element={<Usermasina />} />
         <Route path="/Userzbor" element={<Userzbor/>} />

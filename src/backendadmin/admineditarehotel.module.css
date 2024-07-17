@@ -108,3 +108,7 @@
   flex: 2;
   padding-left: 20px;
 }
+.deleteButton {
+  background-color: red;
+
+}

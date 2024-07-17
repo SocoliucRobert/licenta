@@ -133,3 +133,7 @@
   border-radius: 4px; 
   margin-top: 10px; 
 }
+.deleteButton {
+  background-color: red;
+
+}
