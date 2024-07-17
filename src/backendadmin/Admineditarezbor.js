@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, Redirect, useNavigate } from 'react-router-dom';
 import Meniusus from '../Meniusus';
 import Meniujos from '../Meniujos';
-import styles from './admineditarezbor.module.css'; // Assuming you have a separate CSS module for this component
+import styles from './admineditarezbor.module.css'; 
 import supabase from '../supabaseClient';
 
 const Admineditarezbor = () => {
@@ -12,7 +12,7 @@ const Admineditarezbor = () => {
 
   useEffect(() => {
     checkAuthentication();
-    fetchFlights(); // Fetch flight data when component mounts
+    fetchFlights(); 
   }, []);
 
   const checkAuthentication = async () => {
@@ -64,7 +64,7 @@ const Admineditarezbor = () => {
     try {
       const { data, error } = await supabase.from('flights').update(updatedFlight).eq('id', flight.id);
       if (error) throw error;
-      alert('Flight updated successfully!');
+      alert('Zbor actualizat cu succes !');
       setFlights(prevFlights =>
         prevFlights.map(f =>
           f.id === flightId ? { ...f, editing: false } : f
@@ -72,20 +72,20 @@ const Admineditarezbor = () => {
       );
     } catch (error) {
       console.error('Error updating flight:', error.message);
-      alert('Failed to update flight. Please try again.');
+      alert('Eroare la actualizarea zborului !');
     }
   };
 
   const handleDeleteFlight = async (flight) => {
-    if (window.confirm(`Are you sure you want to delete flight "${flight.departure_location} to ${flight.arrival_location}"?`)) {
+    if (window.confirm(`Sigur vrei să ștergi zborul de la "${flight.departure_location} la ${flight.arrival_location}"?`)) {
       try {
         const { error } = await supabase.from('flights').delete().eq('id', flight.id);
         if (error) throw error;
-        alert('Flight deleted successfully!');
+        alert('Zbor șters cu succes !');
         setFlights(prevFlights => prevFlights.filter(f => f.id !== flight.id)); // Remove deleted flight from state
       } catch (error) {
         console.error('Error deleting flight:', error.message);
-        alert('Failed to delete flight. Please try again.');
+        alert('Eroare la ștergerea zborului');
       }
     }
   };
@@ -112,14 +112,14 @@ const Admineditarezbor = () => {
           <div className={styles.menu}>
             <div className={styles.menuHeader}>Panou Admin</div>
             <ul>
-            <li><Link to="/Adminhoteluri">ADAUGARE HOTEL</Link></li>
-                <li><Link to="/Adminzboruri">ADAUGARE ZBOR</Link></li>
-                <li><Link to="/Adminmasini">ADAUGARE MASINA</Link></li>
-                <li><Link to="/Adminoferte">ADAUGARE OFERTA</Link></li>
+            <li><Link to="/Adminhoteluri">ADĂUGARE HOTEL</Link></li>
+                <li><Link to="/Adminzboruri">ADĂUGARE ZBOR</Link></li>
+                <li><Link to="/Adminmasini">ADĂUGARE MAȘINĂ</Link></li>
+                <li><Link to="/Adminoferte">ADĂUGARE OFERTĂ</Link></li>
                 <li><Link to="/Admineditarehotel">EDITARE HOTEL</Link></li>
                 <li><Link to="/Admineditarezbor">EDITARE ZBOR</Link></li>
-                <li><Link to="/Admineditaremasini">EDITARE MASINA</Link></li>
-                <li><Link to="/Admineditareoferte">EDITARE OFERTA</Link></li>
+                <li><Link to="/Admineditaremasini">EDITARE MAȘINĂ</Link></li>
+                <li><Link to="/Admineditareoferte">EDITARE OFERTă</Link></li>
             </ul>
           </div>
         </div>
@@ -133,10 +133,10 @@ const Admineditarezbor = () => {
                   {!flight.editing && (
                     <>
                       <h3>{flight.departure_location} to {flight.arrival_location}</h3>
-                      <p>Departure Date: {flight.departure_date}</p>
+                      <p>Dată plecării: {flight.departure_date}</p>
           
-                      <p>Price per person: {flight.price_per_person}</p>
-                      <p>Available seats: {flight.available_seats}</p>
+                      <p>Preț pe persoană: {flight.price_per_person}</p>
+                      <p>Locuri disponibile: {flight.available_seats}</p>
                       {flight.airline_logo_url && (
                         <img src={flight.airline_logo_url} alt="Airline Logo" className={styles.airlineLogo} />
                       )}

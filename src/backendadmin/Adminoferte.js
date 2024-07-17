@@ -122,12 +122,12 @@ const Adminoferte = () => {
       });
     } catch (error) {
       console.error('Error:', error.message);
-      alert('Failed to add offer. Please try again.');
+      alert('Eroare la adăugarea ofertei');
     }
   };
 
   if (!authenticated) {
-    return null; // Or a loading indicator while checking authentication
+    return null; 
   }
   return (
     <div className={styles.adminContainer}>
@@ -138,30 +138,14 @@ const Adminoferte = () => {
           <div className={styles.menu}>
             <div className={styles.menuHeader}>Panou Admin</div>
             <ul>
-              <li>
-                <Link to="/Adminhoteluri">ADAUGARE HOTEL</Link>
-              </li>
-              <li>
-                <Link to="/Adminzboruri">ADAUGARE ZBOR</Link>
-              </li>
-              <li>
-                <Link to="/Adminmasini">ADAUGARE MASINA</Link>
-              </li>
-              <li>
-                <Link to="/Adminoferte">ADAUGARE OFERTA</Link>
-              </li>
-              <li>
-                <Link to="/Admineditarehotel">EDITARE HOTEL</Link>
-              </li>
-              <li>
-                <Link to="/Admineditarezbor">EDITARE ZBOR</Link>
-              </li>
-              <li>
-                <Link to="/Admineditaremasini">EDITARE MASINA</Link>
-              </li>
-              <li>
-                <Link to="/Admineditareoferte">EDITARE OFERTA</Link>
-              </li>
+            <li><Link to="/Adminhoteluri">ADĂUGARE HOTEL</Link></li>
+                <li><Link to="/Adminzboruri">ADĂUGARE ZBOR</Link></li>
+                <li><Link to="/Adminmasini">ADĂUGARE MAȘINĂ</Link></li>
+                <li><Link to="/Adminoferte">ADĂUGARE OFERTĂ</Link></li>
+                <li><Link to="/Admineditarehotel">EDITARE HOTEL</Link></li>
+                <li><Link to="/Admineditarezbor">EDITARE ZBOR</Link></li>
+                <li><Link to="/Admineditaremasini">EDITARE MAȘINĂ</Link></li>
+                <li><Link to="/Admineditareoferte">EDITARE OFERTă</Link></li>
             </ul>
           </div>
         </div>

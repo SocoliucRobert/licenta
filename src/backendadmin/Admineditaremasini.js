@@ -2,17 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Link, Redirect, useNavigate } from 'react-router-dom';
 import Meniusus from '../Meniusus';
 import Meniujos from '../Meniujos';
-import styles from './admineditaremasini.module.css'; // Update this path based on your CSS module file
-import supabase from '../supabaseClient'; // Adjust this path based on your Supabase client configuration
-
+import styles from './admineditaremasini.module.css'; 
+import supabase from '../supabaseClient'; 
 const Admineditaremasini = () => {
   const [cars, setCars] = useState([]);
-  const [authenticated, setAuthenticated] = useState(false); // State to track authentication
+  const [authenticated, setAuthenticated] = useState(false); 
   const navigate = useNavigate();
 
   useEffect(() => {
-    checkAuthentication(); // Check authentication status when component mounts
-    fetchCars(); // Fetch cars data when component mounts
+    checkAuthentication(); 
+    fetchCars(); 
   }, []);
 
   const checkAuthentication = async () => {
@@ -25,16 +24,16 @@ const Admineditaremasini = () => {
           setAuthenticated(true);
         } else {
           setAuthenticated(false);
-          navigate('/Login'); // Redirect to login if user is not authorized
+          navigate('/Login'); 
         }
       } catch (error) {
         console.error('Error parsing session JSON:', error);
         setAuthenticated(false);
-        navigate('/Login'); // Redirect to login if error parsing session
+        navigate('/Login'); 
       }
     } else {
       setAuthenticated(false);
-      navigate('/Login'); // Redirect to login if no session found
+      navigate('/Login'); 
     }
   };
 
@@ -42,7 +41,7 @@ const Admineditaremasini = () => {
     try {
       const { data, error } = await supabase.from('masini').select('*');
       if (error) throw error;
-      setCars(data.map((car) => ({ ...car, editing: false }))); // Add editing state to each car
+      setCars(data.map((car) => ({ ...car, editing: false }))); 
     } catch (error) {
       console.error('Error fetching cars:', error.message);
     }
@@ -67,28 +66,28 @@ const Admineditaremasini = () => {
         .update(updatedCar)
         .eq('id', car.id);
       if (error) throw error;
-      alert('Car updated successfully!');
+      alert('Mașină actualizată cu succes !');
       setCars((prevCars) =>
         prevCars.map((c) => (c.id === carId ? { ...c, editing: false } : c))
       );
     } catch (error) {
       console.error('Error updating car:', error.message);
-      alert('Failed to update car. Please try again.');
+      alert('Eroare la actualizarea mașinii !');
     }
   };
 
   const handleDeleteCar = async (car) => {
     if (
-      window.confirm(`Are you sure you want to delete car "${car.car_name}"?`)
+      window.confirm(`Ești sigur ca vrei să stergi mașina "${car.car_name}"?`)
     ) {
       try {
         const { error } = await supabase.from('masini').delete().eq('id', car.id);
         if (error) throw error;
-        alert('Car deleted successfully!');
-        setCars((prevCars) => prevCars.filter((c) => c.id !== car.id)); // Remove deleted car from state
+        alert('CMașina stearsă cu succes !');
+        setCars((prevCars) => prevCars.filter((c) => c.id !== car.id)); 
       } catch (error) {
         console.error('Error deleting car:', error.message);
-        alert('Failed to delete car. Please try again.');
+        alert('Eroare la ștergerea mașinii !');
       }
     }
   };
@@ -114,30 +113,14 @@ const Admineditaremasini = () => {
           <div className={styles.menu}>
             <div className={styles.menuHeader}>Panou Admin</div>
             <ul>
-              <li>
-                <Link to="/Adminhoteluri">ADAUGARE HOTEL</Link>
-              </li>
-              <li>
-                <Link to="/Adminzboruri">ADAUGARE ZBOR</Link>
-              </li>
-              <li>
-                <Link to="/Adminmasini">ADAUGARE MASINA</Link>
-              </li>
-              <li>
-                <Link to="/Adminoferte">ADAUGARE OFERTA</Link>
-              </li>
-              <li>
-                <Link to="/Admineditarehotel">EDITARE HOTEL</Link>
-              </li>
-              <li>
-                <Link to="/Admineditarezbor">EDITARE ZBOR</Link>
-              </li>
-              <li>
-                <Link to="/Admineditaremasini">EDITARE MASINA</Link>
-              </li>
-              <li>
-                <Link to="/Admineditareoferte">EDITARE OFERTA</Link>
-              </li>
+            <li><Link to="/Adminhoteluri">ADĂUGARE HOTEL</Link></li>
+                <li><Link to="/Adminzboruri">ADĂUGARE ZBOR</Link></li>
+                <li><Link to="/Adminmasini">ADĂUGARE MAȘINĂ</Link></li>
+                <li><Link to="/Adminoferte">ADĂUGARE OFERTĂ</Link></li>
+                <li><Link to="/Admineditarehotel">EDITARE HOTEL</Link></li>
+                <li><Link to="/Admineditarezbor">EDITARE ZBOR</Link></li>
+                <li><Link to="/Admineditaremasini">EDITARE MAȘINĂ</Link></li>
+                <li><Link to="/Admineditareoferte">EDITARE OFERTă</Link></li>
             </ul>
           </div>
         </div>

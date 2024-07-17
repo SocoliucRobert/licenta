@@ -9,12 +9,12 @@ const Admineditarehotel = () => {
   const [hotels, setHotels] = useState([]);
   const [currentImageIndexes, setCurrentImageIndexes] = useState({});
   const [userEmail, setUserEmail] = useState('');
-  const [authenticated, setAuthenticated] = useState(false); // State to track authentication
+  const [authenticated, setAuthenticated] = useState(false); 
   const navigate = useNavigate();
 
   useEffect(() => {
-    checkAuthentication(); // Check authentication status when component mounts
-    fetchHotels(); // Fetch hotels data when component mounts
+    checkAuthentication(); 
+    fetchHotels(); 
   }, []);
 
   const checkAuthentication = () => {
@@ -28,16 +28,16 @@ const Admineditarehotel = () => {
           setAuthenticated(true);
         } else {
           setAuthenticated(false);
-          navigate('/Login'); // Redirect to login if user is not authorized
+          navigate('/Login'); 
         }
       } catch (error) {
         console.error('Error parsing session JSON:', error);
         setAuthenticated(false);
-        navigate('/Login'); // Redirect to login if error parsing session
+        navigate('/Login'); 
       }
     } else {
       setAuthenticated(false);
-      navigate('/Login'); // Redirect to login if no session found
+      navigate('/Login'); 
     }
   };
 
@@ -45,10 +45,10 @@ const Admineditarehotel = () => {
     try {
       const { data, error } = await supabase.from('hotels').select('*');
       if (error) throw error;
-      setHotels(data.map(hotel => ({ ...hotel, editing: false }))); // Add editing state to each hotel
+      setHotels(data.map(hotel => ({ ...hotel, editing: false }))); 
       const indexes = {};
       data.forEach(hotel => {
-        indexes[hotel.id] = 0; // Initialize current image index for each hotel
+        indexes[hotel.id] = 0; 
       });
       setCurrentImageIndexes(indexes);
     } catch (error) {
@@ -86,7 +86,7 @@ const Admineditarehotel = () => {
     try {
       const { data, error } = await supabase.from('hotels').update(updatedHotel).eq('id', hotel.id);
       if (error) throw error;
-      alert('Hotel updated successfully!');
+      alert('Hotel actualizat cu succes!');
       setHotels(prevHotels =>
         prevHotels.map(h =>
           h.id === hotelId ? { ...h, editing: false } : h
@@ -94,7 +94,7 @@ const Admineditarehotel = () => {
       );
     } catch (error) {
       console.error('Error updating hotel:', error.message);
-      alert('Failed to update hotel. Please try again.');
+      alert('Eroare la actualizarea hotelului');
     }
   };
 
@@ -103,19 +103,19 @@ const Admineditarehotel = () => {
       try {
         const { error } = await supabase.from('hotels').delete().eq('id', hotel.id);
         if (error) throw error;
-        alert('Hotel deleted successfully!');
-        setHotels(prevHotels => prevHotels.filter(h => h.id !== hotel.id)); // Remove deleted hotel from state
+        alert('Hotel șters cu succes!');
+        setHotels(prevHotels => prevHotels.filter(h => h.id !== hotel.id)); 
       } catch (error) {
         console.error('Error deleting hotel:', error.message);
-        alert('Failed to delete hotel. Please try again.');
+        alert('Eroare la ștergerea hotelului');
       }
     }
   };
 
   const handleInputChange = (hotelId, field, value) => {
-    // Validate input for stars field to accept only 1, 2, 3, 4, or 5
+    
     if (field === 'stars' && !['1', '2', '3', '4', '5'].includes(value)) {
-      alert('Stars should be between 1 and 5.');
+      alert('Numărul de stele trebuie să fie între 1 și 5');
       return;
     }
 
@@ -139,14 +139,14 @@ const Admineditarehotel = () => {
           <div className={styles.menu}>
             <div className={styles.menuHeader}>Panou Admin</div>
             <ul>
-              <li><Link to="/Adminhoteluri">ADAUGARE HOTEL</Link></li>
-              <li><Link to="/Adminzboruri">ADAUGARE ZBOR</Link></li>
-              <li><Link to="/Adminmasini">ADAUGARE MASINA</Link></li>
-              <li><Link to="/Adminoferte">ADAUGARE OFERTA</Link></li>
-              <li><Link to="/Admineditarehotel">EDITARE HOTEL</Link></li>
-              <li><Link to="/Admineditarezbor">EDITARE ZBOR</Link></li>
-              <li><Link to="/Admineditaremasini">EDITARE MASINA</Link></li>
-              <li><Link to="/Admineditareoferte">EDITARE OFERTA</Link></li>
+            <li><Link to="/Adminhoteluri">ADĂUGARE HOTEL</Link></li>
+                <li><Link to="/Adminzboruri">ADĂUGARE ZBOR</Link></li>
+                <li><Link to="/Adminmasini">ADĂUGARE MAȘINĂ</Link></li>
+                <li><Link to="/Adminoferte">ADĂUGARE OFERTĂ</Link></li>
+                <li><Link to="/Admineditarehotel">EDITARE HOTEL</Link></li>
+                <li><Link to="/Admineditarezbor">EDITARE ZBOR</Link></li>
+                <li><Link to="/Admineditaremasini">EDITARE MAȘINĂ</Link></li>
+                <li><Link to="/Admineditareoferte">EDITARE OFERTă</Link></li>
             </ul>
           </div>
         </div>
@@ -182,12 +182,12 @@ const Admineditarehotel = () => {
                   {!hotel.editing && (
                     <>
                       <h3>{hotel.name}</h3>
-                      <p>Description: {hotel.description}</p>
-                      <p>Stars: {hotel.stars}</p>
-                      <p>Address: {hotel.address}</p>
-                      <p>Valid from: {hotel.valid_from}</p>
-                      <p>Valid to: {hotel.valid_to}</p>
-                      <p>Price per adult: {hotel.price_per_adult}</p>
+                      <p>Descriere: {hotel.description}</p>
+                      <p>Număr de stele: {hotel.stars}</p>
+                      <p>Adresă: {hotel.address}</p>
+                      <p>Valid de la: {hotel.valid_from}</p>
+                      <p>Până la: {hotel.valid_to}</p>
+                      <p>Preț pe persoană: {hotel.price_per_adult}</p>
                     </>
                   )}
                   {hotel.editing && (
@@ -217,7 +217,7 @@ const Admineditarehotel = () => {
                         <input type="date" value={hotel.valid_to} onChange={(e) => handleInputChange(hotel.id, 'valid_to', e.target.value)} />
                       </div>
                       <div className={styles.formGroup}>
-                        <label>Preț pe adult</label>
+                        <label>Preț pe persoană</label>
                         <input type="number" value={hotel.price_per_adult} onChange={(e) => handleInputChange(hotel.id, 'price_per_adult', e.target.value)} />
                       </div>
                     </>

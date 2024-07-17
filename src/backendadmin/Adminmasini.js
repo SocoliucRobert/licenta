@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Meniusus from '../Meniusus';
 import Meniujos from '../Meniujos';
-import styles from './adminhoteluri.module.css'; // Update this path based on your CSS module file
-import supabase from '../supabaseClient'; // Adjust this path based on your Supabase client configuration
+import styles from './adminhoteluri.module.css'; 
+import supabase from '../supabaseClient'; 
 import { Link } from 'react-router-dom';
 
-// Function to convert image file to base64 format
+
 const toBase64 = (file) =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -58,7 +58,7 @@ const Adminmasini = () => {
     }
   };
 
-  // Handles changes in form inputs
+  
   const handleChange = async (e) => {
     if (e.target.name === 'photo') {
       const selectedPhoto = e.target.files[0];
@@ -73,7 +73,7 @@ const Adminmasini = () => {
     }
   };
 
-  // Handles form submission
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -97,10 +97,10 @@ const Adminmasini = () => {
       const { data, error } = await supabase.from('masini').insert([carData]);
       if (error) throw error;
 
-      alert('Car added successfully!');
+      alert('Mașină adaugată cu succes !');
       console.log('Saved data:', data);
 
-      // Reset form fields and state after successful submission
+ 
       setCar({
         car_name: '',
         car_location: '',
@@ -114,12 +114,12 @@ const Adminmasini = () => {
       });
     } catch (error) {
       console.error('Error:', error.message);
-      alert('Failed to add car. Please try again.');
+      alert('Eroare la adăugarea mașinii !');
     }
   };
 
   if (!authenticated) {
-    return null; // Or a loading indicator while checking authentication
+    return null; 
   }
 
   return (
@@ -131,30 +131,16 @@ const Adminmasini = () => {
           <div className={styles.menu}>
             <div className={styles.menuHeader}>Panou Admin</div>
             <ul>
-              <li>
-                <Link to="/Adminhoteluri">ADAUGARE HOTEL</Link>
-              </li>
-              <li>
-                <Link to="/Adminzboruri">ADAUGARE ZBOR</Link>
-              </li>
-              <li>
-                <Link to="/Adminmasini">ADAUGARE MASINA</Link>
-              </li>
-              <li>
-                <Link to="/Adminoferte">ADAUGARE OFERTA</Link>
-              </li>
-              <li>
-                <Link to="/Admineditarehotel">EDITARE HOTEL</Link>
-              </li>
-              <li>
-                <Link to="/Admineditarezbor">EDITARE ZBOR</Link>
-              </li>
-              <li>
-                <Link to="/Admineditaremasini">EDITARE MASINA</Link>
-              </li>
-              <li>
-                <Link to="/Admineditareoferte">EDITARE OFERTA</Link>
-              </li>
+            <ul>
+            <li><Link to="/Adminhoteluri">ADĂUGARE HOTEL</Link></li>
+                <li><Link to="/Adminzboruri">ADĂUGARE ZBOR</Link></li>
+                <li><Link to="/Adminmasini">ADĂUGARE MAȘINĂ</Link></li>
+                <li><Link to="/Adminoferte">ADĂUGARE OFERTĂ</Link></li>
+                <li><Link to="/Admineditarehotel">EDITARE HOTEL</Link></li>
+                <li><Link to="/Admineditarezbor">EDITARE ZBOR</Link></li>
+                <li><Link to="/Admineditaremasini">EDITARE MAȘINĂ</Link></li>
+                <li><Link to="/Admineditareoferte">EDITARE OFERTă</Link></li>
+            </ul>
             </ul>
           </div>
         </div>
@@ -173,7 +159,7 @@ const Adminmasini = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Locația</label>
+              <label>Locația preluării</label>
               <input
                 type="text"
                 name="car_location"
@@ -244,7 +230,7 @@ const Adminmasini = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Poza pentru mașină</label>
+              <label>Poză pentru mașină</label>
               <input type="file" name="photo" onChange={handleChange} />
               {car.photoPreview && (
                 <img

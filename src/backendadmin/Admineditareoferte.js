@@ -64,7 +64,7 @@ const Admineditareoferte = () => {
     try {
       const { data, error } = await supabase.from('oferta').update(updatedOffer).eq('id', offer.id);
       if (error) throw error;
-      alert('Offer updated successfully!');
+      alert('Ofertă actualizată cu succes !');
       setOffers(prevOffers =>
         prevOffers.map(o =>
           o.id === offerId ? { ...o, editing: false } : o
@@ -72,20 +72,20 @@ const Admineditareoferte = () => {
       );
     } catch (error) {
       console.error('Error updating offer:', error.message);
-      alert('Failed to update offer. Please try again.');
+      alert('Eroare la actualizarea ofertei  !');
     }
   };
 
   const handleDeleteOffer = async (offer) => {
-    if (window.confirm(`Are you sure you want to delete offer "${offer.destination}"?`)) {
+    if (window.confirm(`Sigur vrei să ștergi oferta "${offer.destination}"?`)) {
       try {
         const { error } = await supabase.from('oferta').delete().eq('id', offer.id);
         if (error) throw error;
-        alert('Offer deleted successfully!');
+        alert('Ofertă ștearsă cu succes !');
         setOffers(prevOffers => prevOffers.filter(o => o.id !== offer.id));
       } catch (error) {
         console.error('Error deleting offer:', error.message);
-        alert('Failed to delete offer. Please try again.');
+        alert('Eroare la ștergerea ofertei !');
       }
     }
   };
@@ -110,14 +110,14 @@ const Admineditareoferte = () => {
           <div className={styles.menu}>
             <div className={styles.menuHeader}>Panou Admin</div>
             <ul>
-              <li><Link to="/Adminhoteluri">ADAUGARE HOTEL</Link></li>
-              <li><Link to="/Adminzboruri">ADAUGARE ZBOR</Link></li>
-              <li><Link to="/Adminmasini">ADAUGARE MASINA</Link></li>
-              <li><Link to="/Adminoferte">ADAUGARE OFERTA</Link></li>
-              <li><Link to="/Admineditarehotel">EDITARE HOTEL</Link></li>
-              <li><Link to="/Admineditarezbor">EDITARE ZBOR</Link></li>
-              <li><Link to="/Admineditaremasini">EDITARE MASINA</Link></li>
-              <li><Link to="/Admineditareoferte">EDITARE OFERTA</Link></li>
+            <li><Link to="/Adminhoteluri">ADĂUGARE HOTEL</Link></li>
+                <li><Link to="/Adminzboruri">ADĂUGARE ZBOR</Link></li>
+                <li><Link to="/Adminmasini">ADĂUGARE MAȘINĂ</Link></li>
+                <li><Link to="/Adminoferte">ADĂUGARE OFERTĂ</Link></li>
+                <li><Link to="/Admineditarehotel">EDITARE HOTEL</Link></li>
+                <li><Link to="/Admineditarezbor">EDITARE ZBOR</Link></li>
+                <li><Link to="/Admineditaremasini">EDITARE MAȘINĂ</Link></li>
+                <li><Link to="/Admineditareoferte">EDITARE OFERTă</Link></li>
             </ul>
           </div>
         </div>

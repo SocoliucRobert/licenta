@@ -40,18 +40,18 @@
 }
 
 .menu ul li a {
-  color: white; /* Text color for menu items */
+  color: white; 
   text-decoration: none;
   font-size: 30px;
 }
 
 .menu ul li a:hover {
   background-color: white;
-  color: #6d93c0; /* Hover color */
+  color: #6d93c0; 
 }
 
 .content {
-  flex: 1; /* Takes remaining space */
+  flex: 1; 
   padding: 20px;
 }
 
@@ -63,16 +63,16 @@
 
 .carItem {
   position: relative;
-  width: calc(100% - 20px); /* Adjusted width to accommodate margins */
+  width: calc(100% - 20px); 
   border: 1px solid #ccc;
   padding: 20px;
   background-color: #f9f9f9;
-  margin-bottom: 20px; /* Added margin-bottom for spacing */
+  margin-bottom: 20px; 
 }
 
 .carDetails {
-  flex: 1; /* Take remaining space in car item */
-  padding-right: 20px; /* Added padding to create space between details and photo */
+  flex: 1; 
+  padding-right: 20px; 
 }
 
 .formGroup {
@@ -97,7 +97,7 @@
 .buttonContainer {
   margin-top: 10px;
   display: flex;
-  align-items: center; /* Center items vertically */
+  align-items: center; 
 }
 
 .editButton,
@@ -122,14 +122,14 @@
 .imageContainer {
   width: 100%;
   display: flex;
-  justify-content: center; /* Center the image horizontally */
+  justify-content: center; 
 }
 
 .carPhoto {
-  width: 100%; /* Ensure the photo takes full width of its container */
-  max-width: 200px; /* Limit the maximum width of the photo */
-  height: auto; /* Maintain aspect ratio */
-  object-fit: cover; /* Ensure the photo covers the entire container */
-  border-radius: 4px; /* Optional: Rounded corners for the photo */
-  margin-top: 10px; /* Add margin to separate photo from buttons */
+  width: 100%; 
+  max-width: 200px; 
+  height: auto; 
+  object-fit: cover; 
+  border-radius: 4px; 
+  margin-top: 10px; 
 }
