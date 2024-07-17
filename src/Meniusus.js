@@ -43,13 +43,13 @@ const Meniusus = () => {
 
   const getUsername = () => {
     if (userEmail) {
-      return userEmail.split('@')[0]; // Get username without '@'
+      return userEmail.split('@')[0]; // fara caracterul de email
     }
     return '';
   };
 
   const handleUsernameClick = () => {
-    navigate('/Userhotel'); // Redirect to Userhotel page on username click
+    navigate('/Userhotel'); 
     if (userEmail === 'traveladdictionsuport@gmail.com') {
       navigate('/Admineditarehotel');
     }

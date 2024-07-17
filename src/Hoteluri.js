@@ -12,7 +12,7 @@ const Hoteluri = () => {
   const [checkInDate, setCheckInDate] = useState('');
   const [checkOutDate, setCheckOutDate] = useState('');
   const [starsFilter, setStarsFilter] = useState('');
-  const [priceSortOrder, setPriceSortOrder] = useState(null); // Default: null means not sorted by price
+  const [priceSortOrder, setPriceSortOrder] = useState(null); 
   const [hotels, setHotels] = useState([]);
   const [starRating, setStarRating] = useState('');
   const [searchClicked, setSearchClicked] = useState(false);
@@ -28,14 +28,14 @@ const Hoteluri = () => {
       let { data, error } = await supabase.from('hotels').select('*');
       if (error) throw error;
 
-      // Filter hotels based on form input criteria when search button is clicked
+     
       let filteredHotels = data.filter((hotel) => {
-        // Check if hotel matches address
+       
         if (address && hotel.address.toLowerCase().indexOf(address.toLowerCase()) === -1) {
           return false;
         }
 
-        // Check if hotel is available for the given period
+  
         if (checkInDate && checkOutDate) {
           const searchCheckIn = new Date(checkInDate);
           const searchCheckOut = new Date(checkOutDate);
@@ -50,7 +50,7 @@ const Hoteluri = () => {
           }
         }
 
-        // Filter by star rating
+  
         if (starRating && hotel.stars !== parseInt(starRating)) {
           return false;
         }
@@ -58,7 +58,7 @@ const Hoteluri = () => {
         return true;
       });
 
-      // Apply sorting based on priceSortOrder if it's not null
+    
       if (priceSortOrder !== null) {
         filteredHotels.sort((a, b) => {
           if (priceSortOrder === 'asc') {
@@ -198,7 +198,7 @@ const Hoteluri = () => {
           </div>
           <div className={styles.cardContainer}>
             {hotels.length === 0 && searchClicked && (
-              <p>No hotels found matching the criteria.</p>
+              <p>Nu s-au găsit hoteluri !</p>
             )}
             {hotels.map((hotel) => (
               <CardHotel key={hotel.id} hotel={hotel} />

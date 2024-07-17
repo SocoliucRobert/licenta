@@ -14,7 +14,7 @@ function Chat() {
     try {
       const response = await axios.post('http://localhost:5000/api/chat', { prompt });
       setResponses([...responses, response.data]);
-      setPrompt('');  // Clear input after submission
+      setPrompt('');  
     } catch (error) {
       console.error('Error fetching response:', error);
     }
