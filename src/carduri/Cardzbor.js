@@ -1,5 +1,6 @@
 // carduri/CardZbor.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './cardzbor.module.css';
 
 const CardZbor = ({ flight }) => {
@@ -9,7 +10,7 @@ const CardZbor = ({ flight }) => {
       <div className={styles.cardContent}>
         <h3>Zbor de la {flight.departure_location} la {flight.arrival_location}</h3>
         <p>Preț per persoană: ${flight.price_per_person}</p>
-        <button className={styles.detailsButton}>Vezi Detalii</button>
+        <Link to={`/flight/${flight.id}`} className={styles.detailsButton}>Vezi Detalii</Link>
       </div>
     </div>
   );

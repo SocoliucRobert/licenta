@@ -22,7 +22,9 @@ import Usermasina from './backenduser/Usermasina';
 import Userhotel from './backenduser/Userhotel';
 import Userzbor from './backenduser/Userzbor';
 import Useroferte from './backenduser/Useroferte';
-
+import HotelDetails from './detalii/HotelDetails';
+import FlightDetails from './detalii/FlightDetails';
+import DetaliiOferta from './detalii/DetaliiOferta';
 import supabase from './supabaseClient';
 
 
@@ -37,7 +39,7 @@ function App() {
       
       <Routes>
         
-      <Route path="/" element={<Usermasina/>} />
+      <Route path="/" element={<Acasa/>} />
         <Route path="/Acasa" element={<Acasa />} />
         <Route path="/Hoteluri" element={<Hoteluri />} />
         <Route path="/Zboruri" element={<Zboruri />} />
@@ -60,7 +62,9 @@ function App() {
         <Route path="/Usermasina" element={<Usermasina />} />
         <Route path="/Userzbor" element={<Userzbor/>} />
         <Route path="/Userhotel" element={<Userhotel/>} />
-        
+        <Route path="/hotel/:id" element={<HotelDetails />} />
+        <Route path="/flight/:id" element={<FlightDetails />} />
+        <Route path="/oferta/:id" element={<DetaliiOferta />} />
 
       
         <Route path="/supabaseClient" element={<supabase />} />

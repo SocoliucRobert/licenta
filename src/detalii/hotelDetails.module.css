@@ -1,0 +1,87 @@
+/* hotelDetails.module.css */
+
+.hotelDetailsContainer {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hotelImageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hotelImage {
+  width: 100%;
+  height: auto;
+  max-height: 600px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.imageGallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.galleryImage {
+  width: 100px;
+  height: auto;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.hotelContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hotelName {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.hotelDescription {
+  font-size: 1.2rem;
+  margin: 20px 0;
+  color: #666;
+}
+
+.hotelDetails {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.hotelDetailItem {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  color: #444;
+}
+
+.reserveButton {
+  padding: 12px 24px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.reserveButton:hover {
+  background-color: #0056b3;
+}

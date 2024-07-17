@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Meniusus from '../Meniusus';
 import Meniujos from '../Meniujos';
 import styles from './adminhoteluri.module.css';
-import supabase from '../supabaseClient'; // Adjust this path based on your Supabase client configuration
-import { Link } from 'react-router-dom';
+import supabase from '../supabaseClient';
 
 const toBase64 = file => new Promise((resolve, reject) => {
   const reader = new FileReader();
@@ -22,6 +22,36 @@ const Adminzboruri = () => {
     airlineImagePreview: '',
     availableSeats: ''
   });
+
+  const [authenticated, setAuthenticated] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    checkAuthentication();
+  }, []);
+
+  const checkAuthentication = async () => {
+    const session = localStorage.getItem('session');
+    if (session) {
+      try {
+        const parsedSession = JSON.parse(session);
+        const userEmail = parsedSession.user?.email;
+        if (userEmail === 'traveladdictionsuport@gmail.com') {
+          setAuthenticated(true);
+        } else {
+          setAuthenticated(false);
+          navigate('/Login');
+        }
+      } catch (error) {
+        console.error('Error parsing session JSON:', error);
+        setAuthenticated(false);
+        navigate('/Login');
+      }
+    } else {
+      setAuthenticated(false);
+      navigate('/Login');
+    }
+  };
 
   const handleChange = async (e) => {
     if (e.target.name === 'airlineImage') {
@@ -75,6 +105,10 @@ const Adminzboruri = () => {
       alert('Failed to add flight. Please try again.');
     }
   };
+
+  if (!authenticated) {
+    return null; // or you can return a loading spinner or message if you prefer
+  }
 
   return (
     <div className={styles.adminContainer}>

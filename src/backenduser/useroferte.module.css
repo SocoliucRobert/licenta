@@ -120,7 +120,7 @@
 }
 
 .imageContainer {
-  width: 100%;
+  width: 200px;
   display: flex;
   justify-content: center; /* Center the image horizontally */
   margin-top: 20px; /* Add margin for spacing */

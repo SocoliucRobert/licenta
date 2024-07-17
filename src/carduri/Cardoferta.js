@@ -1,5 +1,5 @@
-// carduri/CardOferta.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './cardoferta.module.css';
 
 const CardOferta = ({ oferta }) => {
@@ -10,7 +10,9 @@ const CardOferta = ({ oferta }) => {
         <h3>{oferta.destination}</h3>
         <p>Pret: ${oferta.price}</p>
         <p>{oferta.description}</p>
-        <button className={styles.detailsButton}>Vezi Detalii</button>
+        <Link to={`/oferta/${oferta.id}`} className={styles.detailsButton}>
+          Vezi Detalii
+        </Link>
       </div>
     </div>
   );

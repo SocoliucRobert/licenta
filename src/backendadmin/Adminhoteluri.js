@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Meniusus from '../Meniusus';
 import Meniujos from '../Meniujos';
 import styles from './adminhoteluri.module.css';
@@ -24,19 +25,45 @@ const Adminhoteluri = () => {
     images: [],
     imagePreviews: []
   });
+  const [authenticated, setAuthenticated] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    checkAuthentication();
+  }, []);
+
+  const checkAuthentication = () => {
+    const session = localStorage.getItem('session');
+    if (session) {
+      try {
+        const parsedSession = JSON.parse(session);
+        const userEmail = parsedSession.user?.email;
+        if (userEmail === 'traveladdictionsuport@gmail.com') {
+          setAuthenticated(true);
+        } else {
+          setAuthenticated(false);
+          navigate('/Login');
+        }
+      } catch (error) {
+        console.error('Error parsing session JSON:', error);
+        setAuthenticated(false);
+        navigate('/Login');
+      }
+    } else {
+      setAuthenticated(false);
+      navigate('/Login');
+    }
+  };
 
   const handleChange = async (e) => {
     const { name, value } = e.target;
 
     if (name === 'stars') {
-      // Ensure the value is between 1 and 5
       const intValue = parseInt(value, 10);
       if (intValue >= 1 && intValue <= 5) {
         setHotel({ ...hotel, [name]: value });
       }
-      // Optionally, you can add an alert or notification for invalid input here
     } else if (name === 'image') {
-      // Handle image upload separately as before
       const selectedImages = Array.from(e.target.files);
       const previews = [];
       const base64Images = [];
@@ -53,7 +80,6 @@ const Adminhoteluri = () => {
         imagePreviews: [...hotel.imagePreviews, ...previews]
       });
     } else {
-      // For other fields, update state as usual
       setHotel({ ...hotel, [name]: value });
     }
   };
@@ -80,7 +106,7 @@ const Adminhoteluri = () => {
     try {
       const { data, error } = await supabase.from('hotels').insert([hotelData]);
       if (error) throw error;
-      alert('Hotel adaugat cu succes!');
+      alert('Hotel adăugat cu succes!');
       console.log('Saved data:', data);
       setHotel({
         name: '',
@@ -98,6 +124,11 @@ const Adminhoteluri = () => {
       alert('Failed to add hotel. Please try again.');
     }
   };
+
+  if (!authenticated) {
+    return null; // or return a loading spinner, or a "not authorized" message
+  }
+
 
   return (
     <div className={styles.adminContainer}>

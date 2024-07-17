@@ -1,16 +1,43 @@
 import React, { useEffect, useState } from 'react';
+import { Link, Redirect, useNavigate } from 'react-router-dom';
 import Meniusus from '../Meniusus';
 import Meniujos from '../Meniujos';
 import styles from './usermasina.module.css';
 import supabase from '../supabaseClient';
-import { Link } from 'react-router-dom';
 
 const Usermasina = () => {
   const [userReservations, setUserReservations] = useState([]);
+  const [authenticated, setAuthenticated] = useState(false); // State to track authentication
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchUserReservations(); // Fetch user reservations when component mounts
+    checkAuthentication(); // Check authentication status when component mounts
   }, []);
+
+  useEffect(() => {
+    if (authenticated) {
+      fetchUserReservations(); // Fetch user reservations when authenticated
+    }
+  }, [authenticated]);
+
+  const checkAuthentication = () => {
+    const session = localStorage.getItem('session');
+    if (session) {
+      try {
+        const parsedSession = JSON.parse(session);
+        const userEmail = parsedSession.user?.email;
+        if (userEmail) {
+          setAuthenticated(true);
+        }
+      } catch (error) {
+        console.error('Error parsing session JSON:', error);
+        setAuthenticated(false);
+      }
+    } else {
+      setAuthenticated(false);
+      navigate('/Login'); // Redirect to login if not authenticated
+    }
+  };
 
   const fetchUserReservations = async () => {
     try {
@@ -33,6 +60,10 @@ const Usermasina = () => {
       console.error('Error fetching user reservations:', error.message);
     }
   };
+
+  if (!authenticated) {
+    return <redirect to="/Login" />;
+  }
 
   return (
     <div className={styles.adminContainer}>
@@ -65,7 +96,7 @@ const Usermasina = () => {
                     <p>Tip transmisie: {reservation.reservation_details.transmission_type}</p>
                     <p>Tip combustibil: {reservation.reservation_details.fuel_type}</p>
                     <p>Număr de locuri: {reservation.reservation_details.number_of_seats}</p>
-                    <p>Preț pe zi: ${reservation.reservation_details.price_per_day}</p>
+                    <p>Total preț: ${reservation.reservation_details.total_price}</p> {/* Display total price here */}
                   </div>
                 </div>
               </div>

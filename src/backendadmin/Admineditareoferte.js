@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useNavigate } from 'react-router-dom';
 import Meniusus from '../Meniusus';
 import Meniujos from '../Meniujos';
 import styles from './admineditareoferte.module.css';
@@ -7,16 +7,42 @@ import supabase from '../supabaseClient';
 
 const Admineditareoferte = () => {
   const [offers, setOffers] = useState([]);
+  const [authenticated, setAuthenticated] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchOffers(); // Fetch offers data when component mounts
+    checkAuthentication();
+    fetchOffers();
   }, []);
+
+  const checkAuthentication = async () => {
+    const session = localStorage.getItem('session');
+    if (session) {
+      try {
+        const parsedSession = JSON.parse(session);
+        const userEmail = parsedSession.user?.email;
+        if (userEmail === 'traveladdictionsuport@gmail.com') {
+          setAuthenticated(true);
+        } else {
+          setAuthenticated(false);
+          navigate('/Login');
+        }
+      } catch (error) {
+        console.error('Error parsing session JSON:', error);
+        setAuthenticated(false);
+        navigate('/Login');
+      }
+    } else {
+      setAuthenticated(false);
+      navigate('/Login');
+    }
+  };
 
   const fetchOffers = async () => {
     try {
       const { data, error } = await supabase.from('oferta').select('*');
       if (error) throw error;
-      setOffers(data.map(offer => ({ ...offer, editing: false }))); // Add editing state to each offer
+      setOffers(data.map(offer => ({ ...offer, editing: false })));
     } catch (error) {
       console.error('Error fetching offers:', error.message);
     }
@@ -56,7 +82,7 @@ const Admineditareoferte = () => {
         const { error } = await supabase.from('oferta').delete().eq('id', offer.id);
         if (error) throw error;
         alert('Offer deleted successfully!');
-        setOffers(prevOffers => prevOffers.filter(o => o.id !== offer.id)); // Remove deleted offer from state
+        setOffers(prevOffers => prevOffers.filter(o => o.id !== offer.id));
       } catch (error) {
         console.error('Error deleting offer:', error.message);
         alert('Failed to delete offer. Please try again.');
@@ -72,6 +98,9 @@ const Admineditareoferte = () => {
     );
   };
 
+  if (!authenticated) {
+    return <redirect to="/Login" />;
+  }
   return (
     <div className={styles.adminContainer}>
       <Meniusus />

@@ -18,6 +18,8 @@ const Meniusus = () => {
         setIsLoggedIn(true);
         setUserEmail(parsedSession.user?.email || '');
         console.log('Session Data:', parsedSession);
+
+      
       } catch (error) {
         console.error('Error parsing session JSON:', error);
       }
@@ -30,13 +32,27 @@ const Meniusus = () => {
     if ((session && currentPath === '/Login') || (session && currentPath === '/Inregistrare') || (session && currentPath === '/Resetareparola')) {
       navigate('/Acasa');
     }
-  }, [navigate]);
+  }, [navigate, userEmail]);
 
   const handleLogout = () => {
     localStorage.removeItem('session');
     setIsLoggedIn(false);
     setUserEmail('');
     navigate('/');
+  };
+
+  const getUsername = () => {
+    if (userEmail) {
+      return userEmail.split('@')[0]; // Get username without '@'
+    }
+    return '';
+  };
+
+  const handleUsernameClick = () => {
+    navigate('/Userhotel'); // Redirect to Userhotel page on username click
+    if (userEmail === 'traveladdictionsuport@gmail.com') {
+      navigate('/Admineditarehotel');
+    }
   };
 
   return (
@@ -53,7 +69,9 @@ const Meniusus = () => {
         <div className={styles.loginButton}>
           {isLoggedIn ? (
             <div className={styles.loggedInUser}>
-              <span className={styles.loggedInText}>Logged in as: {userEmail}</span>
+              <span className={styles.loggedInText} onClick={handleUsernameClick} style={{ cursor: 'pointer' }}>
+                Utilizator: {getUsername()}
+              </span>
               <button
                 type="button"
                 onClick={handleLogout}
@@ -74,9 +92,13 @@ const Meniusus = () => {
         <motion.div className={styles.wordsContainer}>
           <Link to="/Acasa" className={styles.link}><motion.span className={styles.word}>ACASA</motion.span></Link>
           <Link to="/Hoteluri" className={styles.link}><motion.span className={styles.word}>HOTELURI</motion.span></Link>
-          <Link to="/Zboruri" className={styles.link}><motion.span className={styles.word}>ZBORURI</motion.span></Link>
-          <Link to="/InchirieriAuto" className={styles.link}><motion.span className={styles.word}>INCHIRIERI AUTO</motion.span></Link>
-          <Link to="/Oferte" className={styles.link}><motion.span className={styles.word}>OFERTE</motion.span></Link>
+          
+            <>
+              <Link to="/Zboruri" className={styles.link}><motion.span className={styles.word}>ZBORURI</motion.span></Link>
+              <Link to="/InchirieriAuto" className={styles.link}><motion.span className={styles.word}>INCHIRIERI AUTO</motion.span></Link>
+              <Link to="/Oferte" className={styles.link}><motion.span className={styles.word}>OFERTE</motion.span></Link>
+            </>
+         
           <Link to="/Contact" className={styles.link}><motion.span className={styles.word}>CONTACT</motion.span></Link>
         </motion.div>
       </div>

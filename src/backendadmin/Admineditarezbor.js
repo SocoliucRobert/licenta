@@ -1,16 +1,42 @@
 import React, { useEffect, useState } from 'react';
+import { Link, Redirect, useNavigate } from 'react-router-dom';
 import Meniusus from '../Meniusus';
 import Meniujos from '../Meniujos';
 import styles from './admineditarezbor.module.css'; // Assuming you have a separate CSS module for this component
 import supabase from '../supabaseClient';
-import { Link } from 'react-router-dom';
 
 const Admineditarezbor = () => {
   const [flights, setFlights] = useState([]);
+  const [authenticated, setAuthenticated] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    checkAuthentication();
     fetchFlights(); // Fetch flight data when component mounts
   }, []);
+
+  const checkAuthentication = async () => {
+    const session = localStorage.getItem('session');
+    if (session) {
+      try {
+        const parsedSession = JSON.parse(session);
+        const userEmail = parsedSession.user?.email;
+        if (userEmail === 'traveladdictionsuport@gmail.com') {
+          setAuthenticated(true);
+        } else {
+          setAuthenticated(false);
+          navigate('/Login');
+        }
+      } catch (error) {
+        console.error('Error parsing session JSON:', error);
+        setAuthenticated(false);
+        navigate('/Login');
+      }
+    } else {
+      setAuthenticated(false);
+      navigate('/Login');
+    }
+  };
 
   const fetchFlights = async () => {
     try {
@@ -71,6 +97,11 @@ const Admineditarezbor = () => {
       )
     );
   };
+
+  if (!authenticated) {
+    return <redirect to="/Login" />;
+  }
+
 
   return (
     <div className={styles.adminContainer}>

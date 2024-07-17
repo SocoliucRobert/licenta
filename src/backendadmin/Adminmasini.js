@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Meniusus from '../Meniusus';
 import Meniujos from '../Meniujos';
 import styles from './adminhoteluri.module.css'; // Update this path based on your CSS module file
@@ -26,6 +27,36 @@ const Adminmasini = () => {
     photo: null,
     photoPreview: '',
   });
+
+  const [authenticated, setAuthenticated] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    checkAuthentication();
+  }, []);
+
+  const checkAuthentication = () => {
+    const session = localStorage.getItem('session');
+    if (session) {
+      try {
+        const parsedSession = JSON.parse(session);
+        const userEmail = parsedSession.user?.email;
+        if (userEmail === 'traveladdictionsuport@gmail.com') {
+          setAuthenticated(true);
+        } else {
+          setAuthenticated(false);
+          navigate('/Login');
+        }
+      } catch (error) {
+        console.error('Error parsing session JSON:', error);
+        setAuthenticated(false);
+        navigate('/Login');
+      }
+    } else {
+      setAuthenticated(false);
+      navigate('/Login');
+    }
+  };
 
   // Handles changes in form inputs
   const handleChange = async (e) => {
@@ -86,6 +117,10 @@ const Adminmasini = () => {
       alert('Failed to add car. Please try again.');
     }
   };
+
+  if (!authenticated) {
+    return null; // Or a loading indicator while checking authentication
+  }
 
   return (
     <div className={styles.adminContainer}>

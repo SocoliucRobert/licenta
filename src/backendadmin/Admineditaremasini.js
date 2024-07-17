@@ -1,16 +1,42 @@
 import React, { useEffect, useState } from 'react';
+import { Link, Redirect, useNavigate } from 'react-router-dom';
 import Meniusus from '../Meniusus';
 import Meniujos from '../Meniujos';
 import styles from './admineditaremasini.module.css'; // Update this path based on your CSS module file
 import supabase from '../supabaseClient'; // Adjust this path based on your Supabase client configuration
-import { Link } from 'react-router-dom';
 
 const Admineditaremasini = () => {
   const [cars, setCars] = useState([]);
+  const [authenticated, setAuthenticated] = useState(false); // State to track authentication
+  const navigate = useNavigate();
 
   useEffect(() => {
+    checkAuthentication(); // Check authentication status when component mounts
     fetchCars(); // Fetch cars data when component mounts
   }, []);
+
+  const checkAuthentication = async () => {
+    const session = localStorage.getItem('session');
+    if (session) {
+      try {
+        const parsedSession = JSON.parse(session);
+        const userEmail = parsedSession.user?.email;
+        if (userEmail === 'traveladdictionsuport@gmail.com') {
+          setAuthenticated(true);
+        } else {
+          setAuthenticated(false);
+          navigate('/Login'); // Redirect to login if user is not authorized
+        }
+      } catch (error) {
+        console.error('Error parsing session JSON:', error);
+        setAuthenticated(false);
+        navigate('/Login'); // Redirect to login if error parsing session
+      }
+    } else {
+      setAuthenticated(false);
+      navigate('/Login'); // Redirect to login if no session found
+    }
+  };
 
   const fetchCars = async () => {
     try {
@@ -74,6 +100,10 @@ const Admineditaremasini = () => {
       )
     );
   };
+
+  if (!authenticated) {
+    return <redirect to="/Login" />;
+  }
 
   return (
     <div className={styles.adminContainer}>

@@ -1,17 +1,45 @@
 import React, { useEffect, useState } from 'react';
+import { Link, Redirect, useNavigate } from 'react-router-dom';
 import Meniusus from '../Meniusus';
 import Meniujos from '../Meniujos';
 import styles from './admineditarehotel.module.css';
 import supabase from '../supabaseClient';
-import { Link } from 'react-router-dom';
 
 const Admineditarehotel = () => {
   const [hotels, setHotels] = useState([]);
   const [currentImageIndexes, setCurrentImageIndexes] = useState({});
+  const [userEmail, setUserEmail] = useState('');
+  const [authenticated, setAuthenticated] = useState(false); // State to track authentication
+  const navigate = useNavigate();
 
   useEffect(() => {
+    checkAuthentication(); // Check authentication status when component mounts
     fetchHotels(); // Fetch hotels data when component mounts
   }, []);
+
+  const checkAuthentication = () => {
+    const session = localStorage.getItem('session');
+    if (session) {
+      try {
+        const parsedSession = JSON.parse(session);
+        const userEmail = parsedSession.user?.email;
+        if (userEmail === 'traveladdictionsuport@gmail.com') {
+          setUserEmail(userEmail);
+          setAuthenticated(true);
+        } else {
+          setAuthenticated(false);
+          navigate('/Login'); // Redirect to login if user is not authorized
+        }
+      } catch (error) {
+        console.error('Error parsing session JSON:', error);
+        setAuthenticated(false);
+        navigate('/Login'); // Redirect to login if error parsing session
+      }
+    } else {
+      setAuthenticated(false);
+      navigate('/Login'); // Redirect to login if no session found
+    }
+  };
 
   const fetchHotels = async () => {
     try {
@@ -97,6 +125,10 @@ const Admineditarehotel = () => {
       )
     );
   };
+
+  if (!authenticated) {
+    return <redirect to="/Login" />;
+  }
 
   return (
     <div className={styles.adminContainer}>

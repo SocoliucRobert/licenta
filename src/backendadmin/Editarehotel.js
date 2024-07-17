@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useParams, useNavigate } from 'react-router-dom';
 import Meniusus from '../Meniusus';
 import Meniujos from '../Meniujos';
 import styles from './adminhoteluri.module.css';
@@ -14,7 +14,7 @@ const toBase64 = file => new Promise((resolve, reject) => {
 
 const Editarehotel = () => {
   const { hotelId } = useParams();
-  const navigate = useNavigate(); // use useNavigate hook
+  const navigate = useNavigate();
   const [hotel, setHotel] = useState({
     name: '',
     description: '',
@@ -28,9 +28,35 @@ const Editarehotel = () => {
     imagePreviews: []
   });
 
+  const [authenticated, setAuthenticated] = useState(false);
+
   useEffect(() => {
+    checkAuthentication();
     fetchHotel();
-  }, [hotelId]);
+  }, [hotelId]); // Added fetchHotel to useEffect dependencies
+
+  const checkAuthentication = async () => {
+    const session = localStorage.getItem('session');
+    if (session) {
+      try {
+        const parsedSession = JSON.parse(session);
+        const userEmail = parsedSession.user?.email;
+        if (userEmail === 'traveladdictionsuport@gmail.com') {
+          setAuthenticated(true);
+        } else {
+          setAuthenticated(false);
+          navigate('/Login');
+        }
+      } catch (error) {
+        console.error('Error parsing session JSON:', error);
+        setAuthenticated(false);
+        navigate('/Login');
+      }
+    } else {
+      setAuthenticated(false);
+      navigate('/Login');
+    }
+  };
 
   const fetchHotel = async () => {
     try {
@@ -96,12 +122,16 @@ const Editarehotel = () => {
       const { data, error } = await supabase.from('hotels').update(hotelData).eq('id', hotelId);
       if (error) throw error;
       alert('Hotel updated successfully!');
-      navigate('/admin-edit-hotel'); // Navigate using navigate function
+      navigate('/admin-edit-hotel');
     } catch (error) {
       console.error('Error:', error);
       alert('Failed to update hotel. Please try again.');
     }
   };
+
+  if (!authenticated) {
+    return null; // or you can return a loading spinner or message if you prefer
+  }
 
   return (
     <div className={styles.adminContainer}>
