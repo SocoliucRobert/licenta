@@ -12,7 +12,7 @@ const Zboruri = () => {
   const [arrivalCity, setArrivalCity] = useState("");
   const [departureDate, setDepartureDate] = useState("");
   const [flights, setFlights] = useState([]);
-  const [priceSortOrder, setPriceSortOrder] = useState(""); // State for sorting order
+  const [priceSortOrder, setPriceSortOrder] = useState(""); 
 
   const fetchFlights = async () => {
     try {
@@ -34,7 +34,7 @@ const Zboruri = () => {
 
       if (error) throw error;
 
-      // Sorting based on priceSortOrder
+      
       if (priceSortOrder === "asc") {
         data.sort((a, b) => a.price_per_person - b.price_per_person);
       } else if (priceSortOrder === "desc") {
