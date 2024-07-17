@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import supabase from '../supabaseClient';
 import styles from './flightDetails.module.css';
+import Meniusus from '../Meniusus';
+import Meniujos from '../Meniujos';
 
 const FlightDetails = () => {
   const { id } = useParams();
@@ -106,6 +108,8 @@ const FlightDetails = () => {
   }
 
   return (
+    <div>
+      <Meniusus/>
     <div className={styles.flightDetailsContainer}>
       <img src={flight.airline_logo_url} alt="Airline Logo" className={styles.airlineLogo} />
       <div className={styles.flightContent}>
@@ -128,6 +132,8 @@ const FlightDetails = () => {
           Rezerva
         </button>
       </div>
+    </div>
+    <Meniujos/>
     </div>
   );
 };

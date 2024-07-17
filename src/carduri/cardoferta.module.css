@@ -25,12 +25,13 @@
 }
 
 .detailsButton {
-  background-color: #007bff;
+  background-color: #6D93C0;
   color: #fff;
   border: none;
   padding: 8px 12px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  text-decoration: none;
 }
 
 .detailsButton:hover {

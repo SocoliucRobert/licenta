@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import supabase from '../supabaseClient'; // Ensure supabaseClient is correctly imported
 import styles from './detaliiOferta.module.css';
+import Meniusus from '../Meniusus';
+import Meniujos from '../Meniujos';
 
 const DetaliiOferta = () => {
   const { id } = useParams();
@@ -128,15 +130,19 @@ const DetaliiOferta = () => {
   }
 
   return (
+    <div>
+      <Meniusus/>
     <div className={styles.detaliiContainer}>
      
       <div className={styles.detailsContainer}>
+      <img src={oferta.offer_image_url} alt="Airline Logo" className={styles.offerImage} />
         <h1>{oferta.destination}</h1>
         <p><strong>Price:</strong> ${oferta.price}</p>
         <p><strong>Description:</strong> {oferta.description}</p>
         <p><strong>Valid from:</strong> {new Date(oferta.start_period).toLocaleDateString()}</p>
         <p><strong>Valid to:</strong> {new Date(oferta.end_period).toLocaleDateString()}</p>
         <p><strong>Number of persons:</strong> {oferta.number_of_persons}</p>
+        
 
         {hasReserved ? (
           <p>You have already reserved this offer.</p>
@@ -144,6 +150,8 @@ const DetaliiOferta = () => {
           <button className={styles.reserveButton} onClick={handleReserve}>Rezerva</button>
         )}
       </div>
+    </div>
+    <Meniujos/>
     </div>
   );
 };

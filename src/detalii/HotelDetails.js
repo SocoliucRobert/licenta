@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import supabase from '../supabaseClient';
 import styles from './hotelDetails.module.css';
+import Meniusus from '../Meniusus';
+import Meniujos from '../Meniujos';
 
 const HotelDetails = () => {
   const { id } = useParams();
@@ -122,6 +124,8 @@ const HotelDetails = () => {
   }
 
   return (
+    <div>
+      <Meniusus/>
     <div className={styles.hotelDetailsContainer}>
       <div className={styles.hotelImageContainer}>
         <img
@@ -167,6 +171,8 @@ const HotelDetails = () => {
           Rezerva
         </button>
       </div>
+    </div>
+    <Meniujos/>
     </div>
   );
 };
