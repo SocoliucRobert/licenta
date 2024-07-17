@@ -8,7 +8,7 @@ const CardOferta = ({ oferta }) => {
       <img src={oferta.offer_image_url} alt={oferta.destination} className={styles.cardImage} />
       <div className={styles.cardContent}>
         <h3>{oferta.destination}</h3>
-        <p>Pret: ${oferta.price}</p>
+        <p>Preț: {oferta.price} lei</p>
         <p>{oferta.description}</p>
         <Link to={`/oferta/${oferta.id}`} className={styles.detailsButton}>
           Vezi Detalii

@@ -40,18 +40,18 @@
 }
 
 .menu ul li a {
-  color: white; /* Text color for menu items */
+  color: white; 
   text-decoration: none;
   font-size: 30px;
 }
 
 .menu ul li a:hover {
   background-color: white;
-  color: #6D93C0; /* Hover color */
+  color: #6D93C0; 
 }
 
 .content {
-  flex: 1; /* Takes remaining space */
+  flex: 1; 
   padding: 20px;
 }
 

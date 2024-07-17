@@ -96,7 +96,7 @@ const Cardmasina = ({ masina }) => {
         <p>Tip transmisie: {masina.transmission_type}</p>
         <p>Tip combustibil: {masina.fuel_type}</p>
         <p>Număr de locuri: {masina.number_of_seats}</p>
-        <p>Preț pe zi: ${masina.price_per_day}</p>
+        <p>Preț pe zi: {masina.price_per_day} lei</p>
         <div className={styles.reservationSection}>
           <button
             className={styles.detailsButton}
@@ -110,7 +110,7 @@ const Cardmasina = ({ masina }) => {
             onClick={handleReservation}
             disabled={reservationLoading}
           >
-            Rezerva pentru {numberOfDays} zile
+            Rezervă pentru {numberOfDays} zile
           </button>
         </div>
         {reservationLoading && <p>Se încarcă...</p>}

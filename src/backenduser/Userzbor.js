@@ -73,7 +73,7 @@ const Userzbor = () => {
     }
   };
 
-  // Filter flights that the user has reservations for
+
   const filteredFlights = flights.filter(flight =>
     userReservations.some(reservation => reservation.reservation_id === flight.id)
   );
@@ -89,18 +89,18 @@ const Userzbor = () => {
       <div className={styles.mainArea}>
         <div className={styles.leftSidebar}>
           <div className={styles.menu}>
-            <div className={styles.menuHeader}>Panou Admin</div>
+          <div className={styles.menuHeader}>Panou utilizator</div>
             <ul>
               <li><Link to="/Userhotel">USER HOTELURI</Link></li>
               <li><Link to="/Userzbor">USER ZBORURI</Link></li>
-              <li><Link to="/Usermasina">USER MASINI</Link></li>
+              <li><Link to="/Usermasina">USER MAȘINI</Link></li>
               <li><Link to="/Useroferte">USER OFERTE</Link></li>
             </ul>
           </div>
         </div>
 
         <div className={styles.content}>
-          <h2>Lista Zboruri</h2>
+        <h2>Rezervările Utilizatorului pentru Zboruri</h2>
           <div className={styles.flightList}>
             {filteredFlights.map((flight) => {
               const userReservation = userReservations.find(reservation => reservation.reservation_id === flight.id);
@@ -108,11 +108,11 @@ const Userzbor = () => {
                 <div key={flight.id} className={styles.flightItem}>
                   <div className={styles.flightDetails}>
                     <h3>{flight.departure_location} to {flight.arrival_location}</h3>
-                    <p>Departure Date: {flight.departure_date}</p>
+                    <p>Data plecăriii: {flight.departure_date}</p>
                     {userReservation ? (
                       <>
-                        <p>Total Price: {userReservation.reservation_details.total_price}</p>
-                        <p>Status: Reserved</p>
+                        <p>Preț total: {userReservation.reservation_details.total_price}</p>
+                        <p>Status: Rezervat</p>
                       </>
                     ) : (
                       <p>Total Price: {flight.price_per_person}</p>

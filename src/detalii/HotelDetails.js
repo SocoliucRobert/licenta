@@ -10,7 +10,9 @@ const HotelDetails = () => {
   const [hotel, setHotel] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [userEmail, setUserEmail] = useState('');
-  const [numberOfPeople, setNumberOfPeople] = useState(1); // Default to 1 person
+  const [numberOfPeople, setNumberOfPeople] = useState(1); 
+  const [checkInDate, setCheckInDate] = useState(''); 
+  const [checkOutDate, setCheckOutDate] = useState(''); 
 
   useEffect(() => {
     const fetchHotel = async () => {
@@ -24,6 +26,8 @@ const HotelDetails = () => {
         console.error('Error fetching hotel:', error);
       } else {
         setHotel(data);
+        setCheckInDate(data.valid_from); 
+        setCheckOutDate(data.valid_to); 
       }
     };
 
@@ -52,11 +56,10 @@ const HotelDetails = () => {
 
   const handleReserve = async () => {
     if (!userEmail) {
-      alert('You need to be logged in to make a reservation.');
+      alert('Trebuie să fii conectat pentru a te putea rezerva un hotel !');
       return;
     }
 
-    // Check if the user has already made a reservation for this hotel
     const { data: existingReservation, error: reservationError } = await supabase
       .from('reservations')
       .select('*')
@@ -66,26 +69,26 @@ const HotelDetails = () => {
       .single();
 
     if (reservationError && reservationError.code !== 'PGRST116') {
-      // PGRST116 is the error code for no rows found
+      
       console.error('Error checking existing reservation:', reservationError);
       alert('An error occurred. Please try again.');
       return;
     }
 
     if (existingReservation) {
-      alert('You have already made a reservation for this hotel.');
+      alert('Ai rezervat deja acest hotel !');
       return;
     }
 
-    // Prompt the user for the number of people
-    const confirmedNumberOfPeople = prompt('Enter number of people for reservation:', numberOfPeople);
-
-    if (confirmedNumberOfPeople === null || isNaN(confirmedNumberOfPeople) || confirmedNumberOfPeople <= 0) {
-      alert('Please enter a valid number of people.');
+    
+    if (new Date(checkInDate) < new Date(hotel.valid_from) || new Date(checkOutDate) > new Date(hotel.valid_to) || new Date(checkInDate) >= new Date(checkOutDate)) {
+      alert('Trebuie să selectezi o dată valabilă !');
       return;
     }
 
-    const totalPrice = confirmedNumberOfPeople * hotel.price_per_adult;
+
+    const daysDifference = Math.ceil((new Date(checkOutDate) - new Date(checkInDate)) / (1000 * 60 * 60 * 24));
+    const totalPrice = daysDifference * numberOfPeople * hotel.price_per_adult;
 
     const reservationDetails = {
       hotel_name: hotel.name,
@@ -96,8 +99,10 @@ const HotelDetails = () => {
       price_per_adult: hotel.price_per_adult,
       description: hotel.description,
       photo_urls: hotel.image_urls,
-      number_of_people: Number(confirmedNumberOfPeople),
-      total_price: totalPrice.toFixed(2), // Ensure total price is formatted as a decimal
+      number_of_people: Number(numberOfPeople),
+      total_price: totalPrice.toFixed(2), 
+      check_in_date: checkInDate,
+      check_out_date: checkOutDate,
     };
 
     try {
@@ -112,10 +117,10 @@ const HotelDetails = () => {
 
       if (error) throw error;
 
-      alert('Reservation successful!');
+      alert('Rezervarea s-a efectuat cu succes!');
     } catch (error) {
       console.error('Error making reservation:', error);
-      alert('Failed to make reservation. Please try again.');
+      alert('Eroare la rezervarea hotelului');
     }
   };
 
@@ -125,54 +130,88 @@ const HotelDetails = () => {
 
   return (
     <div>
-      <Meniusus/>
-    <div className={styles.hotelDetailsContainer}>
-      <div className={styles.hotelImageContainer}>
-        <img
-          src={hotel.image_urls[currentImageIndex]}
-          alt={`Hotel view ${currentImageIndex + 1}`}
-          className={styles.hotelImage}
-        />
-        <div className={styles.imageGallery}>
-          {hotel.image_urls.map((imageUrl, index) => (
-            <img
-              key={index}
-              src={imageUrl}
-              alt={`Hotel view ${index + 1}`}
-              className={styles.galleryImage}
-              onClick={() => handleThumbnailClick(index)}
-            />
-          ))}
+      <Meniusus />
+      <div className={styles.hotelDetailsContainer}>
+        <div className={styles.hotelImageContainer}>
+          <img
+            src={hotel.image_urls[currentImageIndex]}
+            alt={`Hotel view ${currentImageIndex + 1}`}
+            className={styles.hotelImage}
+          />
+          <div className={styles.imageGallery}>
+            {hotel.image_urls.map((imageUrl, index) => (
+              <img
+                key={index}
+                src={imageUrl}
+                alt={`Hotel view ${index + 1}`}
+                className={styles.galleryImage}
+                onClick={() => handleThumbnailClick(index)}
+              />
+            ))}
+          </div>
+        </div>
+        <div className={styles.hotelContent}>
+          <h1 className={styles.hotelName}>{hotel.name}</h1>
+          <div className={styles.hotelDetails}>
+            <p className={styles.hotelDetailItem}>
+              <strong>Adresă:</strong> {hotel.address}
+            </p>
+            <p className={styles.hotelDetailItem}>
+              <strong>Număr de stele:</strong> {hotel.stars}
+            </p>
+            <p className={styles.hotelDetailItem}>
+              <strong>Valabil de la data:</strong>{' '}
+              {new Date(hotel.valid_from).toLocaleDateString()}
+            </p>
+            <p className={styles.hotelDetailItem}>
+              <strong>Până la data:</strong>{' '}
+              {new Date(hotel.valid_to).toLocaleDateString()}
+            </p>
+            <p className={styles.hotelDetailItem}>
+              <strong>Preț pe persoană:</strong> {hotel.price_per_adult + ' lei'}
+            </p>
+          </div>
+          <p className={styles.hotelDescription}>{hotel.description}</p>
+          <div className={styles.reservationControls}>
+            <label>
+              Data check-in:
+              <input
+                type="date"
+                value={checkInDate}
+                min={hotel.valid_from}
+                max={hotel.valid_to}
+                onChange={(e) => setCheckInDate(e.target.value)}
+                required
+              />
+            </label>
+            <label>
+              Data check-out:
+              <input
+                type="date"
+                value={checkOutDate}
+                min={hotel.valid_from}
+                max={hotel.valid_to}
+                onChange={(e) => setCheckOutDate(e.target.value)}
+                required
+              />
+            </label>
+            <label>
+              Număr de persoane:
+              <input
+                type="number"
+                value={numberOfPeople}
+                min="1"
+                onChange={(e) => setNumberOfPeople(e.target.value)}
+                required
+              />
+            </label>
+            <button onClick={handleReserve} className={styles.reserveButton}>
+              Rezervă
+            </button>
+          </div>
         </div>
       </div>
-      <div className={styles.hotelContent}>
-        <h1 className={styles.hotelName}>{hotel.name}</h1>
-        <div className={styles.hotelDetails}>
-          <p className={styles.hotelDetailItem}>
-            <strong>Address:</strong> {hotel.address}
-          </p>
-          <p className={styles.hotelDetailItem}>
-            <strong>Stars:</strong> {hotel.stars}
-          </p>
-          <p className={styles.hotelDetailItem}>
-            <strong>Valid from:</strong>{' '}
-            {new Date(hotel.valid_from).toLocaleDateString()}
-          </p>
-          <p className={styles.hotelDetailItem}>
-            <strong>Valid to:</strong>{' '}
-            {new Date(hotel.valid_to).toLocaleDateString()}
-          </p>
-          <p className={styles.hotelDetailItem}>
-            <strong>Price per adult:</strong> {hotel.price_per_adult}
-          </p>
-        </div>
-        <p className={styles.hotelDescription}>{hotel.description}</p>
-        <button onClick={handleReserve} className={styles.reserveButton}>
-          Rezerva
-        </button>
-      </div>
-    </div>
-    <Meniujos/>
+      <Meniujos />
     </div>
   );
 };

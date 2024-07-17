@@ -35,7 +35,7 @@ const Usermasina = () => {
       }
     } else {
       setAuthenticated(false);
-      navigate('/Login'); // Redirect to login if not authenticated
+      navigate('/Login');
     }
   };
 
@@ -72,23 +72,23 @@ const Usermasina = () => {
       <div className={styles.mainArea}>
         <div className={styles.leftSidebar}>
           <div className={styles.menu}>
-            <div className={styles.menuHeader}>Panou Admin</div>
+          <div className={styles.menuHeader}>Panou utilizator</div>
             <ul>
               <li><Link to="/Userhotel">USER HOTELURI</Link></li>
               <li><Link to="/Userzbor">USER ZBORURI</Link></li>
-              <li><Link to="/Usermasina">USER MASINI</Link></li>
+              <li><Link to="/Usermasina">USER MAȘINI</Link></li>
               <li><Link to="/Useroferte">USER OFERTE</Link></li>
             </ul>
           </div>
         </div>
 
         <div className={styles.content}>
-          <h2>Rezervările Utilizatorului pentru Mașini</h2>
+          <h2>Rezervările utilizatorului pentru Mașini</h2>
           <div className={styles.hotelList}>
             {userReservations.map((reservation) => (
               <div key={reservation.id} className={styles.hotelItem}>
                 <div className={styles.imageContainer}>
-                  {/* Display car details */}
+                
                   <div className={styles.hotelDetails}>
                     <h3>{reservation.reservation_details.car_name}</h3>
                     <p>Locație: {reservation.reservation_details.car_location}</p>
@@ -96,7 +96,7 @@ const Usermasina = () => {
                     <p>Tip transmisie: {reservation.reservation_details.transmission_type}</p>
                     <p>Tip combustibil: {reservation.reservation_details.fuel_type}</p>
                     <p>Număr de locuri: {reservation.reservation_details.number_of_seats}</p>
-                    <p>Total preț: ${reservation.reservation_details.total_price}</p> {/* Display total price here */}
+                    <p>Total preț: {reservation.reservation_details.total_price} lei</p> 
                   </div>
                 </div>
               </div>

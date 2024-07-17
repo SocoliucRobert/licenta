@@ -10,6 +10,7 @@ const FlightDetails = () => {
   const [flight, setFlight] = useState(null);
   const [numberOfPersons, setNumberOfPersons] = useState(1);
   const [userEmail, setUserEmail] = useState('');
+  const [canReserve, setCanReserve] = useState(true);
 
   useEffect(() => {
     const fetchFlight = async () => {
@@ -25,6 +26,7 @@ const FlightDetails = () => {
         }
 
         setFlight(data);
+        setCanReserve(data.available_seats > 0); // Check if seats are available
       } catch (error) {
         console.error('Error fetching flight:', error.message);
       }
@@ -47,12 +49,17 @@ const FlightDetails = () => {
 
   const handleReserve = async () => {
     if (!userEmail) {
-      alert('You need to be logged in to make a reservation.');
+      alert('Trebuie să fii conectat că să poți rezerva un zbor');
       return;
     }
 
     if (!flight || !numberOfPersons) {
-      alert('Please select a valid number of persons.');
+      alert('Introduce un număr de persoane valid !');
+      return;
+    }
+
+    if (!canReserve) {
+      alert('Nu mai sunt locuri disponibile !');
       return;
     }
 
@@ -60,13 +67,13 @@ const FlightDetails = () => {
     const updatedAvailableSeats = flight.available_seats - numberOfPersons;
 
     try {
-      // Update available seats in the database
+
       await supabase
         .from('flights')
         .update({ available_seats: updatedAvailableSeats })
         .eq('id', id);
 
-      // Make reservation
+      
       const reservationDetails = {
         flight_id: flight.id,
         departure_location: flight.departure_location,
@@ -90,11 +97,19 @@ const FlightDetails = () => {
         throw reservationError;
       }
 
-      alert(`Reservation successful!\nTotal Price: $${totalPrice.toFixed(2)}`);
+      alert(`Rezervare a avut loc cu succes !\n Preț total: ${totalPrice.toFixed(2)} lei`);
+
+    
+      setFlight(prevFlight => ({
+        ...prevFlight,
+        available_seats: updatedAvailableSeats,
+      }));
+
+      setCanReserve(updatedAvailableSeats > 0); // Check if seats are still available
 
     } catch (error) {
       console.error('Error making reservation:', error.message);
-      alert('Failed to make reservation. Please try again.');
+      alert('Eroare la rezervare');
     }
   };
 
@@ -110,30 +125,34 @@ const FlightDetails = () => {
   return (
     <div>
       <Meniusus/>
-    <div className={styles.flightDetailsContainer}>
-      <img src={flight.airline_logo_url} alt="Airline Logo" className={styles.airlineLogo} />
-      <div className={styles.flightContent}>
-        <h1 className={styles.flightTitle}>Zbor de la {flight.departure_location} la {flight.arrival_location}</h1>
-        <p className={styles.flightDetailItem}><strong>Data plecării:</strong> {new Date(flight.departure_date).toLocaleDateString()}</p>
-        <p className={styles.flightDetailItem}><strong>Preț per persoană:</strong> ${flight.price_per_person}</p>
-        <p className={styles.flightDetailItem}><strong>Locuri disponibile:</strong> {flight.available_seats}</p>
+      <div className={styles.flightDetailsContainer}>
+        <img src={flight.airline_logo_url} alt="Airline Logo" className={styles.airlineLogo} />
+        <div className={styles.flightContent}>
+          <h1 className={styles.flightTitle}>Zbor de la {flight.departure_location} la {flight.arrival_location}</h1>
+          <p className={styles.flightDetailItem}><strong>Data plecării:</strong> {new Date(flight.departure_date).toLocaleDateString()}</p>
+          <p className={styles.flightDetailItem}><strong>Preț per persoană:</strong> ${flight.price_per_person}</p>
+          <p className={styles.flightDetailItem}><strong>Locuri disponibile:</strong> {flight.available_seats}</p>
+        </div>
+        <div className={styles.reservationControls}>
+          <label>
+            Număr de persoane:
+            <input
+              type="number"
+              value={numberOfPersons}
+              min="1"
+              onChange={handleNumberOfPersonsChange}
+            />
+          </label>
+          {canReserve ? (
+            <button onClick={handleReserve} className={styles.reserveButton}>
+              Rezervă
+            </button>
+          ) : (
+            <p>Nu mai sunt locuri disponibile la acest zbor</p>
+          )}
+        </div>
       </div>
-      <div className={styles.reservationControls}>
-        <label>
-          Număr de persoane:
-          <input
-            type="number"
-            value={numberOfPersons}
-            min="1"
-            onChange={handleNumberOfPersonsChange}
-          />
-        </label>
-        <button onClick={handleReserve} className={styles.reserveButton}>
-          Rezerva
-        </button>
-      </div>
-    </div>
-    <Meniujos/>
+      <Meniujos/>
     </div>
   );
 };

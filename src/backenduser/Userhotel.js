@@ -9,17 +9,17 @@ const Userhotel = () => {
   const [hotels, setHotels] = useState([]);
   const [currentImageIndexes, setCurrentImageIndexes] = useState({});
   const [userReservations, setUserReservations] = useState([]);
-  const [authenticated, setAuthenticated] = useState(false); // State to track authentication
+  const [authenticated, setAuthenticated] = useState(false); 
   const navigate = useNavigate();
 
   useEffect(() => {
-    checkAuthentication(); // Check authentication status when component mounts
+    checkAuthentication(); 
   }, []);
 
   useEffect(() => {
     if (authenticated) {
       fetchHotels();
-      fetchUserReservations(); // Fetch user reservations when authenticated
+      fetchUserReservations(); 
     }
   }, [authenticated]);
 
@@ -38,7 +38,7 @@ const Userhotel = () => {
       }
     } else {
       setAuthenticated(false);
-      navigate('/Login'); // Redirect to login if not authenticated
+      navigate('/Login'); 
     }
   };
 
@@ -46,10 +46,10 @@ const Userhotel = () => {
     try {
       const { data, error } = await supabase.from('hotels').select('*');
       if (error) throw error;
-      setHotels(data.map(hotel => ({ ...hotel, editing: false }))); // Add editing state to each hotel
+      setHotels(data.map(hotel => ({ ...hotel, editing: false }))); 
       const indexes = {};
       data.forEach(hotel => {
-        indexes[hotel.id] = 0; // Initialize current image index for each hotel
+        indexes[hotel.id] = 0; 
       });
       setCurrentImageIndexes(indexes);
     } catch (error) {
@@ -93,7 +93,7 @@ const Userhotel = () => {
     }));
   };
 
-  // Filter hotels that the user has reservations for
+ 
   const filteredHotels = hotels.filter(hotel =>
     userReservations.some(reservation => reservation.reservation_id === hotel.id)
   );
@@ -109,18 +109,18 @@ const Userhotel = () => {
       <div className={styles.mainArea}>
         <div className={styles.leftSidebar}>
           <div className={styles.menu}>
-            <div className={styles.menuHeader}>Panou Admin</div>
+            <div className={styles.menuHeader}>Panou utilizator</div>
             <ul>
               <li><Link to="/Userhotel">USER HOTELURI</Link></li>
               <li><Link to="/Userzbor">USER ZBORURI</Link></li>
-              <li><Link to="/Usermasina">USER MASINI</Link></li>
+              <li><Link to="/Usermasina">USER MAȘINI</Link></li>
               <li><Link to="/Useroferte">USER OFERTE</Link></li>
             </ul>
           </div>
         </div>
 
         <div className={styles.content}>
-          <h2>Lista Hoteluri</h2>
+        <h2>Rezervările utilizatorului pentru Hoteluri</h2>
           <div className={styles.hotelList}>
             {filteredHotels.map((hotel) => {
               const userReservation = userReservations.find(reservation => reservation.reservation_id === hotel.id);
@@ -138,21 +138,21 @@ const Userhotel = () => {
                         <button className={styles.nextButton} onClick={() => nextImage(hotel.id)}>&#8250;</button>
                       </div>
                     )}
-                  </div>
+                  </div> 
                   <div className={styles.hotelDetails}>
                     <h3>{hotel.name}</h3>
-                    <p>Description: {hotel.description}</p>
-                    <p>Stars: {hotel.stars}</p>
-                    <p>Address: {hotel.address}</p>
-                    <p>Valid from: {hotel.valid_from}</p>
-                    <p>Valid to: {hotel.valid_to}</p>
+                    <p>Descriere: {hotel.description}</p>
+                    <p>Număr de stele: {hotel.stars}</p>
+                    <p>Adresă: {hotel.address}</p>
+                    <p>Valid de la data: {hotel.valid_from}</p>
+                    <p>Până la data {hotel.valid_to}</p>
                     {userReservation ? (
                       <>
-                        <p>Total Price: {userReservation.reservation_details.total_price}</p>
-                        <p>Status: Reserved</p>
+                        <p>Preț total: {userReservation.reservation_details.total_price} lei</p>
+                        <p>Status: Rezervat</p>
                       </>
                     ) : (
-                      <p>Total Price: {hotel.price_per_adult}</p>
+                      <p>Preț total: {hotel.price_per_adult} lei</p>
                     )}
                   </div>
                 </div>

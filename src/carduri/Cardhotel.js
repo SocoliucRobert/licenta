@@ -23,7 +23,7 @@ const CardHotel = ({ hotel }) => {
         <h3>{hotel.name}</h3>
         <p>{hotel.address}</p>
         <p>Număr de stele: {hotel.stars}</p>
-        <p>Preț pentru adulți: lei {hotel.price_per_adult}</p>
+        <p>Preț de persoană: {hotel.price_per_adult} lei</p>
         <Link to={`/hotel/${hotel.id}`} className={styles.detailsButton}>Vezi Detalii</Link>
       </div>
     </div>

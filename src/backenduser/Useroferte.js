@@ -71,11 +71,11 @@ const Useroferte = () => {
       <div className={styles.mainArea}>
         <div className={styles.leftSidebar}>
           <div className={styles.menu}>
-            <div className={styles.menuHeader}>Panou Admin</div>
+          <div className={styles.menuHeader}>Panou utilizator</div>
             <ul>
               <li><Link to="/Userhotel">USER HOTELURI</Link></li>
               <li><Link to="/Userzbor">USER ZBORURI</Link></li>
-              <li><Link to="/Usermasina">USER MASINI</Link></li>
+              <li><Link to="/Usermasina">USER MAȘINI</Link></li>
               <li><Link to="/Useroferte">USER OFERTE</Link></li>
             </ul>
           </div>
@@ -91,7 +91,7 @@ const Useroferte = () => {
                   <p>Număr de persoane: {offer.number_of_persons}</p>
                   <p>Perioada de început: {new Date(offer.start_period).toLocaleDateString()}</p>
                   <p>Perioada de sfârșit: {new Date(offer.end_period).toLocaleDateString()}</p>
-                  <p>Preț: {offer.price}</p>
+                  <p>Preț: {offer.price} lei</p>
                   <p>Descriere: {offer.description}</p>
                 </div>
               </div>

@@ -78,7 +78,7 @@ const DetaliiOferta = () => {
 
   const handleReserve = async () => {
     if (!userEmail) {
-      alert('You need to be logged in to make a reservation.');
+      alert('Trebuie să fii conectat pentru a rezerva o ofertă !');
       return;
     }
 
@@ -88,12 +88,12 @@ const DetaliiOferta = () => {
     }
 
     if (hasReserved) {
-      alert('You have already reserved this offer.');
+      alert('Ai cumpărat deja această ofertă');
       return;
     }
 
     try {
-      // Insert reservation data into the database
+      
       const reservationDetails = {
         destination: oferta.destination,
         number_of_persons: oferta.number_of_persons,
@@ -117,11 +117,11 @@ const DetaliiOferta = () => {
         throw reservationError;
       }
 
-      setHasReserved(true); // Update state to reflect reservation status
-      alert('Reservation successful!');
+      setHasReserved(true); 
+      alert('Oferta a fost rezervata cu success !');
     } catch (error) {
       console.error('Error making reservation:', error.message);
-      alert('Failed to make reservation. Please try again.');
+      alert('Eroare la rezervarea ofertei ');
     }
   };
 
@@ -137,17 +137,17 @@ const DetaliiOferta = () => {
       <div className={styles.detailsContainer}>
       <img src={oferta.offer_image_url} alt="Airline Logo" className={styles.offerImage} />
         <h1>{oferta.destination}</h1>
-        <p><strong>Price:</strong> ${oferta.price}</p>
-        <p><strong>Description:</strong> {oferta.description}</p>
-        <p><strong>Valid from:</strong> {new Date(oferta.start_period).toLocaleDateString()}</p>
-        <p><strong>Valid to:</strong> {new Date(oferta.end_period).toLocaleDateString()}</p>
-        <p><strong>Number of persons:</strong> {oferta.number_of_persons}</p>
+        <p><strong>Preț:</strong> ${oferta.price}</p>
+        <p><strong>Descriere:</strong> {oferta.description}</p>
+        <p><strong>Valabil de la data:</strong> {new Date(oferta.start_period).toLocaleDateString()}</p>
+        <p><strong>Până la data:</strong> {new Date(oferta.end_period).toLocaleDateString()}</p>
+        <p><strong>Număr de persoane:</strong> {oferta.number_of_persons}</p>
         
 
         {hasReserved ? (
-          <p>You have already reserved this offer.</p>
+          <p>Ai rezervat deja această ofertă.</p>
         ) : (
-          <button className={styles.reserveButton} onClick={handleReserve}>Rezerva</button>
+          <button className={styles.reserveButton} onClick={handleReserve}>Rezervă</button>
         )}
       </div>
     </div>
