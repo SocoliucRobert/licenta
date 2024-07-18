@@ -100,7 +100,7 @@ const Userzbor = () => {
         </div>
 
         <div className={styles.content}>
-        <h2>Rezervările Utilizatorului pentru Zboruri</h2>
+        <h2>Rezervările utilizatorului pentru zboruri</h2>
           <div className={styles.flightList}>
             {filteredFlights.map((flight) => {
               const userReservation = userReservations.find(reservation => reservation.reservation_id === flight.id);

@@ -82,7 +82,7 @@ const Useroferte = () => {
         </div>
 
         <div className={styles.content}>
-          <h2>Lista Oferte</h2>
+          <h2>Rezervările utilizatorului pentru oferte</h2>
           <div className={styles.offerList}>
             {offers.map((offer, index) => (
               <div key={index} className={styles.offerItem}>

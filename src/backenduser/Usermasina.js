@@ -7,16 +7,16 @@ import supabase from '../supabaseClient';
 
 const Usermasina = () => {
   const [userReservations, setUserReservations] = useState([]);
-  const [authenticated, setAuthenticated] = useState(false); // State to track authentication
+  const [authenticated, setAuthenticated] = useState(false); 
   const navigate = useNavigate();
 
   useEffect(() => {
-    checkAuthentication(); // Check authentication status when component mounts
+    checkAuthentication(); 
   }, []);
 
   useEffect(() => {
     if (authenticated) {
-      fetchUserReservations(); // Fetch user reservations when authenticated
+      fetchUserReservations(); 
     }
   }, [authenticated]);
 
@@ -83,7 +83,7 @@ const Usermasina = () => {
         </div>
 
         <div className={styles.content}>
-          <h2>Rezervările utilizatorului pentru Mașini</h2>
+          <h2>Rezervările utilizatorului pentru mașini</h2>
           <div className={styles.hotelList}>
             {userReservations.map((reservation) => (
               <div key={reservation.id} className={styles.hotelItem}>
