@@ -1,0 +1,93 @@
+.adminContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.mainArea {
+  display: flex;
+  flex: 1;
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+.leftSidebar {
+  width: 300px;
+  background-color: #6D93C0;
+  padding: 30px;
+  border-right: 1px solid #ccc;
+  color: white;
+}
+
+.menu {
+  margin-bottom: 20px;
+}
+
+.menuHeader {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 40px;
+  margin-top: 50px;
+}
+
+.menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu ul li {
+  margin-bottom: 10px;
+}
+
+.menu ul li a {
+  color: white; 
+  text-decoration: none;
+  font-size: 30px;
+}
+
+.menu ul li a:hover {
+  background-color: white;
+  color: #6D93C0;
+}
+
+.content {
+  flex: 1; 
+  padding: 20px;
+}
+
+.reviewList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.reviewItem {
+  position: relative;
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.reviewDetails {
+  padding: 10px;
+}
+
+.buttonContainer {
+  margin-top: 10px;
+}
+
+.deleteButton {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.deleteButton:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+

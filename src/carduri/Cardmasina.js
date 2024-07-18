@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import styles from './cardmasina.module.css';
-import supabase from '../supabaseClient'; // Import your Supabase client or backend API client
+import supabase from '../supabaseClient'; 
 
 const Cardmasina = ({ masina }) => {
   const [reservationLoading, setReservationLoading] = useState(false);
   const [reservationError, setReservationError] = useState(null);
-  const [numberOfDays, setNumberOfDays] = useState(1); // Default to 1 day reservation
+  const [numberOfDays, setNumberOfDays] = useState(1); 
+  const [isClicked, setIsClicked] = useState(false);
 
   const handleReservation = async () => {
     const confirmed = window.confirm(`Confirmați rezervarea autovehiculului ${masina.car_name} pentru ${numberOfDays} zile?`);
@@ -20,7 +21,7 @@ const Cardmasina = ({ masina }) => {
           const userEmail = parsedSession.user?.email;
 
           if (userEmail) {
-            // Check if the user has already reserved this car
+     
             const { data: existingReservations, error: existingError } = await supabase
               .from('reservations')
               .select('*')
@@ -34,8 +35,6 @@ const Cardmasina = ({ masina }) => {
               alert(`Ați rezervat deja autovehiculul ${masina.car_name}. Puteți face o singură rezervare.`);
               return;
             }
-
-            // Prepare reservation data
             const total_price = numberOfDays * masina.price_per_day;
             const reservationData = {
               user_email: userEmail,
@@ -55,11 +54,9 @@ const Cardmasina = ({ masina }) => {
               }
             };
 
-            // Send reservation request to backend
             const { data, error } = await supabase.from('reservations').insert([reservationData]);
             if (error) throw error;
 
-            // Handle success scenario (e.g., show success message)
             alert('Rezervarea a fost efectuată cu succes!');
           }
         } else {
@@ -86,8 +83,13 @@ const Cardmasina = ({ masina }) => {
     }
   };
 
+  const handleClick = () => {
+    setIsClicked(true);
+    setTimeout(() => setIsClicked(false), 300); // Reset the click effect after 300ms
+  };
+
   return (
-    <div className={styles.card}>
+    <div className={`${styles.card} ${isClicked ? styles.clicked : ''}`} onClick={handleClick}>
       <img src={masina.photo_url} alt={`Photo of ${masina.car_name}`} className={styles.cardImage} />
       <div className={styles.cardContent}>
         <h3>{masina.car_name}</h3>

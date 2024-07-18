@@ -121,6 +121,7 @@ const Admineditarecontact = () => {
               <li><Link to="/Admineditaremasini">EDITARE MAȘINĂ</Link></li>
               <li><Link to="/Admineditareoferte">EDITARE OFERTĂ</Link></li>
               <li><Link to="/Admineditarecontact">VIZUALIZARE CONTACT</Link></li>
+              <li><Link to="/Admineditarerecenzii">VIZUALIZARE RECENZII</Link></li>
             </ul>
           </div>
         </div>

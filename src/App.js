@@ -27,6 +27,7 @@ import HotelDetails from './detalii/HotelDetails';
 import FlightDetails from './detalii/FlightDetails';
 import DetaliiOferta from './detalii/DetaliiOferta';
 import supabase from './supabaseClient';
+import Admineditarerecenzii from './backendadmin/Admineditarerecenzii';
 
 
 
@@ -61,6 +62,7 @@ function App() {
         <Route path="/Admineditaremasini" element={<Admineditaremasini />} />
         <Route path="/Admineditareoferte" element={<Admineditareoferte />} />
         <Route path="/Admineditarecontact" element={<Admineditarecontact />} />
+        <Route path="/Admineditarerecenzii" element={<Admineditarerecenzii />} />
         <Route path="/Useroferte" element={<Useroferte />} />
         <Route path="/Usermasina" element={<Usermasina />} />
         <Route path="/Userzbor" element={<Userzbor/>} />

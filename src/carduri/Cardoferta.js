@@ -4,7 +4,7 @@ import styles from './cardoferta.module.css';
 
 const CardOferta = ({ oferta }) => {
   return (
-    <div className={styles.card}>
+    <div className={`${styles.card} ${styles.hoverEffect}`}>
       <img src={oferta.offer_image_url} alt={oferta.destination} className={styles.cardImage} />
       <div className={styles.cardContent}>
         <h3>{oferta.destination}</h3>
