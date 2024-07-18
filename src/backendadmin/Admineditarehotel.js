@@ -99,7 +99,7 @@ const Admineditarehotel = () => {
   };
 
   const handleDeleteHotel = async (hotel) => {
-    if (window.confirm(`Are you sure you want to delete hotel "${hotel.name}"?`)) {
+    if (window.confirm(`Sigur vrei să ștergi hotelul "${hotel.name}"?`)) {
       try {
         const { error } = await supabase.from('hotels').delete().eq('id', hotel.id);
         if (error) throw error;

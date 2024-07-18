@@ -199,7 +199,7 @@ const HotelDetails = () => {
       alert('Recenzie ștearsa cu succes !');
     } catch (error) {
       console.error('Error deleting review:', error.message);
-      alert('Eroare la ștergerea unei rencenzii !');
+      alert('Eroare la ștergerea unei recenzii !');
     }
   };
 
