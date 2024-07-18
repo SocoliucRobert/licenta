@@ -156,10 +156,10 @@ const HotelDetails = () => {
       return;
     }
 
-    // Check if the user already submitted a review
+ 
     const userReview = reviews.find(review => review.user_name === userEmail.split('@')[0]);
     if (userReview) {
-      alert('Ai rezervat deja acest hotel !');
+      alert('Ai lăsat deja o recenzie la acest hotel !');
       return;
     }
 
