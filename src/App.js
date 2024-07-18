@@ -19,6 +19,8 @@ import Admineditarezbor from './backendadmin/Admineditarezbor';
 import Admineditaremasini from './backendadmin/Admineditaremasini';
 import Admineditareoferte from './backendadmin/Admineditareoferte';
 import Admineditarecontact from './backendadmin/Admineditarecontact';
+import Admineditarerecenzii from './backendadmin/Admineditarerecenzii';
+import User from './backenduser/User';
 import Usermasina from './backenduser/Usermasina';
 import Userhotel from './backenduser/Userhotel';
 import Userzbor from './backenduser/Userzbor';
@@ -27,7 +29,8 @@ import HotelDetails from './detalii/HotelDetails';
 import FlightDetails from './detalii/FlightDetails';
 import DetaliiOferta from './detalii/DetaliiOferta';
 import supabase from './supabaseClient';
-import Admineditarerecenzii from './backendadmin/Admineditarerecenzii';
+
+
 
 
 
@@ -42,7 +45,7 @@ function App() {
       
       <Routes>
         
-      <Route path="/" element={<Acasa/>} />
+      <Route path="/" element={<User/>} />
         <Route path="/Acasa" element={<Acasa />} />
         <Route path="/Hoteluri" element={<Hoteluri />} />
         <Route path="/Zboruri" element={<Zboruri />} />
@@ -67,6 +70,7 @@ function App() {
         <Route path="/Usermasina" element={<Usermasina />} />
         <Route path="/Userzbor" element={<Userzbor/>} />
         <Route path="/Userhotel" element={<Userhotel/>} />
+        <Route path="/User" element={<User/>} />
         <Route path="/hotel/:id" element={<HotelDetails />} />
         <Route path="/flight/:id" element={<FlightDetails />} />
         <Route path="/oferta/:id" element={<DetaliiOferta />} />

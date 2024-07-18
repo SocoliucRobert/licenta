@@ -1,0 +1,114 @@
+.adminContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.mainArea {
+  display: flex;
+  flex: 1;
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+.leftSidebar {
+  width: 300px;
+  background-color: #6d93c0;
+  padding: 30px;
+  border-right: 1px solid #ccc;
+  color: white;
+}
+
+.menu {
+  margin-bottom: 20px;
+}
+
+.menuHeader {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 40px;
+  margin-top: 50px;
+}
+
+.menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu ul li {
+  margin-bottom: 10px;
+}
+
+.menu ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 30px;
+}
+
+.menu ul li a:hover {
+  background-color: white;
+  color: #6d93c0;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ccc;
+  background-color: white;
+}
+
+.userData {
+  margin-bottom: 20px;
+}
+
+.userForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.formGroup label {
+  font-weight: bold;
+}
+
+.formGroup input,
+.formGroup select {
+  width: 100%;
+  padding: 8px;
+  font-size: 24px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.formGroup button {
+  padding: 10px 20px;
+  background-color: #6d93c0;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+.cancelButton {
+  background-color: #6d93c0;
+  color: white;
+  font-size: 16px;
+}
+
+.editButton {
+  background-color: #6d93c0;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+.editButton:hover {
+  background-color: #375a7f;
+}

@@ -73,11 +73,13 @@ const Usermasina = () => {
         <div className={styles.leftSidebar}>
           <div className={styles.menu}>
           <div className={styles.menuHeader}>Panou utilizator</div>
-            <ul>
+          <ul>
+            <li><Link to="/User">PROFIL</Link></li>
               <li><Link to="/Userhotel">USER HOTELURI</Link></li>
               <li><Link to="/Userzbor">USER ZBORURI</Link></li>
               <li><Link to="/Usermasina">USER MAȘINI</Link></li>
               <li><Link to="/Useroferte">USER OFERTE</Link></li>
+            
             </ul>
           </div>
         </div>

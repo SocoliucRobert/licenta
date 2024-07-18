@@ -111,16 +111,18 @@ const Userhotel = () => {
           <div className={styles.menu}>
             <div className={styles.menuHeader}>Panou utilizator</div>
             <ul>
+            <li><Link to="/User">PROFIL</Link></li>
               <li><Link to="/Userhotel">USER HOTELURI</Link></li>
               <li><Link to="/Userzbor">USER ZBORURI</Link></li>
               <li><Link to="/Usermasina">USER MAȘINI</Link></li>
               <li><Link to="/Useroferte">USER OFERTE</Link></li>
+            
             </ul>
           </div>
         </div>
 
         <div className={styles.content}>
-        <h2>Rezervările utilizatorului pentru Hoteluri</h2>
+        <h2>Rezervările utilizatorului pentru hoteluri</h2>
           <div className={styles.hotelList}>
             {filteredHotels.map((hotel) => {
               const userReservation = userReservations.find(reservation => reservation.reservation_id === hotel.id);

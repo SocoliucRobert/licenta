@@ -1,71 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './inregistrare.module.css';
 import Meniusus from './Meniusus';
 import Meniujos from './Meniujos';
-
-import imagineMare from './poze/imagineMare.png';
-import facebookIcon from './poze/facebooklogin.png'; 
-import googleIcon from './poze/googlelogin.png'; 
-import { useNavigate } from 'react-router-dom';
 import supabase from './supabaseClient';
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Inregistrare = () => {
-
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmationMessage, setConfirmationMessage] = useState('');
 
-  const handleGoogleLogin = async () => {
-    try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google'
-      });
-  
-      if (error) {
-        console.error('Google Login Error:', error);
-        throw error;
-      }
-  
-      if (data) {
-        console.log('Google Login Session:', data.session);
-        navigate('/Acasa');
-        localStorage.setItem('session', JSON.stringify(data.session));
-      } else {
-        console.log('Google Login Failed: No valid session data received');
-      }
-    } catch (error) {
-      console.error('Exception in Google Login:', error.message);
-    }
-  };
-
-  const handleFacebookLogin = async () => {
-    try {
-      const {data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'facebook'
-      });
-
-      if (error) {
-        throw error;
-      }
-
-      if (data) {
-        navigate('/Acasa');
-        localStorage.setItem('session', JSON.stringify(data.session)); 
-        
-      }
-    } catch (error) {
-      console.error('Error logging in with Facebook:', error.message);
-    }
-  };
-
-
   const handleSignUp = async (event) => {
     event.preventDefault();
     try {
-      const {error } = await supabase.auth.signUp({
+      const { error } = await supabase.auth.signUp({
         email: email,
         password: password
       });
@@ -74,12 +24,25 @@ const Inregistrare = () => {
         throw error;
       }
 
-      setConfirmationMessage('A fost trimis un email de confirmare la adresa data');
+      // Store only email in users table with other fields as NULL
+      const { data, error: insertError } = await supabase
+        .from('users')
+        .insert([
+          {
+            adresa_email: email
+          }
+        ]);
+
+      if (insertError) {
+        throw insertError;
+      }
+
+      setConfirmationMessage('A fost trimis un email de confirmare la adresa dată');
       setEmail('');
       setPassword('');
     } catch (error) {
       console.error('Error during signup:', error.message);
-      setConfirmationMessage('A fost trimis un email de confirmare la adresa data');
+      setConfirmationMessage('A fost trimis un email de confirmare la adresa dată');
       setEmail('');
       setPassword('');
     }
@@ -88,7 +51,6 @@ const Inregistrare = () => {
   return (
     <div>
       <Meniusus />
-     
       <div className={styles.container}>
         <form className={styles.form} onSubmit={handleSignUp}>
           <div className={styles.formGroup}>
@@ -114,19 +76,18 @@ const Inregistrare = () => {
             />
           </div>
           <div className={styles.formGroup}>
-            <button type="submit6">Inregistrare</button>
+            <button type="submit6">Înregistrare</button>
           </div>
           {confirmationMessage && (
             <div className={styles.confirmationMessage}>
               {confirmationMessage}
             </div>
           )}
-          <div className={styles.socialLogin}>
-            
-          </div>
         </form>
         <div className={styles.footer}>
-          <span><Link to="/Login">Ai deja cont? Intră in cont</Link></span>
+          <span>
+            <Link to="/Login">Ai deja cont? Intră în cont</Link>
+          </span>
         </div>
       </div>
       <Meniujos />

@@ -8,18 +8,18 @@ import styles from './userzbor.module.css';
 const Userzbor = () => {
   const [flights, setFlights] = useState([]);
   const [userEmail, setUserEmail] = useState('');
-  const [authenticated, setAuthenticated] = useState(false); // State to track authentication
+  const [authenticated, setAuthenticated] = useState(false); 
   const [userReservations, setUserReservations] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    checkAuthentication(); // Check authentication status when component mounts
+    checkAuthentication();
   }, []);
 
   useEffect(() => {
     if (authenticated) {
       fetchFlights();
-      fetchUserReservations(); // Fetch user reservations when authenticated
+      fetchUserReservations(); 
     }
   }, [authenticated]);
 
@@ -34,16 +34,16 @@ const Userzbor = () => {
           setAuthenticated(true);
         } else {
           setAuthenticated(false);
-          navigate('/Login'); // Redirect to login if no user email found
+          navigate('/Login'); 
         }
       } catch (error) {
         console.error('Error parsing session JSON:', error);
         setAuthenticated(false);
-        navigate('/Login'); // Redirect to login if error parsing session
+        navigate('/Login'); 
       }
     } else {
       setAuthenticated(false);
-      navigate('/Login'); // Redirect to login if no session found
+      navigate('/Login'); 
     }
   };
 
@@ -51,7 +51,7 @@ const Userzbor = () => {
     try {
       const { data, error } = await supabase.from('flights').select('*');
       if (error) throw error;
-      setFlights(data); // Set flights data from Supabase into state
+      setFlights(data); 
     } catch (error) {
       console.error('Error fetching flights:', error.message);
     }
@@ -90,11 +90,13 @@ const Userzbor = () => {
         <div className={styles.leftSidebar}>
           <div className={styles.menu}>
           <div className={styles.menuHeader}>Panou utilizator</div>
-            <ul>
+          <ul>
+            <li><Link to="/User">PROFIL</Link></li>
               <li><Link to="/Userhotel">USER HOTELURI</Link></li>
               <li><Link to="/Userzbor">USER ZBORURI</Link></li>
               <li><Link to="/Usermasina">USER MAȘINI</Link></li>
               <li><Link to="/Useroferte">USER OFERTE</Link></li>
+            
             </ul>
           </div>
         </div>
