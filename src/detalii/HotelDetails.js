@@ -62,19 +62,26 @@ const HotelDetails = () => {
   }, [id]);
 
   useEffect(() => {
-    setCurrentImageIndex(0);
-  }, [hotel]);
-
-  useEffect(() => {
-    const session = localStorage.getItem('session');
-    if (session) {
+    const checkAuthentication = async () => {
       try {
-        const parsedSession = JSON.parse(session);
-        setUserEmail(parsedSession.user?.email || '');
+        const { data: { session }, error } = await supabase.auth.getSession();
+
+        if (error) {
+          console.error('Error fetching session:', error.message);
+          return;
+        }
+
+        if (session) {
+          setUserEmail(session.user?.email || '');
+        } else {
+          setUserEmail('');
+        }
       } catch (error) {
-        console.error('Error parsing session JSON:', error.message);
+        console.error('Error checking authentication:', error.message);
       }
-    }
+    };
+
+    checkAuthentication();
   }, []);
 
   const handleThumbnailClick = (index) => {

@@ -21,30 +21,26 @@ const Useroferte = () => {
     }
   }, [authenticated]);
 
-  const checkAuthentication = () => {
-    const session = localStorage.getItem('session');
-    if (session) {
-      try {
-        const parsedSession = JSON.parse(session);
-        const userEmail = parsedSession.user?.email;
-        if (userEmail) {
-          setAuthenticated(true);
-          setUserEmail(userEmail);
-        } else {
-          setAuthenticated(false);
-          navigate('/Login'); // Redirect to login if no user email found
-        }
-      } catch (error) {
-        console.error('Error parsing session JSON:', error);
-        setAuthenticated(false);
-        navigate('/Login'); // Redirect to login if error parsing session
-      }
+  const checkAuthentication = async () => {
+    const { data: { session }, error } = await supabase.auth.getSession();
+    
+    if (error || !session) {
+      setAuthenticated(false);
+      navigate('/Login');
+      return;
+    }
+    
+    const user = session.user;
+    const userEmail = user?.email;
+
+    if (userEmail) {
+      setUserEmail(userEmail);
+      setAuthenticated(true);
     } else {
       setAuthenticated(false);
-      navigate('/Login'); // Redirect to login if no session found
+      navigate('/Login');
     }
   };
-
   const fetchUser = async () => {
     try {
       const { data, error } = await supabase

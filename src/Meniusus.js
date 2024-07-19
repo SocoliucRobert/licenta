@@ -4,54 +4,56 @@ import styles from './meniusus.module.css';
 import baraImage from './poze/bara.png';
 import imagelogo from './poze/imagineLogo.png';
 import { motion } from 'framer-motion';
+import supabase from './supabaseClient';
 
 const Meniusus = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userEmail, setUserEmail] = useState('');
+  const [username, setUsername] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
-    const session = localStorage.getItem('session');
-    if (session) {
-      try {
-        const parsedSession = JSON.parse(session);
-        setIsLoggedIn(true);
-        setUserEmail(parsedSession.user?.email || '');
-        console.log('Session Data:', parsedSession);
-
-      
-      } catch (error) {
-        console.error('Error parsing session JSON:', error);
+    const checkSession = async () => {
+      const session = localStorage.getItem('session');
+      if (session) {
+        try {
+          const { data: { user }, error } = await supabase.auth.getUser();
+          if (error || !user) {
+            handleLogout();
+            return;
+          }
+          setIsLoggedIn(true);
+          setUsername(user.user_metadata.full_name || user.email);
+          console.log('User Data:', user);
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      } else {
+        setIsLoggedIn(false);
+        setUsername('');
       }
-    } else {
-      setIsLoggedIn(false);
-      setUserEmail('');
-    }
 
-    const currentPath = window.location.pathname;
-    if ((session && currentPath === '/Login') || (session && currentPath === '/Inregistrare') || (session && currentPath === '/Resetareparola')) {
-      navigate('/Acasa');
-    }
-  }, [navigate, userEmail]);
+      const currentPath = window.location.pathname;
+      if ((session && currentPath === '/Login') || (session && currentPath === '/Inregistrare') || (session && currentPath === '/Resetareparola')) {
+        navigate('/Acasa');
+      }
+    };
 
-  const handleLogout = () => {
+    checkSession();
+  }, [navigate]);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     localStorage.removeItem('session');
     setIsLoggedIn(false);
-    setUserEmail('');
-    navigate('/');
-  };
-
-  const getUsername = () => {
-    if (userEmail) {
-      return userEmail.split('@')[0]; // fara caracterul de email
-    }
-    return '';
+    setUsername('');
+    navigate('/Login');
   };
 
   const handleUsernameClick = () => {
-    navigate('/Userhotel'); 
-    if (userEmail === 'traveladdictionsuport@gmail.com') {
+    if (username === 'traveladdictionsuport@gmail.com') {
       navigate('/Admineditarehotel');
+    } else {
+      navigate('/Userhotel');
     }
   };
 
@@ -70,7 +72,7 @@ const Meniusus = () => {
           {isLoggedIn ? (
             <div className={styles.loggedInUser}>
               <span className={styles.loggedInText} onClick={handleUsernameClick} style={{ cursor: 'pointer' }}>
-                Utilizator: {getUsername()}
+                Utilizator: {username}
               </span>
               <button
                 type="button"
@@ -92,13 +94,9 @@ const Meniusus = () => {
         <motion.div className={styles.wordsContainer}>
           <Link to="/Acasa" className={styles.link}><motion.span className={styles.word}>ACASA</motion.span></Link>
           <Link to="/Hoteluri" className={styles.link}><motion.span className={styles.word}>HOTELURI</motion.span></Link>
-          
-            <>
-              <Link to="/Zboruri" className={styles.link}><motion.span className={styles.word}>ZBORURI</motion.span></Link>
-              <Link to="/InchirieriAuto" className={styles.link}><motion.span className={styles.word}>INCHIRIERI AUTO</motion.span></Link>
-              <Link to="/Oferte" className={styles.link}><motion.span className={styles.word}>OFERTE</motion.span></Link>
-            </>
-         
+          <Link to="/Zboruri" className={styles.link}><motion.span className={styles.word}>ZBORURI</motion.span></Link>
+          <Link to="/InchirieriAuto" className={styles.link}><motion.span className={styles.word}>INCHIRIERI AUTO</motion.span></Link>
+          <Link to="/Oferte" className={styles.link}><motion.span className={styles.word}>OFERTE</motion.span></Link>
           <Link to="/Contact" className={styles.link}><motion.span className={styles.word}>CONTACT</motion.span></Link>
         </motion.div>
       </div>

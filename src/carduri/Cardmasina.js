@@ -7,7 +7,7 @@ const Cardmasina = ({ masina }) => {
   const [reservationError, setReservationError] = useState(null);
   const [numberOfDays, setNumberOfDays] = useState(1); 
   const [isClicked, setIsClicked] = useState(false);
-
+  const [userEmail, setUserEmail] = useState('');
   const handleReservation = async () => {
     const confirmed = window.confirm(`Confirmați rezervarea autovehiculului ${masina.car_name} pentru ${numberOfDays} zile?`);
 
@@ -15,10 +15,10 @@ const Cardmasina = ({ masina }) => {
       try {
         setReservationLoading(true);
 
-        const session = localStorage.getItem('session');
+        const { data: { session }, error } = await supabase.auth.getSession();
         if (session) {
-          const parsedSession = JSON.parse(session);
-          const userEmail = parsedSession.user?.email;
+          setUserEmail(session.user?.email || '');
+          
 
           if (userEmail) {
      

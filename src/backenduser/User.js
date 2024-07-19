@@ -19,7 +19,8 @@ const User = () => {
   });
   const [authenticated, setAuthenticated] = useState(false);
   const [editing, setEditing] = useState(false);
-
+  const [userEmail, setUserEmail] = useState('');
+  
   useEffect(() => {
     checkAuthentication();
   }, []);
@@ -30,32 +31,60 @@ const User = () => {
     }
   }, [authenticated]);
 
-  const checkAuthentication = () => {
-    const session = localStorage.getItem('session');
-    if (session) {
-      try {
-        const parsedSession = JSON.parse(session);
-        const userEmail = parsedSession.user?.email;
-        if (userEmail) {
-          setAuthenticated(true);
-        }
-      } catch (error) {
-        console.error('Error parsing session JSON:', error);
-        setAuthenticated(false);
-        navigate('/Login');
-      }
+  const checkAuthentication = async () => {
+    const { data: { session }, error } = await supabase.auth.getSession();
+    
+    if (error || !session) {
+      setAuthenticated(false);
+      navigate('/Login');
+      return;
+    }
+    
+    const user = session.user;
+    const userEmail = user?.email;
+
+    if (userEmail) {
+      setUserEmail(userEmail);
+      setAuthenticated(true);
     } else {
       setAuthenticated(false);
       navigate('/Login');
     }
   };
 
+  
+
   const fetchUserData = async () => {
-    const session = localStorage.getItem('session');
-    if (session) {
+    const { data: { session }, error } = await supabase.auth.getSession();
+
+    const user = session.user;
+    const userEmail = user?.email;
+
+    const { data: existingUser, error: fetchError } = await supabase
+    .from('users')
+    .select('*')
+    .eq('adresa_email', user.email)
+    .single();
+
+  if (fetchError && fetchError.code !== 'PGRST116') {
+    console.error('Error fetching user from database:', fetchError.message);
+    throw fetchError;
+  }
+
+  // If the user does not exist, insert the user email into the users table
+  if (!existingUser) {
+    const { error: insertError } = await supabase
+      .from('users')
+      .insert({ adresa_email: user.email });
+
+    if (insertError) {
+      console.error('Error inserting user into database:', insertError.message);
+    }
+  }
+  
+    
       try {
-        const parsedSession = JSON.parse(session);
-        const userEmail = parsedSession.user?.email;
+        
         if (userEmail) {
           const { data, error } = await supabase
             .from('users')
@@ -74,9 +103,7 @@ const User = () => {
       } catch (error) {
         console.error('Error fetching user data:', error.message);
       }
-    } else {
-      navigate('/Login');
-    }
+    
   };
 
   const handleEditToggle = () => {

@@ -9,7 +9,7 @@ const Usermasina = () => {
   const [userReservations, setUserReservations] = useState([]);
   const [authenticated, setAuthenticated] = useState(false); 
   const navigate = useNavigate();
-
+  const [userEmail, setUserEmail] = useState('');
   useEffect(() => {
     checkAuthentication(); 
   }, []);
@@ -20,31 +20,31 @@ const Usermasina = () => {
     }
   }, [authenticated]);
 
-  const checkAuthentication = () => {
-    const session = localStorage.getItem('session');
-    if (session) {
-      try {
-        const parsedSession = JSON.parse(session);
-        const userEmail = parsedSession.user?.email;
-        if (userEmail) {
-          setAuthenticated(true);
-        }
-      } catch (error) {
-        console.error('Error parsing session JSON:', error);
-        setAuthenticated(false);
-      }
+  const checkAuthentication = async () => {
+    const { data: { session }, error } = await supabase.auth.getSession();
+    
+    if (error || !session) {
+      setAuthenticated(false);
+      navigate('/Login');
+      return;
+    }
+    
+    const user = session.user;
+    const userEmail = user?.email;
+
+    if (userEmail) {
+      setUserEmail(userEmail);
+      setAuthenticated(true);
     } else {
       setAuthenticated(false);
       navigate('/Login');
     }
   };
 
+
   const fetchUserReservations = async () => {
     try {
-      const session = localStorage.getItem('session');
-      if (session) {
-        const parsedSession = JSON.parse(session);
-        const userEmail = parsedSession.user?.email;
+     
 
         if (userEmail) {
           const { data, error } = await supabase
@@ -55,7 +55,7 @@ const Usermasina = () => {
           if (error) throw error;
           setUserReservations(data);
         }
-      }
+      
     } catch (error) {
       console.error('Error fetching user reservations:', error.message);
     }
