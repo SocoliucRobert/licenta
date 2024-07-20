@@ -9,6 +9,8 @@ import supabase from './supabaseClient';
 const Meniusus = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
+  const [isLoading, setIsLoading] = useState(true); // New loading state
+  const [fadeClass, setFadeClass] = useState(''); // New state for fade-in class
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,6 +38,9 @@ const Meniusus = () => {
       if ((session && currentPath === '/Login') || (session && currentPath === '/Inregistrare') || (session && currentPath === '/Resetareparola')) {
         navigate('/Acasa');
       }
+
+      setIsLoading(false); // Set loading to false once session check is done
+      setFadeClass(styles['fade-in']); // Apply fade-in class after loading
     };
 
     checkSession();
@@ -68,8 +73,10 @@ const Meniusus = () => {
           <img src={imagelogo} alt="Imagine Logo" className={styles.logo} />
           <span className={styles.brand}>TRAVEL ADDICTION</span>
         </div>
-        <div className={styles.loginButton}>
-          {isLoggedIn ? (
+        <div className={`${styles.loginButton} ${fadeClass}`}>
+          {isLoading ? (
+            <span>Se incarca sesiunea</span>
+          ) : isLoggedIn ? (
             <div className={styles.loggedInUser}>
               <span className={styles.loggedInText} onClick={handleUsernameClick} style={{ cursor: 'pointer' }}>
                 Utilizator: {username}
