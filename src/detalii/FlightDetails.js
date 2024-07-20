@@ -140,7 +140,7 @@ const FlightDetails = () => {
         <div className={styles.flightContent}>
           <h1 className={styles.flightTitle}>Zbor de la {flight.departure_location} la {flight.arrival_location}</h1>
           <p className={styles.flightDetailItem}><strong>Data plecării:</strong> {new Date(flight.departure_date).toLocaleDateString()}</p>
-          <p className={styles.flightDetailItem}><strong>Preț per persoană:</strong> ${flight.price_per_person}</p>
+          <p className={styles.flightDetailItem}><strong>Preț per persoană:</strong> {flight.price_per_person} lei</p>
           <p className={styles.flightDetailItem}><strong>Locuri disponibile:</strong> {flight.available_seats}</p>
         </div>
         <div className={styles.reservationControls}>

@@ -9,8 +9,8 @@ import supabase from './supabaseClient';
 const Meniusus = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
-  const [isLoading, setIsLoading] = useState(true); // New loading state
-  const [fadeClass, setFadeClass] = useState(''); // New state for fade-in class
+  const [isLoading, setIsLoading] = useState(true); 
+  const [fadeClass, setFadeClass] = useState(''); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,8 +39,8 @@ const Meniusus = () => {
         navigate('/Acasa');
       }
 
-      setIsLoading(false); // Set loading to false once session check is done
-      setFadeClass(styles['fade-in']); // Apply fade-in class after loading
+      setIsLoading(false); 
+      setFadeClass(styles['fade-in']); 
     };
 
     checkSession();
@@ -86,12 +86,12 @@ const Meniusus = () => {
                 onClick={handleLogout}
                 className={`${styles.buttonStyle} ${styles.animateButton}`}
               >
-                <span className={styles.buttonText}>DELOGARE</span>
+                <span className={styles.buttonText}>IEȘIRE</span>
               </button>
             </div>
           ) : (
             <Link to="/Login" className={`${styles.buttonStyle} ${styles.animateButton}`}>
-              <span className={styles.buttonText}>LOGARE</span>
+              <span className={styles.buttonText}>CONECTARE</span>
             </Link>
           )}
         </div>
@@ -99,7 +99,7 @@ const Meniusus = () => {
       <div className={styles.header}>
         <img src={baraImage} alt="Travel" className={styles.image} />
         <motion.div className={styles.wordsContainer}>
-          <Link to="/Acasa" className={styles.link}><motion.span className={styles.word}>ACASA</motion.span></Link>
+          <Link to="/Acasa" className={styles.link}><motion.span className={styles.word}>ACASĂ</motion.span></Link>
           <Link to="/Hoteluri" className={styles.link}><motion.span className={styles.word}>HOTELURI</motion.span></Link>
           <Link to="/Zboruri" className={styles.link}><motion.span className={styles.word}>ZBORURI</motion.span></Link>
           <Link to="/InchirieriAuto" className={styles.link}><motion.span className={styles.word}>INCHIRIERI AUTO</motion.span></Link>

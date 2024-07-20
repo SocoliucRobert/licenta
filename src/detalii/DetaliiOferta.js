@@ -147,7 +147,7 @@ const DetaliiOferta = () => {
       <div className={styles.detailsContainer}>
       <img src={oferta.offer_image_url} alt="Airline Logo" className={styles.offerImage} />
         <h1>{oferta.destination}</h1>
-        <p><strong>Preț:</strong> ${oferta.price}</p>
+        <p><strong>Preț:</strong> {oferta.price} lei</p>
         <p><strong>Descriere:</strong> {oferta.description}</p>
         <p><strong>Valabil de la data:</strong> {new Date(oferta.start_period).toLocaleDateString()}</p>
         <p><strong>Până la data:</strong> {new Date(oferta.end_period).toLocaleDateString()}</p>
