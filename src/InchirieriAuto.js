@@ -27,24 +27,24 @@ const InchirieriAuto = () => {
       let { data, error } = await supabase.from('masini').select('*');
       if (error) throw error;
 
-      // Filter cars based on input criteria
+
       let filteredCars = data.filter((car) => {
-        // Filter by pickup location (car_location)
+       
         if (pickupLocation && car.car_location.toLowerCase().indexOf(pickupLocation.toLowerCase()) === -1) {
           return false;
         }
 
-        // Filter by number of seats (number_of_seats)
+    
         if (seatsFilter && car.number_of_seats < parseInt(seatsFilter)) {
           return false;
         }
 
-        // Filter by fuel type (fuel_type)
+    
         if (fuelTypeFilter && car.fuel_type !== fuelTypeFilter) {
           return false;
         }
 
-        // Filter by transmission type (transmission_type)
+    
         if (transmissionFilter && car.transmission_type !== transmissionFilter) {
           return false;
         }
@@ -52,7 +52,7 @@ const InchirieriAuto = () => {
         return true;
       });
 
-      // Sort cars based on priceSortOrder
+  
       if (priceSortOrder === 'asc') {
         filteredCars.sort((a, b) => a.price_per_day - b.price_per_day);
       } else if (priceSortOrder === 'desc') {
@@ -92,7 +92,7 @@ const InchirieriAuto = () => {
 
   return (
     <div className={styles.pageContainer}>
-      <ChatGpt />
+     
       <Meniusus />
       <div className={styles.contentContainer}>
         <div className={styles.imageContainer}>

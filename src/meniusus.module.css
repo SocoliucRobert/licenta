@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: white;
-  padding: 0 20px; /* Ensure some padding */
+  padding: 0 20px; 
 }
 
 .logoContainer {
@@ -38,27 +38,27 @@
   border: none;
   cursor: pointer;
   border-radius: 5px;
-  text-transform: uppercase; /* Optional: makes button text uppercase */
+  text-transform: uppercase; 
   text-decoration: none;
   font-weight: bold;
-  transition: transform 0.10s ease-in-out; /* Adding transition for transform */
+  transition: transform 0.10s ease-in-out; 
 }
 
 .buttonStyle:hover {
-  background-color: #004494; /* Darker shade on hover */
+  background-color: #004494;
 }
 .buttonStyle:active {
-  transform: translateY(-10px); /* Adjust this value as needed */
+  transform: translateY(-10px); 
 }
 
 .buttonText {
-  color: white; /* Ensures text color is white */
+  color: white; 
 }
 
 .header {
   position: relative;
   width: 100%;
-  margin-top: 10px; /* Space from top bar */
+  margin-top: 10px; 
 }
 
 .image {
@@ -93,9 +93,9 @@
 
 .link:hover .word {
   transform: scale(1.1);
-  color: yellow; /* Highlight color on hover */
+  color: yellow; 
 }
-/* Assuming new styles for displaying user email */
+
 .loggedInUser {
   display: flex;
   align-items: center;
@@ -103,7 +103,7 @@
 
 .loggedInText {
   margin-right: 10px;
-  color: #555; /* Adjust color as per your design */
+  color: #555; 
 }
 .loggedInText
 {

@@ -58,7 +58,7 @@ const Zboruri = () => {
 
   return (
     <div className={styles.pageContainer}>
-      <ChatGpt />
+     
       <Meniusus />
       <div className={styles.contentContainer}>
         <div className={styles.imageContainer}>

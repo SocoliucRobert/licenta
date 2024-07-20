@@ -21,14 +21,14 @@ const Oferte = () => {
       let { data, error } = await supabase.from('oferta').select('*');
       if (error) throw error;
 
-      // Filtering based on form input criteria
+    
       let filteredOffers = data.filter((oferta) => {
-        // Check if destination matches
+       
         if (destinatie && oferta.destination.toLowerCase().indexOf(destinatie.toLowerCase()) === -1) {
           return false;
         }
 
-        // Check if start period and end period match exactly
+     
         if (startPeriod && endPeriod) {
           const ofertaStart = new Date(oferta.start_period);
           const ofertaEnd = new Date(oferta.end_period);
@@ -40,7 +40,7 @@ const Oferte = () => {
           }
         }
 
-        // Check if number of persons matches
+   
         if (numarPersoane && oferta.number_of_persons !== parseInt(numarPersoane)) {
           return false;
         }
@@ -84,12 +84,12 @@ const Oferte = () => {
   const handleSearch = (event) => {
     event.preventDefault();
     setSearchClicked(true);
-    fetchOffers(); // Call fetchOffers on search button click
+    fetchOffers(); 
   };
 
   return (
     <div className={styles.pageContainer}>
-      <ChatGpt />
+  
       <Meniusus />
       <div className={styles.contentContainer}>
         <div className={styles.imageContainer}>

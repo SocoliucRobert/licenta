@@ -5,7 +5,7 @@ import Meniujos from './Meniujos';
 import imagineMare from './poze/imagineMare.png';  
 import imagineGenerata from './poze/imagineGenerata.png';  
 import ChatGpt from './ChatGpt';
-import Chat from './Chat';
+
 import CardHotel from './carduri/Cardhotel';
 import supabase from './supabaseClient';
 import { useState } from 'react';
@@ -54,7 +54,7 @@ const Acasa = () => {
   };
   return (
     <div>
-      <ChatGpt />
+      
       <Meniusus />
       
       
