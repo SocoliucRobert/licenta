@@ -24,7 +24,7 @@ const Inregistrare = () => {
         throw error;
       }
 
-      // Store only email in users table with other fields as NULL
+     
       const { data, error: insertError } = await supabase
         .from('users')
         .insert([

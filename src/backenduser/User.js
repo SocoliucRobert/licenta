@@ -156,10 +156,10 @@ const User = () => {
             <div className={styles.menuHeader}>Panou utilizator</div>
             <ul>
             <li><Link to="/User">PROFIL</Link></li>
-              <li><Link to="/Userhotel">USER HOTELURI</Link></li>
-              <li><Link to="/Userzbor">USER ZBORURI</Link></li>
-              <li><Link to="/Usermasina">USER MAȘINI</Link></li>
-              <li><Link to="/Useroferte">USER OFERTE</Link></li>
+              <li><Link to="/Userhotel">HOTELURI REZERVATE</Link></li>
+              <li><Link to="/Userzbor">ZBORURI REZERVATE</Link></li>
+              <li><Link to="/Usermasina">MAȘINI ÎNCHIRIATE</Link></li>
+              <li><Link to="/Useroferte">OFERTE REZERVATE</Link></li>
             
             </ul>
           </div>

@@ -110,7 +110,7 @@ const Admineditarecontact = () => {
       <div className={styles.mainArea}>
         <div className={styles.leftSidebar}>
           <div className={styles.menu}>
-            <div className={styles.menuHeader}>Panou Admin</div>
+            <div className={styles.menuHeader}>Panou admin</div>
             <ul>
               <li><Link to="/Adminhoteluri">ADĂUGARE HOTEL</Link></li>
               <li><Link to="/Adminzboruri">ADĂUGARE ZBOR</Link></li>
@@ -136,8 +136,8 @@ const Admineditarecontact = () => {
                     <>
                       <h3>{contact.first_name} {contact.last_name}</h3>
                       <p>Email: {contact.email}</p>
-                      <p>Phone Number: {contact.phone_number}</p>
-                      <p>Message: {contact.message}</p>
+                      <p>Număr de telefon: {contact.phone_number}</p>
+                      <p>Mesaj: {contact.message}</p>
                     </>
                   )}
                   {contact.editing && (
@@ -173,7 +173,7 @@ const Admineditarecontact = () => {
                         />
                       </div>
                       <div className={styles.formGroup}>
-                        <label>Phone Number</label>
+                        <label>Număr de telefon</label>
                         <input
                           type="text"
                           value={contact.phone_number}
@@ -183,7 +183,7 @@ const Admineditarecontact = () => {
                         />
                       </div>
                       <div className={styles.formGroup}>
-                        <label>Message</label>
+                        <label>Mesaj</label>
                         <textarea
                           value={contact.message}
                           onChange={(e) =>

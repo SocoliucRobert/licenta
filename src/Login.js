@@ -160,7 +160,7 @@ const Login = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <button type="submit5">Logare</button>
+              <button type="submit5">Conectare</button>
             </div>
             {loginMessage && (
               <div className={styles.loginMessage}>{loginMessage}</div>

@@ -108,7 +108,7 @@ const Admineditareoferte = () => {
       <div className={styles.mainArea}>
         <div className={styles.leftSidebar}>
           <div className={styles.menu}>
-            <div className={styles.menuHeader}>Panou Admin</div>
+          <div className={styles.menuHeader}>Panou admin</div>
             <ul>
               <li><Link to="/Adminhoteluri">ADĂUGARE HOTEL</Link></li>
               <li><Link to="/Adminzboruri">ADĂUGARE ZBOR</Link></li>

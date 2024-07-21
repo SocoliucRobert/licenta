@@ -8,11 +8,11 @@ import styles from './useroferte.module.css';
 const Useroferte = () => {
   const [offers, setOffers] = useState([]);
   const [userEmail, setUserEmail] = useState('');
-  const [authenticated, setAuthenticated] = useState(false); // State to track authentication
+  const [authenticated, setAuthenticated] = useState(false); 
   const navigate = useNavigate();
 
   useEffect(() => {
-    checkAuthentication(); // Check authentication status when component mounts
+    checkAuthentication(); 
   }, []);
 
   useEffect(() => {
@@ -69,12 +69,11 @@ const Useroferte = () => {
           <div className={styles.menu}>
           <div className={styles.menuHeader}>Panou utilizator</div>
           <ul>
-            <li><Link to="/User">PROFIL</Link></li>
-              <li><Link to="/Userhotel">USER HOTELURI</Link></li>
-              <li><Link to="/Userzbor">USER ZBORURI</Link></li>
-              <li><Link to="/Usermasina">USER MAȘINI</Link></li>
-              <li><Link to="/Useroferte">USER OFERTE</Link></li>
-            
+          <li><Link to="/User">PROFIL</Link></li>
+              <li><Link to="/Userhotel">HOTELURI REZERVATE</Link></li>
+              <li><Link to="/Userzbor">ZBORURI REZERVATE</Link></li>
+              <li><Link to="/Usermasina">MAȘINI ÎNCHIRIATE</Link></li>
+              <li><Link to="/Useroferte">OFERTE REZERVATE</Link></li>
             </ul>
           </div>
         </div>
