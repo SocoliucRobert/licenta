@@ -9,6 +9,7 @@ import emailIcon from './poze/email.png';
 import telefonIcon from './poze/telefon.png';
 import mesajIcon from './poze/mesaj.png';
 import ChatGpt from './ChatGpt';
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     first_name: '',
@@ -29,13 +30,45 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validation
+   
+    const sanitizeInput = (input) => {
+      return input.replace(/[\0\x08\x09\x1a\n\r"'\\\%]/g, (char) => {
+        switch (char) {
+          case "\0":
+            return "\\0";
+          case "\x08":
+            return "\\b";
+          case "\x09":
+            return "\\t";
+          case "\x1a":
+            return "\\z";
+          case "\n":
+            return "\\n";
+          case "\r":
+            return "\\r";
+          case "\"":
+          case "'":
+          case "\\":
+          case "%":
+            return "\\" + char; 
+        }
+      });
+    };
+
+    const sanitizedFormData = {
+      first_name: sanitizeInput(formData.first_name),
+      last_name: sanitizeInput(formData.last_name),
+      email: sanitizeInput(formData.email),
+      phone_number: sanitizeInput(formData.phone_number),
+      message: sanitizeInput(formData.message)
+    };
+
     const invalid = [];
-    if (!formData.first_name.trim()) invalid.push('first_name');
-    if (!formData.last_name.trim()) invalid.push('last_name');
-    if (!formData.email.includes('@')) invalid.push('email');
-    if (formData.phone_number.replace(/\D/g, '').length !== 10) invalid.push('phone_number');
-    if (!formData.message.trim()) invalid.push('message');
+    if (!sanitizedFormData.first_name.trim()) invalid.push('first_name');
+    if (!sanitizedFormData.last_name.trim()) invalid.push('last_name');
+    if (!sanitizedFormData.email.includes('@')) invalid.push('email');
+    if (sanitizedFormData.phone_number.replace(/\D/g, '').length !== 10) invalid.push('phone_number');
+    if (!sanitizedFormData.message.trim()) invalid.push('message');
 
     if (invalid.length > 0) {
       setInvalidFields(invalid);
@@ -47,19 +80,19 @@ const Contact = () => {
       .from('contactform')
       .insert([
         {
-          first_name: formData.first_name,
-          last_name: formData.last_name,
-          email: formData.email,
-          phone_number: formData.phone_number,
-          message: formData.message
+          first_name: sanitizedFormData.first_name,
+          last_name: sanitizedFormData.last_name,
+          email: sanitizedFormData.email,
+          phone_number: sanitizedFormData.phone_number,
+          message: sanitizedFormData.message
         }
       ]);
 
     if (error) {
-      setSubmissionMessage('.');
+      setSubmissionMessage('A apărut o eroare. Vă rugăm să încercați din nou.');
       console.error('Error:', error);
     } else {
-      setSubmissionMessage('Mesajul a fost trimit cu succes');
+      setSubmissionMessage('Mesajul a fost trimis cu succes');
       setFormData({
         first_name: '',
         last_name: '',
@@ -70,7 +103,6 @@ const Contact = () => {
       setInvalidFields([]);
     }
   };
-
   return (
     <div>
       <Meniusus />

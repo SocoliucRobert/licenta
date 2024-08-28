@@ -63,11 +63,11 @@ const Admineditarecontact = () => {
 
     try {
       const { data, error } = await supabase
-        .from('ContactForm')
+        .from('contactform')
         .update(updatedContact)
         .eq('id', contact.id);
       if (error) throw error;
-      alert('Contact șters cu succes !');
+      alert('Mesaj de contact șters cu succes !');
       setContacts((prevContacts) =>
         prevContacts.map((c) => (c.id === contactId ? { ...c, editing: false } : c))
       );
@@ -80,7 +80,7 @@ const Admineditarecontact = () => {
   const handleDeleteContact = async (contact) => {
     if (window.confirm(`Sigur vrei să ștergi mesajul de la? "${contact.first_name} ${contact.last_name}"?`)) {
       try {
-        const { error } = await supabase.from('ContactForm').delete().eq('id', contact.id);
+        const { error } = await supabase.from('contactform').delete().eq('id', contact.id);
         if (error) throw error;
         alert('Contact șters cu succes!');
         setContacts((prevContacts) => prevContacts.filter((c) => c.id !== contact.id));
