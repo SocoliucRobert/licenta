@@ -15,6 +15,7 @@ const Updateparola = () => {
       setMessage(`A intervenit o eroare la schimbarea parolei: ${error.message}`);
     } else {
       setMessage("Parola schimbata cu succes!");
+      
     }
   };
 
@@ -25,7 +26,7 @@ const Updateparola = () => {
         <div className={styles.form}>
         
           <form onSubmit={handlePasswordUpdate}>
-            <label htmlFor="newPassword">Introduceti parola noua:</label>
+            <label htmlFor="newPassword">Introduceți parola nouă:</label>
             <input
               type="password"
               id="newPassword"
@@ -33,7 +34,7 @@ const Updateparola = () => {
               onChange={(e) => setNewPassword(e.target.value)}
               required
             />
-            <button type="submit7">Schimba parola</button>
+            <button type="submit7">Schimbă parola</button>
           </form>
           {message && <p>{message}</p>}
         </div>
