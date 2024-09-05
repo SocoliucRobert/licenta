@@ -25,7 +25,7 @@ const Meniusus = () => {
           }
           setIsLoggedIn(true);
           setUsername(user.user_metadata.full_name || user.email);
-          console.log('User Data:', user);
+        
         } catch (error) {
           console.error('Error fetching user data:', error);
         }
