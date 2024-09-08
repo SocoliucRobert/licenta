@@ -106,7 +106,7 @@ const Contact = () => {
   return (
     <div>
       <Meniusus />
-      <ChatGpt/>
+     
       <div className={styles.contactTextBottom}>Contactează-ne</div>
       <div className={styles.formContainer}>
         <form className={styles.contactForm} onSubmit={handleSubmit}>

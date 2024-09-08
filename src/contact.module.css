@@ -110,7 +110,7 @@ textarea {
 
 .trimiteMesaj {
 
-  color: GREEN;
+  color: green;
   font-weight: bold;
   margin-bottom: 30px;
   margin-left: 350px;
@@ -118,5 +118,5 @@ textarea {
 
 }
 .invalid{
-  color:red
+  color:red;
 }

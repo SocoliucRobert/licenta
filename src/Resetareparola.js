@@ -13,7 +13,7 @@ const ResetareParola = () => {
     event.preventDefault();
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: 'http://localhost:3000/Updateparola' 
+        redirectTo: 'http://traveladdiction.go.ro:3000/Updateparola' 
       });
 
       if (error) {
